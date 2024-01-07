@@ -1,0 +1,80 @@
+{% extends 'partials/base.html' %}
+
+
+{% block content %}
+<div style="padding: 33px 0px;"></div>
+
+<br><br>
+
+<style>
+  td {
+    border:1px solid black;
+    border-collapse: collapse;
+    padding: 3% 0 3% 20%;
+  }
+  table{
+    border:1px solid black;
+    border-collapse: collapse;
+    padding-left: 30%;
+    width: 30%;
+    height: 100%;
+  }
+  </style>
+  
+  <p style="padding-left: 2%;padding-right: 3%;">Employees and managers of Salvador can use this dashboard to communicate between each other via Email.
+    <br><br> Click the user for sending an Email. </p>
+  
+  <table align="center">
+    <tr>
+      <th style="padding: 12% 0 12% 20%;font-size: 35px;color: white;background-color: black;">Users</th> 
+    </tr>
+    {% for user in registered_users %}
+     <tr> <td style="font-size: 20px;font-family:Helvetica;"><a href="mailto:{{ user.email}}">
+      {{ user.first_name}}</a></td> </tr> 
+    {% endfor %}
+    
+  </table>
+<style>
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  top: -5px;
+  left: 105%;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+</style>
+
+
+
+<div class="tooltip"><button>Hover</button>
+  <span class="tooltiptext">Tooltip text</span>
+</div>
+
+
+
+
+  
+
+
+
+  {{ redirect_to_login_immediately }}
+ 
+{% endblock %}

@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-vtXRMe3mGCbOeY7l30aIg8H9p3GdeSe4IFlP6G8JMa7o7lXvnz3GFKzPxzJdPfGK" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
+    <title>Dashboard</title>
+    <style>
+        .error-message {
+            color: red;
+        }
+        .alert-icon {
+            display: none;
+            color: red;
+            margin-left: 5px;
+        }
+        .alert-icon-circle {
+            border: 1px solid red;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            text-align: center;
+            line-height: 18px;
+            font-size: 12px;
+        }
+        .s-input-icon.js-alert-icon svg {
+            fill: red;
+        }
+        .s-input-icon.js-alert-icon.svg-icon.iconAlertCircle path {
+            fill: red !important;
+        }
+    </style>
+</head>
+<body style="background-color: gainsboro;">
+    <div class="container" style="background-color: gainsboro;">
+        <div class="row justify-content-center" style="background-color: gainsboro; margin-top: 5%;">
+            <div class="col-md-4 border border-dark p-2 mb-2 border-opacity-15" style="background-color: white;">
+                <h1 style="text-align: center; color: white; background-color: #0275d8;">Login</h1><br>
+                <form action="{% url 'login' %}" method="post" style="width: 82%;padding-left: 22%;" autocomplete="off" id="loginForm">
+                    {% csrf_token %}
+                    <div class="mb-3" >
+                        <label for="username"><strong>Username:</strong></label><br>
+                        
+                            {{ loginform.username }} 
+                        
+                        <span class="error-message" id="usernameError"></span>
+                        <span class="alert-icon" id="usernameAlertIcon">
+                            <svg aria-hidden="true" class="s-input-icon js-alert-icon svg-icon iconAlertCircle" width="18" height="18" viewBox="0 0 18 18">
+                                <path d="M9 17c-4.36 0-8-3.64-8-8 0-4.36 3.64-8 8-8 4.36 0 8 3.64 8 8 0 4.36-3.64 8-8 8ZM8 4v6h2V4H8Zm0 8v2h2v-2H8Z"></path>
+                            </svg>
+                        </span>
+                        <br>
+                        
+                    </div>
+                    <div class=" mb-3">
+                        <label for="password"><strong>Password:</strong></label><br>
+                        
+                        {{ loginform.password }} 
+                        
+                        <span class="error-message" id="passwordError"></span>
+                        <span class="alert-icon" id="passwordAlertIcon">
+                            <svg aria-hidden="true" class="s-input-icon js-alert-icon svg-icon iconAlertCircle" width="18" height="18" viewBox="0 0 18 18">
+                                <path d="M9 17c-4.36 0-8-3.64-8-8 0-4.36 3.64-8 8-8 4.36 0 8 3.64 8 8 0 4.36-3.64 8-8 8ZM8 4v6h2V4H8Zm0 8v2h2v-2H8Z"></path>
+                            </svg>
+                        </span>
+                        <br>
+                        
+                    </div>
+                    <br>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary" type="submit">Login</button>
+                    </div>
+                </form>
+            </div>
+            <p style="text-align: center;">Not a registered user? | <a href="{% url 'register' %}">Register</a> here</p>
+        </div>
+    </div>
+    <br>
+     <script>
+        $(document).ready(function() {
+            $('#loginForm').on('submit', function(event) {
+                var username = $('#username').val();
+                var password = $('#password').val();
+
+                // Reset error messages
+                $('#usernameError').text('');
+                $('#passwordError').text('');
+                $('.alert-icon').hide();
+
+                if (username.trim() === '') {
+                    event.preventDefault(); // Prevent form submission
+                    $('#usernameError').text('Username can\'t be empty');
+                    $('#usernameAlertIcon').show();
+                }
+
+                if (password.trim() === '') {
+                    event.preventDefault(); // Prevent form submission
+                    $('#passwordError').text('Password can\'t be empty');
+                    $('#passwordAlertIcon').show();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+

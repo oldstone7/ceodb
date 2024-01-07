@@ -1,0 +1,244 @@
+{% extends 'partials/base.html' %}
+
+
+{% block content %}
+
+<div style="padding: 33px 0px;"></div>
+<h1 style="font-size: 40px; background-color: black;color: white; padding: 8px 0px;text-align: center;">Dashboard</h1>
+<br><br><br> 
+<h1 style="padding-left: 2%;">Key Metrics</h1><br>
+<p style="padding-left: 2%;">The data displayed here are updated once in every 24 hr as this is metrics are measured on a daily basis.</p>
+
+
+<div class="container text-center " style="padding:20px 20px 20px 2%;"> <br> <br>
+  <div class="row" style="width: 100%;" >
+    
+    
+    <div class="container px-4 text-center">
+      <div class="row gx-2">
+        <div class="col">
+         <div class="p-0"><div class="col border border-black rounded-4" style="padding: 5px;">
+          <span style="text-align:left ;"><h3>{{ metric1.heading }}</h3>
+          <p>  {{metric1.data}} </p></span>
+          <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+            <div class="progress-bar" style="width:{{metric1.percentage}}%">{{metric1.percentage}}%</div>
+          </div>
+    
+        </div></div>
+        </div>
+        <div class="col">
+          <div class="p-0"><div class="col border border-black rounded-4" style="padding: 5px;">
+            <span style="text-align:left ;"><h3>{{ metric2.heading }}</h3>
+            <p>{{metric2.data}}</p>
+          </span>
+          <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+            <div class="progress-bar" style="width: {{metric2.percentage}}%">{{metric2.percentage}}%</div>
+          </div>
+          </div></div>
+        </div>
+        <div class="col">
+          <div class="p-0"><div class="col border border-black rounded-4" style="padding: 5px;">
+            <span style="text-align:left ;"><h3>{{ metric3.heading }}</h3>
+            <p>{{metric3.data}}</p></span>
+            <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+              <div class="progress-bar" style="width: {{metric3.percentage}}%">{{metric3.percentage}}%</div>
+            </div>
+      
+          </div></div>
+         </div>
+         <div class="col">
+          <div class="p-0"><div class="col border border-black rounded-4" style="padding: 5px;">
+            <span style="text-align:left ;"><h3>{{ metric4.heading }}</h3>
+            <p>{{metric4.data}}</p></span>
+            <div class="progress" role="progressbar"  aria-label="Example with label" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+              <div class="progress-bar" style="width: {{metric4.percentage}}%">{{metric4.percentage}}%</div>
+            </div>
+          </div></div>
+         </div>
+      </div>
+    </div>
+    
+    
+
+  </div>
+  <br><br><br><br>
+</div>
+<h1 style="padding-left: 2%;"> Networth</h1>
+<br><p style="padding-left: 2%;padding-right: 2%;">The net worth of a company is one of the most important metrics to consider when evaluating
+ its financial health and its potential for future success.</p>
+<p style="padding-left: 2%;">Data of Salvador's overall networth throughout the years in rupees.</p>
+<br>
+
+
+<h3 style="text-align: center;">Current milestone: {{mile.milestone}} </h3>
+<br><br>
+<div>
+  <canvas id="Chart" width="100" height="280"></canvas>
+  <script>
+    var ctx = document.getElementById("Chart").getContext('2d');
+  
+  var myChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+          labels: [{% for goal in goals1 %} '{{goal.Year}}', {% endfor %} ],
+          datasets: [{
+              label: 'Networth', // Name the series
+              data: [{% for goal in goals1 %} {{goal.networth}}, {% endfor %}], // Specify the data values array
+              fill: true,
+              borderColor: '#2196f3', // Add custom color border (Line)
+              backgroundColor: '#2196f3', // Add custom color background (Points and Fill)
+              borderWidth: 1 // Specify bar border width
+          }
+                   ]
+      },
+      options: {
+        responsive: true, // Instruct chart js to respond nicely.
+        maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height 
+      }
+  });
+  </script>
+  </div> <br><br><br>
+
+<h1 style="padding-left: 2%;">Liquidity</h1>
+<br> <p style="padding-left: 2%;padding-right: 3%;">Salvador's liquidity timeline recorded every month.<br><br><strong>Liquidity</strong> in a
+   company is its ability to quickly convert assets into cash to meet short-term obligations. It is a measure of a
+   company's financial health and is essential for its survival.Liquidity measures how much the company can spend for 
+   their liabilites or for the expansion of the company.<br><br>Here Liquidity is measured by Current Ratio (Dividing current
+    assets of a company by it's liability.)<br>Having Liquidity ratio of 1 or greater indicates good health of the company.</p>
+<br>    
+
+<div  style="margin: auto;width: 50%;height: 50%;">
+  <canvas id="myChart2" width="600" height="350"></canvas>
+  <h4 style="text-align: center;">Liquidity</h4>
+<script>
+  var ctx = document.getElementById('myChart2').getContext('2d');
+  var myChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+          labels: [{% for f in fin %}  '{{ f.date}}',  {% endfor %}],
+          datasets: [{
+              label: 'Assets',
+              data: [{% for f in fin %}  {{ f.asset}},  {% endfor %}],
+              
+              backgroundColor: [
+                  'rgba(255, 99, 132, 0.8)',
+                  'rgba(54, 162, 235, 0.8)',
+                  'rgba(255, 206, 86, 0.8)',
+                  'rgba(75, 192, 192, 0.8)',
+                  'rgba(153, 102, 255, 0.8)',
+                  'rgba(255, 159, 64, 0.8)',
+                  'rgba(240, 120, 50, 0.8)',
+              ],
+              borderColor: [
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(255, 159, 64, 1)',
+                  'rgba(240, 120, 50, 1)',
+
+              ],
+              borderWidth: 2
+          },{
+              label: 'Liabilites',
+              data: [{% for f in fin %}  {{ f.liab}},  {% endfor %}],
+              
+              backgroundColor: [
+                  'rgba(255, 99, 132, 0.8)',
+                  'rgba(54, 162, 235, 0.8)',
+                  'rgba(255, 206, 86, 0.8)',
+                  'rgba(75, 192, 192, 0.8)',
+                  'rgba(153, 102, 255, 0.8)',
+                  'rgba(255, 159, 64, 0.8)',
+                  'rgba(240, 120, 50, 0.8)',
+              ],
+              borderColor: [
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(255, 159, 64, 1)',
+                  'rgba(240, 120, 50, 1)',
+
+              ],
+              borderWidth: 2
+          },{
+              label: 'Liquidity',
+              data: [{% for f in fin %}  {{ f.liquid}},  {% endfor %}],
+              
+              backgroundColor: [
+                  'rgba(255, 99, 132, 0.8)',
+                  'rgba(54, 162, 235, 0.8)',
+                  'rgba(255, 206, 86, 0.8)',
+                  'rgba(75, 192, 192, 0.8)',
+                  'rgba(153, 102, 255, 0.8)',
+                  'rgba(255, 159, 64, 0.8)',
+                  'rgba(240, 120, 50, 0.8)',
+              ],
+              borderColor: [
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(255, 159, 64, 1)',
+                  'rgba(240, 120, 50, 1)',
+
+              ],
+              borderWidth: 2
+          }]
+      },
+      options: {
+          scales: {
+              y: {
+                  beginAtZero: true
+              }
+            
+          }
+      }
+  });
+  </script>
+  <br><br>
+  </div>
+  <h1 style="padding-left: 2%;">Sales Figures</h1> <br>
+<p style="padding-left: 2%;padding-right: 3%;">Sales figures are the value or amount of the total sales of an industry's or company's products for a particular period. <br>
+<br>The time period referred here is in monthly basis.<br><br></p> <br>
+<div class="col-md-10" style="padding-left: 15%;">
+    <canvas id="radarChart"></canvas>
+    
+
+   <script>
+    const radarChart = new Chart(document.getElementById("radarChart"), {
+      type: "radar",
+      data: {
+        labels: [{% for s in sale %}  '{{ s.product }}',  {% endfor %}],
+        datasets: [{
+          label: "Units sold",
+          data: [{% for s in sale %}  '{{ s.units }}',  {% endfor %}],
+          backgroundColor: "rgba(255, 99, 132, 0.2)",
+          borderColor: "rgba(255, 99, 132, 1)"
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scale: {
+          pointLabels: {
+            fontSize: 90
+          }
+        }
+      }
+    });
+    </script> 
+        
+      </div>
+      <h4 style="text-align: center;">Sales figures.</h4> <br><br><br><br>
+
+  
+  
+
+  {{ redirect_to_login_immediately }}
+ 
+{% endblock %}

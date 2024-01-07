@@ -1,0 +1,141 @@
+{% extends 'partials/base.html' %}
+
+
+{% block content %}
+{% csrf_token %}
+<div style="padding: 33px 0px;"></div>
+<h1 style="font-size: 40px; background-color: black;color: white; padding: 8px 0%;text-align: center;">Operational Metrics</h1>
+    <br><br>
+    <h1 style="padding-left: 2%;">Inventory</h1><br>
+    <p style="padding-left: 2%;padding-right: 3%;">Inventory refers to all the items, goods, merchandise, and materials held by a business
+       for selling in the market to earn a profit.Inventory table is used to track the number of items available at the moment. <br><br>
+      The product required field mentions the number of products required which can be checked with the inventory to meet the requirtments.</p>
+    <br>
+    <div style="padding:0% 2%;">
+        <table class="table table-striped border-black " style="border: 1px solid black;">
+            <thead>
+              <tr>
+                <th scope="col">Nos.</th>    
+                <th scope="col">Product</th>
+                <th scope="col">Required</th>
+                <th scope="col">Available</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td> {{inv1.inventory}} </td>
+                <td>{{inv1.nos1}}</td>
+                <td>{{inv1.nos2}}</td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>{{inv2.inventory}}</td>
+                <td>{{inv2.nos1}}</td>
+                <td>{{inv2.nos2}}</td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td>{{inv3.inventory}}</td>
+                <td>{{inv3.nos1}}</td>
+                <td>{{inv3.nos2}}</td>
+              </tr>
+              <tr>
+                <th scope="row">4</th>
+                <td>{{inv4.inventory}}</td>
+                <td>{{inv4.nos1}}</td>
+                <td>{{inv4.nos2}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <br><br>
+    </div>
+    <div style="padding:5% 35%;">
+      
+      <canvas id="myChart2" height="100" width="100"></canvas>
+      <h4 style="text-align: center;">Inventory</h4>
+    </div>
+    <script>
+    var ctx = document.getElementById('myChart2').getContext('2d');
+    var data = {
+      labels: [{% for i in inv %}  '{{ i.inventory}}',  {% endfor %}],
+      datasets: [{
+        data: [{% for i in inv %}  {{ i.nos2}},  {% endfor %}], // Your data values here
+        backgroundColor: ['rgba(255, 99, 132, 0.8)',
+                  'rgba(54, 162, 235, 0.8)',
+                  'rgba(255, 206, 86, 0.8)',
+                  'rgba(75, 192, 192, 0.8)',
+                  'rgba(153, 102, 255, 0.8)',
+                  'rgba(255, 159, 64, 0.8)',
+                  'rgba(240, 120, 50, 0.8)',], // Custom colors
+      }]
+    };
+
+  
+    var myPieChart = new Chart(ctx, {
+    type: 'pie',
+    data: data,
+    options: {
+      responsive: true, // Make the chart responsive
+      legend: {
+        position: 'bottom', // Position the legend
+      },
+    },
+  });
+</script>
+
+ 
+
+    <h1 style="padding-left: 2%;" >Supply Chain</h1> <br><br>
+    <p style="padding-left: 2%;padding-right: 3%;">Supply chain is the chain of product providers and suppliers who can provide 
+      goods to a company .The supply chain data here shows the supplier name and current availability.<br><br>
+    The availability status is updated immediately when changes occur.</p>
+    <br>
+    <div  style="padding:0% 2%">
+    <table class="table table-striped border-black " style="border: 1px solid black;">
+        <thead>
+          <tr>
+            <th scope="col">Nos.</th>    
+            <th scope="col">Supplier</th>
+            <th scope="col">Availability</th>
+            
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td> {{inv1.supply}} </td>
+            <td>{{inv1.avail}}</td>
+            
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>{{inv2.supply}}</td>
+            <td>{{inv2.avail}}</td>
+           
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>{{inv3.supply}}</td>
+            <td>{{inv3.avail}}</td>
+            
+          </tr>
+          <tr>
+            <th scope="row">4</th>
+            <td>{{inv4.supply}}</td>
+            <td>{{inv4.avail}}</td>
+            
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <br><br>
+    
+
+
+
+</div>
+
+{{ redirect_to_login_immediately }}
+
+{% endblock %}

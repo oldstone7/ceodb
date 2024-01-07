@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src = "https://unpkg.com/@popperjs/core@2"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- Bootstrap 5 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Bootstrap 5 JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js"></script>
+<!-- Bootstrap JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.2/dist/chart.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+	<title>Dashboard</title>
+</head>
+<body>
+    <style>
+   .sidebar {
+            
+            background-color:lightblue  ;
+            border: 1px solid:black;
+            padding: 50px 10px 10px;
+            height: 100%;
+            overflow: auto;
+            }
+
+            .sidebar h2 {
+            font-size: 20px;
+            padding: 0px 0px 20px;
+            font-weight: bold;
+            }
+
+            .sidebar ul {
+            list-style: none;
+            padding: 0;
+            overflow: auto;
+            }
+
+            .sidebar li {
+            margin-bottom: 10px;
+            }
+
+            .sidebar a {
+            color: #000;
+            text-decoration: none;
+            }
+
+            .sidebar a:hover {
+            color: #333;
+            }
+
+            .fixed-top {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            }
+
+      .dropdown-menu .dropdown-item:hover {
+        background-color: transparent; /* Change this to your desired hover color or 'transparent' to disable hover effect */
+      }
+
+
+
+    </style>
+
+    <div class="container">
+    <div class="container-fluid fixed-top" >
+        <div class="row">
+          <div class="col-md-3 sidebar fixed-top" style="width:20%">
+            <h2 class="sidebar-title"></h2>
+            <ul class="nav nav-pills flex-column">
+            
+            {% if user.username|slice:"0:1" == 'c' %}
+            <li class="nav-item btn btn-primary" ><a href="{% url 'home'%}" style="width: 100%;text-align: left;">Dashboard</a></li>
+            <li class="nav-item btn btn-primary disabled" ><a href="{% url 'finance'%}"style="width: 100%;text-align: left;">Financial</a></li>
+            <li class="nav-item btn btn-primary disabled" ><a href="{% url 'op'%}"style="width: 100%;text-align: left;">Operational</a></li>
+            <li class="nav-item btn btn-primary disabled" ><a href="{% url 'sales'%}"style="width: 100%;text-align: left;">Sales</a></li>
+        
+            {% endif %}
+
+            {% if user.username|slice:"0:1" == 'f' %}
+            <li class="nav-item btn btn-primary disabled" ><a href="{% url 'home'%}" style="width: 100%;text-align: left;">Dashboard</a></li>
+            <li class="nav-item btn btn-primary" ><a href="{% url 'finance'%}"style="width: 100%;text-align: left;">Financial</a></li>
+            <li class="nav-item btn btn-primary disabled" ><a href="{% url 'op'%}"style="width: 100%;text-align: left;">Operational</a></li>
+            <li class="nav-item btn btn-primary disabled" ><a href="{% url 'sales'%}"style="width: 100%;text-align: left;">Sales</a></li>
+        
+            {% endif %}
+            
+            {% if user.username|slice:"0:1" == 'o' %}
+            <li class="nav-item btn btn-primary disabled" ><a href="{% url 'home'%}" style="width: 100%;text-align: left;">Dashboard</a></li>
+            <li class="nav-item btn btn-primary disabled" ><a href="{% url 'finance'%}"style="width: 100%;text-align: left;">Financial</a></li>
+            <li class="nav-item btn btn-primary" ><a href="{% url 'op'%}"style="width: 100%;text-align: left;">Operational</a></li>
+            <li class="nav-item btn btn-primary disabled" ><a href="{% url 'sales'%}"style="width: 100%;text-align: left;">Sales</a></li>
+        
+            {% endif %}
+
+            {% if user.username|slice:"0:1" == 's' %}
+            <li class="nav-item btn btn-primary disabled" ><a href="{% url 'home'%}" style="width: 100%;text-align: left;">Dashboard</a></li>
+            <li class="nav-item btn btn-primary disabled" ><a href="{% url 'finance'%}"style="width: 100%;text-align: left;">Financial</a></li>
+            <li class="nav-item btn btn-primary disabled" ><a href="{% url 'op'%}"style="width: 100%;text-align: left;">Operational</a></li>
+            <li class="nav-item btn btn-primary" ><a href="{% url 'sales'%}"style="width: 100%;text-align: left;">Sales</a></li>
+        
+            {% endif %}
+            <li class="nav-item btn btn-primary" ><a href="{% url 'enterchat'%}"style="width: 100%;text-align: left;">Chat</a></li>
+
+
+          </ul>
+          
+                  <!--
+                    <div class="dropdown" style="background-color: #0275d8;width: 100%;">
+                      <button class="btn btn-secondary dropdown-toggle" style="background-color: #0275d8;width: 100%;" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <span style="color: black;"> Communication </span>
+                      </button>
+                      <ul class="dropdown-menu" style="background-color:#0275d8 ;">
+                        
+                        <li><a class="dropdown-item" href="{% url 'enterchat'%}">Chat</a></li>
+                        <li><a class="dropdown-item" href="{% url 'chat'%}">E-mail</a></li>
+                        
+                      </ul>
+                    </div> -->
+                    
+          </div>
+
+          </div>  
+        </div>
+      </div>
+      <nav class="navbar navbar-expand-lg fixed-top" style=" background-color:lightblue ; ">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="{% url 'index'%}"><img style="width: 40px; height: 40px;" src="https://images-platform.99static.com//vwXL2V9-ksHp2m9DoTyKwmYiOSI=/180x1160:823x1803/fit-in/500x500/99designs-contests-attachments/61/61431/attachment_61431386"><strong style="padding-left: 15px;">Salvador</strong></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="float: right;">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'index' %}"><strong>Home</strong></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'index'%}"><strong>Logout</strong></a>
+              </li>
+            </ul>
+            <form class="d-flex" role="search">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+      </nav> <section style="margin-left: 20%;">
+        
+      
+      {% block content %}
+
+      
+      
+      {% endblock %}
+      
+      
+      <h6 style="background-color: black;color: black;"> &nbsp </h1>
+      </section>
+    </div>   
+    {{ redirect_to_login_immediately }}
+    
+  </body>
+</html>
