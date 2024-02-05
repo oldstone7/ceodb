@@ -44,6 +44,9 @@
                 <h1 style="text-align: center; color: white; background-color: #0275d8;">Login</h1><br>
                 <form action="{% url 'login' %}" method="post" style="width: 82%;padding-left: 22%;" autocomplete="off" id="loginForm">
                     {% csrf_token %}
+                    {% if error_message %}
+                        <p id="errorMessage" class="error-message">{{ error_message }}</p>
+                    {% endif %}
                     <div class="mb-3" >
                         <label for="username"><strong>Username:</strong></label><br>
                         
@@ -72,11 +75,13 @@
                         <br>
                         
                     </div>
+
                     <br>
                     <div class="d-grid gap-2">
                         <button class="btn btn-primary" type="submit">Login</button>
                     </div>
                 </form>
+
             </div>
             <p style="text-align: center;">Not a registered user? | <a href="{% url 'register' %}">Register</a> here</p>
         </div>
@@ -87,11 +92,14 @@
             $('#loginForm').on('submit', function(event) {
                 var username = $('#username').val();
                 var password = $('#password').val();
+                $('#errorMessage').text('').hide();
 
                 // Reset error messages
                 $('#usernameError').text('');
                 $('#passwordError').text('');
                 $('.alert-icon').hide();
+
+                //$('#errorMessage').hide(1000);
 
                 if (username.trim() === '') {
                     event.preventDefault(); // Prevent form submission
@@ -104,9 +112,17 @@
                     $('#passwordError').text('Password can\'t be empty');
                     $('#passwordAlertIcon').show();
                 }
+                setTimeout(function() {
+                $('#errorMessage').fadeOut('fast');
+                }, 2000);
+
+                
+                    
+            
             });
         });
     </script>
+
 </body>
 </html>
 

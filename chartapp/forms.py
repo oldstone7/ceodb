@@ -2,9 +2,13 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django import forms
 from django.forms.widgets import PasswordInput, TextInput
+from .models import Operations
 
 
-
+class OperationsForm(forms.ModelForm):
+    class Meta:
+        model = Operations
+        fields = ['inventory', 'nos1', 'nos2']
 
 class CreateUserForm(UserCreationForm):
 
@@ -95,7 +99,6 @@ class CreateUserForm(UserCreationForm):
 
 
 
-
 class LoginForm(AuthenticationForm):
         username = forms.CharField(widget=TextInput(attrs={'style': 'width: 100%;'}),required=False)
         password = forms.CharField(widget=PasswordInput(attrs={'style': 'width: 100%;'}),required=False)
@@ -105,16 +108,14 @@ class LoginForm(AuthenticationForm):
             super().__init__(*args, **kwargs)
 
             self.fields['username'].widget.attrs.update({
-                'type':"username",
-                
+                'type':"username",                  
                 'id':"username",
                 'name':"username",
                 'placeholder':"Enter your username"                      
             })
 
             self.fields['password'].widget.attrs.update({
-                'type':"password",
-                
+                'type':"password",            
                 'id':"password",
                 'name':"password",
                 'placeholder':"Enter your password"                      

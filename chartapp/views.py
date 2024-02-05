@@ -7,6 +7,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.views import LoginView
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import user_passes_test
+from django.contrib import messages
+from django.contrib.auth.forms import AuthenticationForm
 
 def user_is_authenticated(user):
     return user.is_authenticated
@@ -62,6 +64,7 @@ def register(request):
 
 
 def my_login(request):
+    error_message = None
     form = LoginForm()
     if request.method == 'POST':
 
@@ -73,7 +76,6 @@ def my_login(request):
             password = request.POST.get('password')
             if username:
                 x = username[0]
-
             else:
                 x=''    
 
@@ -82,8 +84,7 @@ def my_login(request):
             if user is not None:
 
                 login(request, user)
-
-                
+                    
                 if user.is_authenticated:
                     if x == 'f':
                         return redirect('finance')
@@ -93,13 +94,18 @@ def my_login(request):
                         return redirect('op')
                     elif x == 'c':
                         return redirect('home')
-                    else:
-                        return redirect('login')
+                    
+            else:
+                error_message = "Invalid username or password"
+
+        else:
+            error_message = "Invalid username or password"            
 
 
-    context = {'loginform':form}
+    context = {'loginform': form,'error_message': error_message}
 
     return render(request, 'partials/login.html', context=context)
+
 
 
 def user_logout(request):
@@ -132,7 +138,6 @@ def home(request):
 
     return render(request, 'partials/home.html',{'metric1': metric1, 'metric2': metric2, 'metric3': metric3, 'metric4': metric4,
      'goals': goals, 'goals1': goals1, 'goals2': goals2, 'mile':mile,'fin':fin,'sale':sale})
-
 
 
 
@@ -171,7 +176,10 @@ def op(request):
 
     return render(request, 'partials/op.html', {'inv1':inv1, 'inv2':inv2, 'inv3':inv3, 'inv4':inv4, 'inv':inv})
 
+# views.py
 
+
+from .forms import OperationsForm  # Replace with your actual form
 
 def index(request):
 
@@ -221,14 +229,4 @@ def getMessages(request, room):
 
     messages = Message.objects.filter(room=room_details.id)
     return JsonResponse({"messages":list(messages.values())})
-
-
-
-
-
-      
-
-
-
-
 
