@@ -2,6 +2,7 @@ from django.contrib import admin
 
 from . models import Product, Metrics, Sales, Finance, Operations, Goals, Goals1, Goals2,Room,Message
 
+
 admin.site.register(Metrics)
 
 admin.site.register(Product)

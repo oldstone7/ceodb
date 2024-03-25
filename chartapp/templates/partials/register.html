@@ -1,187 +1,507 @@
-<!DOCTYPE html>
+
+
+{% extends "users/base.html" %}
+{% block title %} Register Page {% endblock title%}
+{% block content %}
+{% load static %}
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>CEO Dashboard</title>
-        <script src = "https://unpkg.com/@popperjs/core@2"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-vtXRMe3mGCbOeY7l30aIg8H9p3GdeSe4IFlP6G8JMa7o7lXvnz3GFKzPxzJdPfGK" crossorigin="anonymous"></script>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Registration Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anta&family=Protest+Revolution&display=swap" rel="stylesheet">
+    <!-- Include the flag-icon-css stylesheet using a CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
     
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+ 
+    <script src="{% static 'js/intlTelInput.js' %}"></script>
+    
+    <link rel="stylesheet" href="{% static 'css/demo.css' %}">
+    <link rel="stylesheet" href="{% static 'css/intlTelInput.css' %}"> 
 
-<style>
-  .address-textarea {
-      width: 70%; /* Adjust the width as needed */
-      max-width: 300px; /* Set a maximum width to control the width of the text area */
-  }
-  .error-message {
-      color: red;
-  }
-  .alert-icon {
-      display: none;
-      color: red;
-      margin-left: 5px;
-  }
-  .alert-icon-circle {
-      border: 1px solid red;
-      border-radius: 50%;
-      width: 18px;
-      height: 18px;
-      text-align: center;
-      line-height: 18px;
-      font-size: 12px;
-  }
-  .s-input-icon.js-alert-icon svg {
-      fill: red;
-  }
-  .s-input-icon.js-alert-icon.svg-icon.iconAlertCircle path {
-      fill: red !important;
-  }
-</style>
+    <style>
+        .error-message {
+            color: red;
+            
+            margin-top: 5px;
+        }
+    </style>
+
+    
+
+
 </head>
-<body style="background-color:gainsboro;">
 
-  <div class="container" style="background-color:gainsboro;">
-    <div class="row justify-content-center" style="background-color:gainsboro;margin-top: 5%;">
-      <div class="col-md-4 border border-dark p-2 mb-2 border-opacity-15" style="background-color:white;">
-        <h1 style="text-align: center;color: white;background-color: #0275d8;">Register</h1><br>
-        <form action="{% url 'register' %}" method="post" id="registerForm" style="width: 82%;padding-left: 22%;">
-          {% csrf_token %}
-          
-          <div class="mb-3">
-            <label for="username"><strong>Username:</strong></label><br>
-            {{registerform.username}}
-            <span class="error-message" id="usernameError"></span>
-            <span class="alert-icon" id="usernameAlertIcon">
-                <svg aria-hidden="true" class="s-input-icon js-alert-icon svg-icon iconAlertCircle" width="18" height="18" viewBox="0 0 18 18">
-                    <path d="M9 17c-4.36 0-8-3.64-8-8 0-4.36 3.64-8 8-8 4.36 0 8 3.64 8 8 0 4.36-3.64 8-8 8ZM8 4v6h2V4H8Zm0 8v2h2v-2H8Z"></path>
-                </svg>
-            </span>
-<br>          
-          </div>
-          <div class="mb-3">
-            <label for="password1"><strong>Password:</strong></label><br>
-           {{registerform.password1}}
-           <span class="error-message" id="password1Error"></span>
-           <span class="alert-icon" id="password1AlertIcon">
-               <svg aria-hidden="true" class="s-input-icon js-alert-icon svg-icon iconAlertCircle" width="18" height="18" viewBox="0 0 18 18">
-                   <path d="M9 17c-4.36 0-8-3.64-8-8 0-4.36 3.64-8 8-8 4.36 0 8 3.64 8 8 0 4.36-3.64 8-8 8ZM8 4v6h2V4H8Zm0 8v2h2v-2H8Z"></path>
-               </svg>
-           </span>
-           <br>        
-          </div>
-          <div class="mb-3">
-            <label for="password2"><strong>Repeat Password:</strong></label><br>
-            {{registerform.password2}}
-            <span class="error-message" id="password2Error"></span>
-           <span class="alert-icon" id="password2AlertIcon">
-               <svg aria-hidden="true" class="s-input-icon js-alert-icon svg-icon iconAlertCircle" width="18" height="18" viewBox="0 0 18 18">
-                   <path d="M9 17c-4.36 0-8-3.64-8-8 0-4.36 3.64-8 8-8 4.36 0 8 3.64 8 8 0 4.36-3.64 8-8 8ZM8 4v6h2V4H8Zm0 8v2h2v-2H8Z"></path>
-               </svg>
-           </span>
 
-            <br>
+    <div class="form-content my-3 p-3">
+		<div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-7">
+                    <div class="card shadow-lg border-0 rounded-lg mt-0 mb-5">
+                        <div class="card-header justify-content-center">
+                        	<h3 class="font-weight-light my-4 text-center">Create Account</h3>
+                        </div>
+                        <div class="card-body">
+                            
+                           <form method="POST" id="RegisterForm" class="needs-validation">
+                                {% csrf_token %}
+ 
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="small mb-1">First Name</label>
+                                            {{ registerform.first_name }}
+                                        </div>
+                                        <div class="error-message" id="firstNameError"></div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="small mb-1">Last Name</label>
+                                            {{ registerform.last_name }}
+                                        </div>
+                                        <div class="error-message" id="lastNameError"></div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-6">
+		                                <div class="form-group">
+		                                	<label class="small mb-1">Username</label>
+		                                    {{ registerform.username }}
+		                                </div>
+                                        <div class="error-message" id="usernameError"></div>
+		                            </div>
+                                    <div class="col-md-6">
+		                                <div class="form-group">
+		                                	<label class="small mb-1">Email</label>
+		                                    {{ registerform.email }}
+		                                </div>
+                                        <div class="error-message" id="emailError"></div>
+		                            </div>
+		                        </div>
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="small mb-1">Password</label>
+                                            {{ registerform.password1 }}
+                                            <div class="error-message" id="passwordError"></div> 
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+
+                                        <div class="form-group">
+                                            <label class="small mb-1">Confirm Password</label>
+                                            {{ registerform.password2 }}
+                                            <div class="error-message" id="repeatPasswordError"></div> 
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="small mb-1">Phone</label>
+                                            <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="Phone Number" required>
+                                            <div class="error-message" id="phoneNumberError"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="small mb-1">Country</label>
+                                            <select class="form-select country" id="country" aria-label="Default select example" onchange="loadStates()">
+                                                <option selected>Select Country</option>              
+                                            </select>
+                                            <div class="error-message" id="countryError"></div>
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="small mb-1">State</label>
+                                            <select class="form-select state" id="state" aria-label="Default select example" onchange="loadCities()">
+                                                <option selected>Select State</option>
+                                            </select>
+                                            <div class="error-message" id="stateError"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="small mb-1">City</label>
+                                            
+                                            <select class="form-select city" id="city" aria-label="Default select example">
+                                                <option selected>Select State</option>
+                                            </select>
+                                            <div class="error-message" id="cityError"></div>
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group mt-4 mb-0">
+                                    <button type="submit" class="col-md-12 btn btn-dark">Sign Up</button><br><br>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="card-footer text-center">
+                            <div class="small">
+                                <a href="{% url 'login' %}">Already a member? Go to Sign in</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</div>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-vtXRMe3mGCbOeY7l30aIg8H9p3GdeSe4IFlP6G8JMa7o7lXvnz3GFKzPxzJdPfGK" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+
+<script> 
+
+
+    var input = document.querySelector("#phoneNumber");
+    window.intlTelInput(input,{});
+
+
+
+
+    (function() {
+        'use strict';
+
+
+        var agreeTermsCheckbox = document.getElementById('agreeTerms');
+        var regbutton = document.getElementById('Regbutton');
+        function disableRegisterButton() {
+
+
+            agreeTermsCheckbox.addEventListener('change', function() {
+                regbutton.disabled = !agreeTermsCheckbox.checked;
+            });
+        }  
+        window.addEventListener('load', disableRegisterButton);   
+
+        window.addEventListener('load', function() {
+            var form = document.getElementById('RegisterForm');
+            var agreeTermsCheckbox = document.getElementById('agreeTerms');
+
             
-          </div>
-          <div class="mb-3">
-            <label for="email"><strong>Email:</strong></label><br>
-            {{registerform.email}}
-            <span class="error-message" id="emailError"></span>
-            <span class="alert-icon" id="emailAlertIcon">
-                <svg aria-hidden="true" class="s-input-icon js-alert-icon svg-icon iconAlertCircle" width="18" height="18" viewBox="0 0 18 18">
-                    <path d="M9 17c-4.36 0-8-3.64-8-8 0-4.36 3.64-8 8-8 4.36 0 8 3.64 8 8 0 4.36-3.64 8-8 8ZM8 4v6h2V4H8Zm0 8v2h2v-2H8Z"></path>
-                </svg>
-            </span>
-            
-          </div>
-          <div class="mb-3">
-            <label for="first_name"><strong>First Name:</strong></label><br>
-            {{registerform.first_name}}
-          </div>
-          <div class="mb-3">
-            <label for="last_name"><strong>Last Name:</strong></label><br>
-            {{registerform.last_name}}
-          </div>
-          <div class="mb-3">
-            <label for="phone"><strong>Contact No. :</strong></label><br>
-            {{registerform.phone}}
-          </div>
-          <div class="mb-3">
-            <label for="street"><strong>Door no. and street:</strong></label><br>
-            {{registerform.street}}
-          </div> 
-          <div class="mb-3">
-            <label for="city"><strong>City:</strong></label><br>
-            {{registerform.city}}
-          </div> 
-          <div class="mb-3">
-            <label for="state"><strong>State:</strong></label><br>
-            {{registerform.state}}
-          </div> 
-          <br>
-          <div class="d-grid gap-2" >
-            <button class="btn btn-primary" type="submit">Register</button>
-            
-          </div>
-        </form>
+            form.addEventListener('input', function(event) {
+                var target = event.target;
+                var errorId = target.id + 'Error';
+                var errorElement = document.getElementById(errorId);
+                
+                switch (target.id) {
+                    case 'username':
+                        validateUsername(target, errorElement);
+                        break;
+                    case 'password':
+                        validatePassword(target, errorElement);
+                        break;
+                    case 'repeatPassword':
+                        validateRepeatPassword(target, errorElement);
+                        break;
+                    case 'firstName':
+                        validateFirstName(target, errorElement);
+                        break;
+                    case 'lastName':
+                        validateLastName(target, errorElement);
+                        break;
+                    case 'email':
+                        validateEmail(target, errorElement);
+                        break;
+                    case 'phoneNumber':
+                        validatePhoneNumber(target, errorElement);
+                        break;
+                    case 'country':
+                        validateCountry(target, errorElement);
+                        break;
+                    case 'state':
+                        validateState(target, errorElement);
+                        break;
+                    case 'city':
+                        validateCity(target, errorElement);
+                        break;
+                    case 'address':
+                        validateAddress(target, errorElement);
+                        break;
+                    case 'agreeTerms':
+                        validateAgreeTerms(target, errorElement);
+                        break;
+                    default:
+                        break;
+                }
+            });
 
- <br>
-
- <br>
-      </div><p style="text-align: center;">Already registered? | <a href="{% url 'login' %}">Login</a> here</p>
-    </div>
-  </div>
-  </div>
-  <br> 
-  <script>
-    $(document).ready(function() {
-        $('#registerForm').on('submit', function(event) {
-            var username = $('#username').val();
-            var password1 = $('#password1').val();
-            var password2 = $('#password2').val();
-            var email = $('#email').val();
-
-            // Reset error messages
-            $('#usernameError').text('');
-            $('#password1Error').text('');
-            $('#password2Error').text('');
-            $('#emailError').text('');
-            $('.alert-icon').hide();
-
-            if (username.trim() === '' ) {
-                event.preventDefault(); // Prevent form submission
-                $('#usernameError').text('Username must be the companyID');
-                $('#usernameAlertIcon').show();
+            function validateUsername(usernameInput, errorElement) {
+                if (usernameInput.value.trim() === '') {
+                    showError(usernameInput, errorElement, 'Username cannot be empty');
+                } else {
+                    hideError(usernameInput, errorElement);
+                }
             }
 
-            if (password1.trim() === '' ) {
-                event.preventDefault(); // Prevent form submission
-                $('#password1Error').text('Password should be alphanumeric and should be atleast 8 characters');
-                $('#password1AlertIcon').show();
+            function validatePassword(passwordInput, errorElement) {
+                if (passwordInput.value === '') {
+                    showError(passwordInput, errorElement, 'Password cannot be empty');
+                } else if (passwordInput.value.length < 8 || !/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(passwordInput.value)) {
+                    showError(passwordInput, errorElement, 'Password must be alphanumeric with one special character and minimum 8 characters');
+                } else {
+                    hideError(passwordInput, errorElement);
+                }
             }
-            else if (!/^(?=.*[A-Za-z])(?=.*\d).{8,}$/.test(password1)) {
-                event.preventDefault(); // Prevent form submission
-                $('#password1Error').text('Password should be alphanumeric and should be at least 8 characters');
-                $('#password1AlertIcon').show();
+
+            function validateRepeatPassword(repeatPasswordInput, errorElement) {
+                var passwordInput = document.getElementById('password');
+                if (repeatPasswordInput.value === '') {
+                    showError(repeatPasswordInput, errorElement, 'Repeat Password cannot be empty');
+                } else if (repeatPasswordInput.value !== passwordInput.value) {
+                    showError(repeatPasswordInput, errorElement, 'Passwords do not match');
+                } else {
+                    hideError(repeatPasswordInput, errorElement);
+                }
             }
-            if (password2.trim() !== password1.trim()) {
-                event.preventDefault(); // Prevent form submission
-                $('#password2Error').text('Passwords does not match');
-                $('#password2AlertIcon').show();
+
+            function validateFirstName(firstNameInput, errorElement) {
+                const nameRegex = /^[A-Za-z]+$/;
+                const consecutiveRegex = /(.)\1{2,}/; // Checks if the same letter is repeated 3 or more times
+                if (firstNameInput.value.trim() === '') {
+                    showError(firstNameInput, errorElement, 'First Name cannot be empty');
+                } else if (!nameRegex.test(firstNameInput.value)) {
+                    showError(firstNameInput, errorElement, 'First Name should be Alphabets only');
+                } else if (consecutiveRegex.test(firstNameInput.value)) {
+                    showError(firstNameInput, errorElement, 'Consecutive letters are not allowed');
+                } else {
+                    hideError(firstNameInput, errorElement);
+                }
             }
-            if (email.trim() === '') {
-                event.preventDefault(); // Prevent form submission
-                $('#emailError').text('Please enter a valid email address');
-                $('#emailAlertIcon').show();
-            } else if (!/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/.test(email)) {
-                event.preventDefault(); // Prevent form submission
-                $('#emailError').text('Please enter a valid email address');
-                $('#emailAlertIcon').show();
+
+            function validateLastName(lastNameInput, errorElement) {
+                const nameRegex = /^[A-Za-z]+$/;
+                const consecutiveRegex = /(.)\1{2,}/;
+                if (lastNameInput.value.trim() === '') {
+                    showError(lastNameInput, errorElement, 'Last Name cannot be empty');
+                } else if (!nameRegex.test(lastNameInput.value)) {
+                    showError(lastNameInput, errorElement, 'Last Name should be Alphabets only');
+                } else if (consecutiveRegex.test(lastNameInput.value)) {
+                    showError(lastNameInput, errorElement, 'Consecutive letters are not allowed');
+                } 
+                else {
+                    hideError(lastNameInput, errorElement);
+                }
             }
-        });
-    });
+
+            function validateEmail(emailInput, errorElement) {
+                var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (emailInput.value === '') {
+                    showError(emailInput, errorElement, 'Email cannot be empty');
+                } else if (!emailRegex.test(emailInput.value) || emailInput.value.endsWith('.')) {
+                    showError(emailInput, errorElement, 'Enter a valid email');
+                } else {
+                    hideError(emailInput, errorElement);
+                }
+            }
+
+
+            function validatePhoneNumber(phoneNumberInput, errorElement) {
+                var phoneRegex = /^\d{10}$/;
+                if (phoneNumberInput.value === '') {
+                    showError(phoneNumberInput, errorElement, 'Phone Number cannot be empty');
+                } else if (!phoneRegex.test(phoneNumberInput.value)) {
+                    showError(phoneNumberInput, errorElement, 'Enter a valid phone number');
+                } else {
+                    hideError(phoneNumberInput, errorElement);
+                }
+            }
+
+            function validateCountry(countryInput, errorElement) {
+                if (countryInput.value === '') {
+                    showError(countryInput, errorElement, 'Country cannot be empty');
+                } else {
+                    hideError(countryInput, errorElement);
+                }
+            }
+
+            function validateState(stateInput, errorElement) {
+                if (stateInput.value.trim() === '') {
+                    showError(stateInput, errorElement, 'State cannot be empty');
+                } else {
+                    hideError(stateInput, errorElement);
+                }
+            }
+
+            function validateCity(cityInput, errorElement) {
+                if (cityInput.value.trim() === '') {
+                    showError(cityInput, errorElement, 'City cannot be empty');
+                } else {
+                    hideError(cityInput, errorElement);
+                }
+            }
+
+            function validateAddress(addressInput, errorElement) {
+                if (addressInput.value.trim() === '') {
+                    showError(addressInput, errorElement, 'Address cannot be empty');
+                } else {
+                    hideError(addressInput, errorElement);
+                }
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+                loadCountryCodes();
+
+                // Add flag icons to select options
+                const select = document.getElementById('countryCodeSelect');
+                Array.from(select.options).forEach(option => {
+                    const countryCode = option.getAttribute('data-countryCode');
+                    if (countryCode) {
+                        const flagIcon = document.createElement('i');
+                        flagIcon.classList.add('flag-icon');
+                        flagIcon.classList.add(`flag-icon-${countryCode.toLowerCase()}`);
+                        option.prepend(flagIcon);
+                    }
+                });
+            });
+
+
+            function showError(inputElement, errorElement, errorMessage) {
+                inputElement.classList.add('is-invalid');
+                errorElement.textContent = errorMessage;
+                errorElement.style.display = 'block';
+            }
+
+            function hideError(inputElement, errorElement) {
+                inputElement.classList.remove('is-invalid');
+                errorElement.textContent = '';
+                errorElement.style.display = 'none';
+            }
+        }, false);
+    })();
+
+    var config = {
+    cUrl: 'https://api.countrystatecity.in/v1/countries',
+    ckey: 'U25vSFMzTHEzODRCVG5EZFpnbnR1dXhXZDUzdEJhRmlKT0Y4dkJUVw=='
+}
+
+
+var countrySelect = document.querySelector('.country'),
+    stateSelect = document.querySelector('.state'),
+    citySelect = document.querySelector('.city')
+
+
+function loadCountries() {
+
+    let apiEndPoint = config.cUrl
+
+    fetch(apiEndPoint, {headers: {"X-CSCAPI-KEY": config.ckey}})
+    .then(Response => Response.json())
+    .then(data => {
+        // console.log(data);
+
+        data.forEach(country => {
+            const option = document.createElement('option')
+            option.value = country.iso2
+            option.textContent = country.name 
+            countrySelect.appendChild(option)
+        })
+    })
+    .catch(error => console.error('Error loading countries:', error))
+
+    stateSelect.disabled = true
+    citySelect.disabled = true
+    stateSelect.style.pointerEvents = 'none'
+    citySelect.style.pointerEvents = 'none'
+}
+
+
+function loadCountryCodes() {
+    let apiEndPoint = config.cUrl;
+    let countryCodeSelect = document.getElementById('countryCodeSelect'); // Assuming countryCodeSelect is the ID of your select element
+
+    fetch(apiEndPoint, { headers: { "X-CSCAPI-KEY": config.ckey } })
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(country => {
+                const option = document.createElement('option');
+                option.value = country.phonecode;
+                option.textContent = `+${country.phonecode} (${country.name})`;
+                option.setAttribute('data-countryCode', country.iso2); // Add data attribute for country code
+                countryCodeSelect.appendChild(option);
+            });
+        })
+        .catch(error => console.error('Error loading country codes:', error));
+}
+
+
+function loadStates() {
+    stateSelect.disabled = false
+    citySelect.disabled = true
+    stateSelect.style.pointerEvents = 'auto'
+    citySelect.style.pointerEvents = 'none'
+
+    const selectedCountryCode = countrySelect.value
+    // console.log(selectedCountryCode);
+    stateSelect.innerHTML = '<option value="">Select State</option>' // for clearing the existing states
+    citySelect.innerHTML = '<option value="">Select City</option>' // Clear existing city options
+
+    fetch(`${config.cUrl}/${selectedCountryCode}/states`, {headers: {"X-CSCAPI-KEY": config.ckey}})
+    .then(response => response.json())
+    .then(data => {
+        // console.log(data);
+
+        data.forEach(state => {
+            const option = document.createElement('option')
+            option.value = state.iso2
+            option.textContent = state.name 
+            stateSelect.appendChild(option)
+        })
+    })
+    .catch(error => console.error('Error loading countries:', error))
+}
+
+
+function loadCities() {
+    citySelect.disabled = false
+    citySelect.style.pointerEvents = 'auto'
+
+    const selectedCountryCode = countrySelect.value
+    const selectedStateCode = stateSelect.value
+    // console.log(selectedCountryCode, selectedStateCode);
+
+    citySelect.innerHTML = '<option value="">Select City</option>' // Clear existing city options
+
+    fetch(`${config.cUrl}/${selectedCountryCode}/states/${selectedStateCode}/cities`, {headers: {"X-CSCAPI-KEY": config.ckey}})
+    .then(response => response.json())
+    .then(data => {
+        // console.log(data);
+
+        data.forEach(city => {
+            const option = document.createElement('option')
+            option.value = city.iso2
+            option.textContent = city.name 
+            citySelect.appendChild(option)
+        })
+    })
+}
+
+window.onload = loadCountries()
+
+
 </script>
+
+
 </body>
 </html>
+{% endblock %}
+
+
+
+
+
+

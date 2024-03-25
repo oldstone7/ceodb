@@ -3,5 +3,6 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('password_reset/', include('chartapp.urls')),
     path('', include('chartapp.urls')),
 ]

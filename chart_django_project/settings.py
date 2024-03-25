@@ -20,13 +20,14 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'chartapp.apps.ChartappConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'chartapp.apps.ChartappConfig',
+    
     'crispy_forms',
 ]
 
@@ -115,7 +116,11 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 
+MEDIA_URL = 'media/'
 
+
+
+APPEND_SLASH = True
 
 from datetime import timedelta
 
@@ -125,3 +130,13 @@ AUTO_LOGOUT = {
     'MESSAGE': 'The session has expired. Please login again to continue.',
     'REDIRECT_TO_LOGIN_IMMEDIATELY': True,
 }
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_POST = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'sulaimanalfareeth@gmail.com'
+EMAIL_HOST_PASSWORD = 'Namialus@7'
+
+

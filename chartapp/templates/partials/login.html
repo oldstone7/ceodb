@@ -1,3 +1,360 @@
+{% extends 'users/base.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Salvador Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anta&family=Protest+Revolution&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .heading {
+            display: flex;
+            padding: 45px 0px;
+            justify-content: center;
+        }
+
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 62vh;
+            
+        }
+
+        .login-box {
+            width: 300px;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+
+        .login-title {
+            text-align: center;
+            color: #000000;
+            margin-bottom: 30px;
+            font-size: 33px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .eye-icon {
+            cursor: pointer;
+        }
+
+        .forgot-password {
+            text-align: right;
+            font-size: 14px;
+            margin: 20px 0px;
+        }
+
+        .register-link {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+        .anta-regular {
+            font-family: "Anta", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+            text-align: center;
+            
+        }
+        .error-message {
+            color: red;
+            
+        }
+        .alert-icon {
+            display: none;
+            color: red;
+            margin-left: 5px;
+        }
+        .alert-icon-circle {
+            border: 1px solid red;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            text-align: center;
+            line-height: 18px;
+            font-size: 12px;
+        }
+        .s-input-icon.js-alert-icon svg {
+            fill: red;
+        }
+        .s-input-icon.js-alert-icon.svg-icon.iconAlertCircle path {
+            fill: red !important;
+        }
+        .form-control {
+            border-color: #555;
+        }
+
+    </style>
+</head>
+<body>
+
+    <br><br>
+    <div class="login-container">
+        <div class="login-box">
+            <h1 class="login-title">Login</h1>
+            <form action="{% url 'login' %}" method="post" id="loginForm" class="needs-validation">
+                {% csrf_token %}
+
+                {% if error_message %}
+                    <p id="errorMessage" class="error-message" style="text-align:center;">{{ error_message }}</p>
+                {% endif %}    
+                <div class="mb-3">
+                    
+                    <input type="text" class="form-control" id="username" name="username" placeholder="Username">
+                    <div class="error-message" id="usernameError"></div>
+                    
+                </div>
+                <div class="mb-3">
+                    
+                    <div class="input-group">
+                        <input type="password"  class="form-control" id="password" name="password" placeholder="Password">
+                        <span style="border-color:#555 ;" class="input-group-text eye-icon" onclick="togglePasswordVisibility()">
+                            <i class="fas fa-eye"></i>
+                        </span>
+                    </div>
+                    <div class="error-message" id="passwordError"></div>
+                    
+                </div>
+                <div class="error-message" id="errorMessage"></div>
+                <div class="forgot-password">
+                    <a href="{% url 'password_reset' %}">Forgot Password?</a>
+                </div>
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-dark">Login</button>
+                </div>
+                
+            </form>
+           
+            <div class="register-link">
+                <p>Not a member? <a href="{% url 'register' %}">Register here</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-vtXRMe3mGCbOeY7l30aIg8H9p3GdeSe4IFlP6G8JMa7o7lXvnz3GFKzPxzJdPfGK" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+    <script>
+        function togglePasswordVisibility() {
+            var passwordInput = document.getElementById("password");
+            var eyeIcon = document.querySelector(".eye-icon i");
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                eyeIcon.className = "fas fa-eye-slash";
+            } else {
+                passwordInput.type = "password";
+                eyeIcon.className = "fas fa-eye";
+            }
+        }
+      
+        
+        (function() {
+            'use strict';
+
+            window.addEventListener('load', function() {
+                var form = document.getElementById('loginForm');
+
+                form.addEventListener('input', function(event) {
+                    var target = event.target;
+                    var errorId = target.id + 'Error';
+                    var errorElement = document.getElementById(errorId);
+
+                    switch (target.id) {
+                        case 'username':
+                            validateUsername(target, errorElement);
+                            break;
+                        case 'password':
+                            validatePassword(target, errorElement);
+                            break;
+                    }
+                });
+
+                function validateUsername(usernameInput, errorElement) {
+                    if (usernameInput.value.trim() === '') {
+                        showError(usernameInput, errorElement, 'Username cannot be empty');
+                    } else {
+                        hideError(usernameInput, errorElement);
+                    }
+                }
+                function validatePassword(passwordInput, errorElement) {
+                    if (passwordInput.value === '') {
+                        showError(passwordInput, errorElement, 'Password cannot be empty');
+                    } else {
+                        hideError(passwordInput, errorElement);
+                    }
+                }
+
+     
+            function showError(inputElement, errorElement, errorMessage) {
+                inputElement.classList.add('is-invalid');
+                errorElement.textContent = errorMessage;
+                errorElement.style.display = 'block';
+            }
+
+            function hideError(inputElement, errorElement) {
+                inputElement.classList.remove('is-invalid');
+                errorElement.textContent = '';
+                errorElement.style.display = 'none';
+            }
+        }, false);
+    })();
+
+        
+
+
+
+      
+    </script>
+</body>
+</html>
+
+{% endblock %}
+
+
+
+
+<!--
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anta&family=Protest+Revolution&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 62vh;
+        }
+
+        .login-box {
+            width: 300px;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+
+        .login-title {
+            text-align: center;
+            color: #007bff;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .eye-icon {
+            cursor: pointer;
+        }
+
+        .forgot-password {
+            text-align: right;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        .register-link {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+        .anta-regular {
+            font-family: "Anta", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+            text-align: center;
+            
+        }
+
+    </style>
+</head>
+<body>
+    <div style="padding-top: 75px;">
+        <h1 class="anta-regular" >Salvador Inc.</h3>
+    </div>
+    
+    <div class="login-container">
+        <div class="login-box">
+            <h1 class="login-title">Login</h1>
+            <form action="{% url 'login' %}" method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <input type="text" id="username" class="form-control" placeholder="Username">
+                    <div class="dynamic-error" id="usernameError"></div>
+                </div>
+                <div class="mb-3">
+                    <div class="input-group">
+                        <input type="password" id="password" class="form-control" placeholder="Password">
+                        <button type="button" class="input-group-text eye-icon" onclick="togglePassword()">
+                            <i class="fa-solid fa-eye"></i>
+                        </button>
+                    </div>
+                    <div class="dynamic-error" id="passwordError"></div>
+                </div>
+                <div class="mb-3 forgot-password">
+                    <a href="{% url 'password_reset' %}">Forgot password?</a>
+                </div>
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </div>
+                <div class="register-link">
+                    Not a member? <a href="{% url 'register' %}">Register here</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-vtXRMe3mGCbOeY7l30aIg8H9p3GdeSe4IFlP6G8JMa7o7lXvnz3GFKzPxzJdPfGK" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+    <script>
+        function togglePassword() {
+            var passwordInput = $('#password');
+            var eyeIcon = $('.eye-icon i');
+
+            if (passwordInput.attr('type') === 'password') {
+                passwordInput.attr('type', 'text');
+                eyeIcon.removeClass('fa-eye').addClass('fa-eye-slash');
+            } else {
+                passwordInput.attr('type', 'password');
+                eyeIcon.removeClass('fa-eye-slash').addClass('fa-eye');
+            }
+        }
+
+    
+</script>
+
+</body>
+</html>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -6,7 +363,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-vtXRMe3mGCbOeY7l30aIg8H9p3GdeSe4IFlP6G8JMa7o7lXvnz3GFKzPxzJdPfGK" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
@@ -42,13 +399,16 @@
         <div class="row justify-content-center" style="background-color: gainsboro; margin-top: 5%;">
             <div class="col-md-4 border border-dark p-2 mb-2 border-opacity-15" style="background-color: white;">
                 <h1 style="text-align: center; color: white; background-color: #0275d8;">Login</h1><br>
-                <form action="{% url 'login' %}" method="post" style="width: 82%;padding-left: 22%;" autocomplete="off" id="loginForm">
+                {% csrf_token %}
+                {% if error_message %}
+                    <p id="errorMessage" class="error-message" style="text-align:center;">{{ error_message }}</p>
+                {% endif %}
+                <form action="{% url 'login' %}" method="post" style="width: 100%; padding: 0% 20%;" autocomplete="off" id="loginForm">
                     {% csrf_token %}
-                    {% if error_message %}
-                        <p id="errorMessage" class="error-message">{{ error_message }}</p>
-                    {% endif %}
-                    <div class="mb-3" >
-                        <label for="username"><strong>Username:</strong></label><br>
+                    <label for="username"><strong>Username:</strong></label><br>
+
+                    <div class="mb-3" align="center">
+                        
                         
                             {{ loginform.username }} 
                         
@@ -61,22 +421,25 @@
                         <br>
                         
                     </div>
-                    <div class=" mb-3">
-                        <label for="password"><strong>Password:</strong></label><br>
+                    <label for="password"><strong>Password:</strong></label><br>
+                    <div class="mb-3" align="center">
                         
-                        {{ loginform.password }} 
                         
+                            {{ loginform.password }} 
+                            <i class="fa-solid fa-eye" id="eye" onclick="fnEye()" style="border: 1px solid black; padding: 5px; " ></i>                            
+
                         <span class="error-message" id="passwordError"></span>
                         <span class="alert-icon" id="passwordAlertIcon">
                             <svg aria-hidden="true" class="s-input-icon js-alert-icon svg-icon iconAlertCircle" width="18" height="18" viewBox="0 0 18 18">
                                 <path d="M9 17c-4.36 0-8-3.64-8-8 0-4.36 3.64-8 8-8 4.36 0 8 3.64 8 8 0 4.36-3.64 8-8 8ZM8 4v6h2V4H8Zm0 8v2h2v-2H8Z"></path>
                             </svg>
                         </span>
-                        <br>
                         
                     </div>
-
-                    <br>
+                    
+                    
+                    <p style="text-align: center;"><a href="{% url 'password_reset' %}">Forgot password?</a></p>
+                    
                     <div class="d-grid gap-2">
                         <button class="btn btn-primary" type="submit">Login</button>
                     </div>
@@ -88,6 +451,18 @@
     </div>
     <br>
      <script>
+        function fnEye() {
+        var x = document.getElementById("password");
+        var i = document.getElementById("eye")
+        if (x.type === "password") {
+            x.type = "text";
+            i.className = "fa-solid fa-eye-slash";
+        } else {
+            x.type = "password";
+            i.className = "fa-solid fa-eye";
+        }
+        }
+        
         $(document).ready(function() {
             $('#loginForm').on('submit', function(event) {
                 var username = $('#username').val();
@@ -99,7 +474,7 @@
                 $('#passwordError').text('');
                 $('.alert-icon').hide();
 
-                //$('#errorMessage').hide(1000);
+                
 
                 if (username.trim() === '') {
                     event.preventDefault(); // Prevent form submission
@@ -116,6 +491,8 @@
                 $('#errorMessage').fadeOut('fast');
                 }, 2000);
 
+
+
                 
                     
             
@@ -125,10 +502,4 @@
 
 </body>
 </html>
-
-
-
-
-
-
-
+-->

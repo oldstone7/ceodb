@@ -73,70 +73,10 @@
 
     </style>
 
-    <div class="container">
-    <div class="container-fluid fixed-top" >
-        <div class="row">
-          <div class="col-md-3 sidebar fixed-top" style="width:20%">
-            <h2 class="sidebar-title"></h2>
-            <ul class="nav nav-pills flex-column">
-            
-            {% if user.username|slice:"0:1" == 'c' %}
-            <li class="nav-item btn btn-primary" ><a href="{% url 'home'%}" style="width: 100%;text-align: left;">Dashboard</a></li>
-            <li class="nav-item btn btn-primary disabled" ><a href="{% url 'finance'%}"style="width: 100%;text-align: left;">Financial</a></li>
-            <li class="nav-item btn btn-primary disabled" ><a href="{% url 'op'%}"style="width: 100%;text-align: left;">Operational</a></li>
-            <li class="nav-item btn btn-primary disabled" ><a href="{% url 'sales'%}"style="width: 100%;text-align: left;">Sales</a></li>
-        
-            {% endif %}
 
-            {% if user.username|slice:"0:1" == 'f' %}
-            <li class="nav-item btn btn-primary disabled" ><a href="{% url 'home'%}" style="width: 100%;text-align: left;">Dashboard</a></li>
-            <li class="nav-item btn btn-primary" ><a href="{% url 'finance'%}"style="width: 100%;text-align: left;">Financial</a></li>
-            <li class="nav-item btn btn-primary disabled" ><a href="{% url 'op'%}"style="width: 100%;text-align: left;">Operational</a></li>
-            <li class="nav-item btn btn-primary disabled" ><a href="{% url 'sales'%}"style="width: 100%;text-align: left;">Sales</a></li>
-        
-            {% endif %}
-            
-            {% if user.username|slice:"0:1" == 'o' %}
-            <li class="nav-item btn btn-primary disabled" ><a href="{% url 'home'%}" style="width: 100%;text-align: left;">Dashboard</a></li>
-            <li class="nav-item btn btn-primary disabled" ><a href="{% url 'finance'%}"style="width: 100%;text-align: left;">Financial</a></li>
-            <li class="nav-item btn btn-primary" ><a href="{% url 'op'%}"style="width: 100%;text-align: left;">Operational</a></li>
-            <li class="nav-item btn btn-primary disabled" ><a href="{% url 'sales'%}"style="width: 100%;text-align: left;">Sales</a></li>
-        
-            {% endif %}
-
-            {% if user.username|slice:"0:1" == 's' %}
-            <li class="nav-item btn btn-primary disabled" ><a href="{% url 'home'%}" style="width: 100%;text-align: left;">Dashboard</a></li>
-            <li class="nav-item btn btn-primary disabled" ><a href="{% url 'finance'%}"style="width: 100%;text-align: left;">Financial</a></li>
-            <li class="nav-item btn btn-primary disabled" ><a href="{% url 'op'%}"style="width: 100%;text-align: left;">Operational</a></li>
-            <li class="nav-item btn btn-primary" ><a href="{% url 'sales'%}"style="width: 100%;text-align: left;">Sales</a></li>
-        
-            {% endif %}
-            <li class="nav-item btn btn-primary" ><a href="{% url 'enterchat'%}"style="width: 100%;text-align: left;">Chat</a></li>
-
-
-          </ul>
-          
-                  <!--
-                    <div class="dropdown" style="background-color: #0275d8;width: 100%;">
-                      <button class="btn btn-secondary dropdown-toggle" style="background-color: #0275d8;width: 100%;" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      <span style="color: black;"> Communication </span>
-                      </button>
-                      <ul class="dropdown-menu" style="background-color:#0275d8 ;">
-                        
-                        <li><a class="dropdown-item" href="{% url 'enterchat'%}">Chat</a></li>
-                        <li><a class="dropdown-item" href="{% url 'chat'%}">E-mail</a></li>
-                        
-                      </ul>
-                    </div> -->
-                    
-          </div>
-
-          </div>  
-        </div>
-      </div>
       <nav class="navbar navbar-expand-lg fixed-top" style=" background-color:lightblue ; ">
         <div class="container-fluid">
-          <a class="navbar-brand" href="{% url 'index'%}"><img style="width: 40px; height: 40px;" src="https://images-platform.99static.com//vwXL2V9-ksHp2m9DoTyKwmYiOSI=/180x1160:823x1803/fit-in/500x500/99designs-contests-attachments/61/61431/attachment_61431386"><strong style="padding-left: 15px;">Salvador</strong></a>
+          <a class="navbar-brand" href="{% url 'index'%}"><img style="width: 30px; height: 30px;" src="https://images-platform.99static.com//vwXL2V9-ksHp2m9DoTyKwmYiOSI=/180x1160:823x1803/fit-in/500x500/99designs-contests-attachments/61/61431/attachment_61431386"><strong style="padding-left: 15px;">Salvador</strong></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -155,7 +95,7 @@
             </form>
           </div>
         </div>
-      </nav> <section style="margin-left: 20%;">
+      </nav> <section>
         
       
       {% block content %}
@@ -165,7 +105,7 @@
       {% endblock %}
       
       
-      <h6 style="background-color: black;color: black;"> &nbsp </h1>
+      
       </section>
     </div>   
     {{ redirect_to_login_immediately }}

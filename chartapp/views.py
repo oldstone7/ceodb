@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect
 from . models import Product, Metrics, Goals,Sales,Finance,Operations, Goals2, Goals1,Room, Message
-from . forms import CreateUserForm, LoginForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import auth, User
 from django.contrib.auth import authenticate, login, logout
@@ -9,6 +8,13 @@ from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
+from .forms import RegisterForm, LoginForm
+
+
+
+
+
+
 
 def user_is_authenticated(user):
     return user.is_authenticated
@@ -20,39 +26,12 @@ def user_is_authenticated(user):
 class CustomLoginView(LoginView):
     template_name = 'login.html'
 
-'''
+
 def register(request):
-    if request.method == 'POST':
-        username = request.POST['username']
-        email = request.POST['email']
-        password = request.POST['password1']
-        confirm_password = request.POST['password2']
-
-        if password != confirm_password:
-            # Passwords do not match, handle the error
-            return render(request, 'partials/register.html', {'error_message': 'Passwords do not match'})
-
-        # Check for existing user with the same username or email
-        if User.objects.filter(username=username).exists() or User.objects.filter(email=email).exists():
-            # User already exists, handle the error
-            return render(request, 'partials/register.html', {'error_message': 'User already exists'})
-
-        # Create a new user
-        user = User.objects.create_user(username=username, email=email, password=password)
-        user.save()
-
-        # Redirect to a success page or login page
-        return redirect('login')
-    else:
-        return render(request, 'partials/register.html')
-
-
-'''
-def register(request):
-    form = CreateUserForm()
+    form = RegisterForm()
 
     if request.method == "POST":
-        form = CreateUserForm(request.POST)
+        form = RegisterForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect("login")
@@ -164,22 +143,43 @@ def chat(request):
     
     return render(request, 'partials/chat.html', {'registered_users': registered_users})
 
+from .models import Operations
+from .forms import OperationsForm
+
 
 @login_required(login_url="login")
 def op(request):
 
-    inv1 = Operations.objects.get(id=1)
-    inv2 = Operations.objects.get(id=2)
-    inv3 = Operations.objects.get(id=3)
-    inv4 = Operations.objects.get(id=4)
-    inv = Operations.objects.all()
+    context = {}
+    form = OperationsForm()
+    operations = Operations.objects.all()
+    context['operations'] = operations
+    context['title'] = 'Home'
+    if request.method == 'POST':
+        if 'save' in request.POST:
+            pk = request.POST.get('save')
+            if not pk:
+                form = OperationsForm(request.POST)
+            else:
+                operations = Operations.objects.get(id=pk)
+                form = OperationsForm(request.POST, instance=operations)
+            form.save()
+            form = OperationsForm()
+        elif 'delete' in request.POST:
+            pk = request.POST.get('delete')
+            operations = Operations.objects.get(id=pk)
+            operations.delete()
+        elif 'edit' in request.POST:
+            pk = request.POST.get('edit')
+            operations = Operations.objects.get(id=pk)
+            form = OperationsForm(instance=operations)
+    context['form'] = form
+    return render(request, 'partials/op.html', context)
 
-    return render(request, 'partials/op.html', {'inv1':inv1, 'inv2':inv2, 'inv3':inv3, 'inv4':inv4, 'inv':inv})
-
-# views.py
 
 
-from .forms import OperationsForm  # Replace with your actual form
+
+from .forms import OperationsForm 
 
 def index(request):
 

@@ -22,117 +22,12 @@
 	<title>Dashboard</title>
 </head>
 <body>
-    <style>
-   .sidebar {
-            
-            background-color:lightblue  ;
-            border: 1px solid:black;
-            padding: 50px 10px 10px;
-            height: 100%;
-            overflow: auto;
-            }
-
-            .sidebar h2 {
-            font-size: 20px;
-            padding: 0px 0px 20px;
-            font-weight: bold;
-            }
-
-            .sidebar ul {
-            list-style: none;
-            padding: 0;
-            overflow: auto;
-            }
-
-            .sidebar li {
-            margin-bottom: 10px;
-            }
-
-            .sidebar a {
-            color: #000;
-            text-decoration: none;
-            }
-
-            .sidebar a:hover {
-            color: #333;
-            }
-
-            .fixed-top {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            }
-
-      .dropdown-menu .dropdown-item:hover {
-        background-color: transparent; /* Change this to your desired hover color or 'transparent' to disable hover effect */
-      }
-
-
-
-    </style>
     
-    
-        
-          <div class="col-md-3 sidebar fixed-top" style="width:20%">
-            <h2 class="sidebar-title"></h2>
-            <ul class="nav nav-pills flex-column">
-            
-            {% if user.username|slice:"0:1" == 'c' %}
-            <li class="nav-item btn btn-primary" ><a href="{% url 'home'%}" style="width: 100%;text-align: left;">Dashboard</a></li>
-            <li class="nav-item btn btn-primary disabled" ><a href="{% url 'finance'%}"style="width: 100%;text-align: left;">Financial</a></li>
-            <li class="nav-item btn btn-primary disabled" ><a href="{% url 'op'%}"style="width: 100%;text-align: left;">Operational</a></li>
-            <li class="nav-item btn btn-primary disabled" ><a href="{% url 'sales'%}"style="width: 100%;text-align: left;">Sales</a></li>
-        
-            {% endif %}
-
-            {% if user.username|slice:"0:1" == 'f' %}
-            <li class="nav-item btn btn-primary disabled" ><a href="{% url 'home'%}" style="width: 100%;text-align: left;">Dashboard</a></li>
-            <li class="nav-item btn btn-primary" ><a href="{% url 'finance'%}"style="width: 100%;text-align: left;">Financial</a></li>
-            <li class="nav-item btn btn-primary disabled" ><a href="{% url 'op'%}"style="width: 100%;text-align: left;">Operational</a></li>
-            <li class="nav-item btn btn-primary disabled" ><a href="{% url 'sales'%}"style="width: 100%;text-align: left;">Sales</a></li>
-        
-            {% endif %}
-            
-            {% if user.username|slice:"0:1" == 'o' %}
-            <li class="nav-item btn btn-primary disabled" ><a href="{% url 'home'%}" style="width: 100%;text-align: left;">Dashboard</a></li>
-            <li class="nav-item btn btn-primary disabled" ><a href="{% url 'finance'%}"style="width: 100%;text-align: left;">Financial</a></li>
-            <li class="nav-item btn btn-primary" ><a href="{% url 'op'%}"style="width: 100%;text-align: left;">Operational</a></li>
-            <li class="nav-item btn btn-primary disabled" ><a href="{% url 'sales'%}"style="width: 100%;text-align: left;">Sales</a></li>
-        
-            {% endif %}
-
-            {% if user.username|slice:"0:1" == 's' %}
-            <li class="nav-item btn btn-primary disabled" ><a href="{% url 'home'%}" style="width: 100%;text-align: left;">Dashboard</a></li>
-            <li class="nav-item btn btn-primary disabled" ><a href="{% url 'finance'%}"style="width: 100%;text-align: left;">Financial</a></li>
-            <li class="nav-item btn btn-primary disabled" ><a href="{% url 'op'%}"style="width: 100%;text-align: left;">Operational</a></li>
-            <li class="nav-item btn btn-primary" ><a href="{% url 'sales'%}"style="width: 100%;text-align: left;">Sales</a></li>
-        
-            {% endif %}
-            
-
-
-          </ul>
-                    
-                    
-                      <button class="btn btn-secondary dropdown-toggle" style="background-color: #0275d8;width: 100%;" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      <span style="color: black;"> Communication </span>
-                      </button>
-                      <ul class="dropdown-menu" style="background-color:#0275d8 ;">
-                        
-                        <li><a class="dropdown-item" href="{% url 'enterchat'%}">Chat</a></li>
-                        <li><a class="dropdown-item" href="{% url 'chat'%}">E-mail</a></li>
-                        
-                      </ul>
-                    
-           
-          </div>
-
-          </div>  
+     
 
       
 
-  <div style="margin-left: 20%;margin-top: 20%;">
+  <div style="margin:20% 18%;">
     <style>
 
       body {
@@ -185,7 +80,7 @@
       }
     </style>
 <div align="center">
-    <h2>Django Chat</h2>
+    <h2>Salvador's Chat</h2>
 </div>
 
 
