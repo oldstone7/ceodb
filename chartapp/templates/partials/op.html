@@ -7,60 +7,55 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Responsive Admin Dashboard</title>
+    <title>Operations Dashboard</title>
     <!-- ======= Styles ====== -->
 
     <style>
-        .navigation {
-        position: fixed;
-        width: 300px;
-        height: 100%;
-        background:var(--blue);
-        border-left: 10px solidvar(--blue);
-        transition: 0.5s;
-        overflow: hidden;
-        }
-
-        .navigation ul li:hover a,
-        .navigation ul li.hovered a {
-        color:var(--blue);
-        }
-
-        .cardBox .card .numbers {
-        position: relative;
-        font-weight: 500;
-        font-size: 2.5rem;
-        color:var(--blue);
-        }
-
-        .cardBox .card:hover {
-        background:var(--blue);
-        }
-
-        .cardHeader h2 {
-        font-weight: 600;
-        color:var(--blue);
-        }
-        .cardHeader .btn {
-        position: relative;
-        padding: 5px 10px;
-        background:var(--blue);
-        text-decoration: none;
-        color: var(--white);
-        border-radius: 6px;
-        }
-
-        .details .recentOrders table tbody tr:hover {
-        background:var(--blue);
-        color: var(--white);
-        }
-
         .recentCustomers table tr:hover {
-        background:var(--blue);
-        color: var(--white);
-        }
+  background: var(--blue);
+  color: var(--white);
+}
+.details .recentOrders table tbody tr:hover {
+  background: var(--blue);
+  color: var(--white);
+}
+.cardHeader h2 {
+  font-weight: 600;
+  color: var(--blue);
+}
+.cardHeader .btn {
+  position: relative;
+  padding: 5px 10px;
+  background: var(--blue);
+  text-decoration: none;
+  color: var(--white);
+  border-radius: 6px;
+}
+.cardBox .card:hover {
+  background: var(--blue);
+}
+.cardBox .card .numbers {
+  position: relative;
+  font-weight: 500;
+  font-size: 2.5rem;
+  color: var(--blue);
+}
+.navigation ul li:hover a,
+.navigation ul li.hovered a {
+  color: var(--blue);
+}
+.navigation {
+  position: fixed;
+  width: 300px;
+  height: 100%;
+  background: var(--blue);
+  border-left: 10px solid var(--blue);
+  transition: 0.5s;
+  overflow: hidden;
+}
     </style>
-    <link rel="stylesheet" href="{% static 'css/appstyle.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/sty.css' %}">
 </head>
 
 <body>
@@ -96,7 +91,7 @@
                 </li>
 
                 <li>
-                    <a href="{% url 'enterchat' %}">
+                    <a >
                         <span class="icon">
                             <ion-icon name="chatbubble-outline"></ion-icon>
                         </span>
@@ -416,7 +411,7 @@
 
         var ctx = document.getElementById('myChart2').getContext('2d');
   var myChart = new Chart(ctx, {
-      type: 'line',
+      type: 'bar',
       data: {
           labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
           datasets: [{
@@ -443,54 +438,7 @@
 
               ],
               borderWidth: 2
-          },{
-              label: 'Liabilites',
-              data: ['100000','200000','300000','170000','30000','220000','700000'],
-              
-              backgroundColor: [
-                  'rgba(255, 99, 132, 1)',
-                  'rgba(54, 162, 235, 1)',
-                  'rgba(255, 206, 86, 1)',
-                  'rgba(75, 192, 192, 1)',
-                  'rgba(153, 102, 255, 1)',
-                  'rgba(255, 159, 64, 1)',
-                  'rgba(240, 120, 50, 1)',
-              ],
-              borderColor: [
-                  'rgba(255, 99, 132, 1)',
-                  'rgba(54, 162, 235, 1)',
-                  'rgba(255, 206, 86, 1)',
-                  'rgba(75, 192, 192, 1)',
-                  'rgba(153, 102, 255, 1)',
-                  'rgba(255, 159, 64, 1)',
-                  'rgba(240, 120, 50, 1)',
-
-              ],
-              borderWidth: 2
-          },{
-              label: 'Liquidity',
-              data: ['127300','167000','185000','205000','220000','230000','240000'],
-              
-              backgroundColor: [
-                  'rgba(255, 99, 132, 1)',
-                  'rgba(54, 162, 235, 1)',
-                  'rgba(255, 206, 86, 1)',
-                  'rgba(75, 192, 192, 1)',
-                  'rgba(153, 102, 255, 1)',
-                  'rgba(255, 159, 64, 1)',
-                  'rgba(240, 120, 50, 1)',
-              ],
-              borderColor: [
-                  'rgba(255, 99, 132, 1)',
-                  'rgba(54, 162, 235, 1)',
-                  'rgba(255, 206, 86, 1)',
-                  'rgba(75, 192, 192, 1)',
-                  'rgba(153, 102, 255, 1)',
-                  'rgba(255, 159, 64, 1)',
-                  'rgba(240, 120, 50, 1)',
-
-              ],
-              borderWidth: 2
+          
           }]
       },
       options: {

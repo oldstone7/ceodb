@@ -113,11 +113,20 @@ def home(request):
     sale = Sales.objects.all()
 
     fin = Finance.objects.all()
+
+    operations = Operations.objects.all()
     
 
     return render(request, 'partials/home.html',{'metric1': metric1, 'metric2': metric2, 'metric3': metric3, 'metric4': metric4,
-     'goals': goals, 'goals1': goals1, 'goals2': goals2, 'mile':mile,'fin':fin,'sale':sale})
+     'goals': goals, 'goals1': goals1, 'goals2': goals2, 'mile':mile,'fin':fin,'sale':sale, 'operations':operations})
 
+
+
+@login_required(login_url="login")
+def calendar(request):
+    
+
+    return render(request, 'partials/calendar.html',context={})
 
 
 @login_required(login_url="login")

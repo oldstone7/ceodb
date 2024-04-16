@@ -1,5 +1,6 @@
 
 import os
+from pathlib import Path
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -27,8 +28,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+    'chat',
+    'channels',
     'crispy_forms',
+    
 ]
 
 
@@ -64,6 +67,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'chart_django_project.wsgi.application'
+ASGI_APPLICATION = 'chart_django_project.asgi.application'
 
 
 # Database
@@ -139,4 +143,13 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'sulaimanalfareeth@gmail.com'
 EMAIL_HOST_PASSWORD = 'Namialus@7'
 
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer',
+        # 'CONFIG': {
+        #     'hosts': [('127.0.0.1', 6379)],
+        # }
+    }
+}
