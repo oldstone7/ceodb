@@ -33,13 +33,13 @@ class Metrics(models.Model):
 
 
 class Finance(models.Model):
-    Client = models.CharField(max_length=100)
-    order = models.CharField(max_length=40, null=True)
-    cash = models.IntegerField(null=True)
+    Client = models.CharField(max_length=100 ,blank=True)
+    order = models.CharField(max_length=40, null=True ,blank=True)
+    cash = models.IntegerField(null=True , blank=True)
     amount = models.IntegerField(null=True)
-    liquid = models.IntegerField(null=True)
-    asset =  models.IntegerField(null=True)
-    liab = models.IntegerField(null=True)
+    liquid = models.IntegerField(null=True , blank=True)
+    asset =  models.IntegerField(null=True , blank=True)
+    liab = models.IntegerField(null=True , blank=True)
     date = models.DateField(null=True)  
 
 

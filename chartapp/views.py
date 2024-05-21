@@ -27,6 +27,62 @@ class CustomLoginView(LoginView):
     template_name = 'login.html'
 
 
+
+# views.py
+
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login
+from .forms import RegisterForm, LoginForm
+
+'''
+def register(request):
+    register_form = RegisterForm()
+    login_form = LoginForm()
+    error_message = None
+
+    if request.method == 'POST':
+        if 'register' in request.POST:
+            register_form = RegisterForm(request.POST)
+            if register_form.is_valid():
+                register_form.save()
+                return redirect('login')
+        elif 'login' in request.POST:
+            login_form = LoginForm(request, data=request.POST)
+            if login_form.is_valid():
+                username = request.POST.get('username')
+                password = request.POST.get('password')
+                if username:
+                    x = username[0]
+                else:
+                    x = ''
+                user = authenticate(request, username=username, password=password)
+                if user is not None:
+                    login(request, user)
+                    if user.is_authenticated:
+                        if x == 'f':
+                            return redirect('finance')
+                        elif x == 's':
+                            return redirect('sales')
+                        elif x == 'o':
+                            return redirect('op')
+                        elif x == 'c':
+                            return redirect('home')
+                else:
+                    error_message = "Invalid username or password"
+            else:
+                error_message = "Invalid username or password"
+
+    context = {
+        'registerform': register_form,
+        'loginform': login_form,
+        'error_message': error_message
+    }
+    return render(request, 'partials/register.html', context=context)
+
+def my_login(request):
+    return render(request, 'partials/login.html')
+
+'''
 def register(request):
     form = RegisterForm()
 
@@ -39,7 +95,6 @@ def register(request):
 
     context = {'registerform':form}
     return render(request, 'partials/register.html', context=context)
-
 
 
 def my_login(request):

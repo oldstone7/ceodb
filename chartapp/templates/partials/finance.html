@@ -1,9 +1,340 @@
 
 
 {% extends "partials/base.html" %}
-{% block title %} Register Page {% endblock title%}
+{% block title %} Finance {% endblock title%}
 {% block content %}
 {% load static %}
+
+
+<div class="px-3">
+
+    <!-- Start Content-->
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="py-3 py-lg-4">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h4 class="page-title mb-0"> Finance Dashboard</h4>
+                </div>
+                <div class="col-lg-6">
+                   <div class="d-none d-lg-block">
+                    <ol class="breadcrumb m-0 float-end">
+                        <li class="breadcrumb-item"><a href="{% url 'index' %}">Salvador</a></li>
+                        <li class="breadcrumb-item active"> Finance Dashboard</li>
+                    </ol>
+                   </div>
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+            <div class="col-md-6 col-xl-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="mb-4">
+                            <span class="badge badge-soft-primary float-end">Daily</span>
+                            <h5 class="card-title mb-0">Cost per Unit</h5>
+                        </div>
+                        <div class="row d-flex align-items-center mb-4">
+                            <div class="col-8">
+                                <h2 class="d-flex align-items-center mb-0">
+                                    $17.21
+                                </h2>
+                            </div>
+                            <div class="col-4 text-end">
+                                <span class="text-muted">12.5% 
+                                <span class="mdi mdi-arrow-up text-success"></span>
+                            </div>
+                        </div>
+
+                        <div class="progress shadow-sm" style="height: 5px;">
+                            <div class="progress-bar bg-success" role="progressbar" style="width: 57%;">
+                            </div>
+                        </div>
+                    </div>
+                    <!--end card body-->
+                </div><!-- end card-->
+            </div> <!-- end col-->
+
+            <div class="col-md-6 col-xl-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="mb-4">
+                            <span class="badge badge-soft-primary float-end">Per Week</span>
+                            <h5 class="card-title mb-0">Market Revenue</h5>
+                        </div>
+                        <div class="row d-flex align-items-center mb-4">
+                            <div class="col-8">
+                                <h2 class="d-flex align-items-center mb-0">
+                                    $1875.54
+                                </h2>
+                            </div>
+                            <div class="col-4 text-end">
+                                <span class="text-muted">18.71% <i
+                                        class="mdi mdi-arrow-down text-danger"></i></span>
+                            </div>
+                        </div>
+
+                        <div class="progress shadow-sm" style="height: 5px;">
+                            <div class="progress-bar bg-danger" role="progressbar" style="width: 57%;">
+                            </div>
+                        </div>
+                    </div>
+                    <!--end card body-->
+                </div><!-- end card-->
+            </div> <!-- end col-->
+
+            <div class="col-md-6 col-xl-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="mb-4">
+                            <span class="badge badge-soft-primary float-end">Per Month</span>
+                            <h5 class="card-title mb-0">Expenses</h5>
+                        </div>
+                        <div class="row d-flex align-items-center mb-4">
+                            <div class="col-8">
+                                <h2 class="d-flex align-items-center mb-0">
+                                    $784.62
+                                </h2>
+                            </div>
+                            <div class="col-4 text-end">
+                                <span class="text-muted">57% <i
+                                        class="mdi mdi-arrow-up text-success"></i></span>
+                            </div>
+                        </div>
+
+                        <div class="progress shadow-sm" style="height: 5px;">
+                            <div class="progress-bar bg-warning" role="progressbar" style="width: 57%;">
+                            </div>
+                        </div>
+                    </div>
+                    <!--end card body-->
+                </div>
+                <!--end card-->
+            </div> <!-- end col-->
+             <!-- end col-->
+        </div>
+        <!-- end row-->
+
+
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="header-title">Cashflow In - Out</h4>
+
+                        <div id="cardCollpase11" class="collapse show" dir="ltr">
+                            <div id="apex-mixed-3" class="apex-charts pt-3" data-colors="#00acc1,#ebf2f6,#f672a7"></div>
+                        </div> <!-- collapsed end -->
+                    </div>
+                    <!--end card body-->
+
+                </div>
+                <!--end card-->
+            </div>
+            <!--end col-->
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+
+                        <h4 class="card-title">Due Orders</h4>
+                        <p class="card-subtitle mb-4 font-size-13">Transaction period from 21 July to 25 Aug
+                        </p>
+
+                        <div class="table-responsive">
+                            <table class="table table-centered table-striped table-nowrap mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Customer</th>
+                                        <th>Order</th>
+                                        <th>Nos.</th>
+                                        <th>Cash</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for fi in fin %}
+                                    <tr>
+                                        <td class="table-user">
+                                            <a href="javascript:void(0);" class="text-body font-weight-semibold">{{ fi.Client }}</a>
+                                        </td>
+                                        <td>{{ fi.order }}</td>
+                                        <td>{{ fi.amount }}</td>
+                                        <td>{{ fi.cash }}</td>
+                                         
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                    <!--end card body-->
+
+                </div>
+                <!--end card-->
+            </div>
+            <!--end col-->
+
+        </div>
+        <!--end row-->
+
+
+        
+
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="header-title">Models</h4>
+
+                                    <div id="cardCollpase18" class="collapse show" dir="ltr">
+                                        <div id="apex-pie-1" class="apex-charts pt-3" data-colors="#00acc1,#4fc6e1,#4a81d4,#00b19d,#f1556c"></div>
+                                    </div>
+
+                    </div> <!-- end card-body-->
+                </div> <!-- end card-->
+            </div> <!-- end col -->
+
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="header-title">Company Revenue</h4>
+
+                                    <div id="cardCollpase6" class="collapse show" dir="ltr">
+                                        <div id="apex-column-2" class="apex-charts pt-3" data-colors="#00acc1"></div>
+                                    </div>
+
+                    </div> <!-- end card-body-->
+                </div> <!-- end card-->
+            </div> <!-- end col -->
+            
+        </div> <!-- endrow -->
+        <div class="row">
+            <div class="card">
+                <div class="card-body">
+                    <div class="dropdown float-end position-relative">
+                        <a href="#" class="dropdown-toggle h4 text-muted" data-toggle="dropdown"
+                            aria-expanded="false">
+                            <i class="mdi mdi-dots-vertical"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li><a href="#" class="dropdown-item">View</a></li>
+                            <li><a href="#" class="dropdown-item">Timeframe</a></li>
+                            <li><a href="#" class="dropdown-item">Compare</a></li>
+                            <li class="dropdown-divider"></li>
+                            <li><a href="#" class="dropdown-item">Lem</a></li>
+                        </ul>
+                    </div>
+                    <h4 class="card-title d-inline-block">Liquidity</h4>
+
+                    <div class="mt-4 chartjs-chart">
+                        <canvas id="line-chart" height="100" data-colors="#1abc9c,#f1556c"></canvas>
+                    </div>
+                    <div class="row text-center mt-4">
+                        <div class="col-6">
+                            <h4>1.7</h4>
+                            <p class="text-muted mb-0">Liquidity ratio</p>
+                        </div>
+                        <div class="col-6">
+                            <h4>17</h4>
+                            <p class="text-muted mb-0">Open Compaign</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div> <!-- container -->
+
+</div> <!-- content -->
+<script>
+    const ctx = document.getElementById('line-chart').getContext('2d');
+    const liquidityChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+            datasets: [
+                {
+                    label: 'Liquidity',
+                    data: [{% for f in fin %} {{f.liquid}}, {% endfor %}],
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.4
+                },
+                {
+                    label: 'Assets',
+                    data: [{% for f in fin %} {{f.asset}}, {% endfor %}],
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 3,
+                    borderDash: [10, 3],
+                    fill: false,
+                    tension: 0.4
+                },
+                {
+                    label: 'Liability',
+                    data: [{% for f in fin %} {{f.liab}}, {% endfor %}],
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 3,
+                    borderDash: [10, 3],
+                    fill: false,
+                    tension: 0.4
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false,
+                },
+                tooltip: {
+                    mode: 'index',
+                    intersect: false,
+                },
+            },
+            interaction: {
+                mode: 'nearest',
+                axis: 'x',
+                intersect: false
+            },
+            scales: {
+                x: {
+                    display: true,
+                    title: {
+                        display: true,
+                        text: 'Month'
+                    },
+                    grid: {
+                            color: 'rgba(0, 0, 0, 0.06)' // Reduced opacity for the x-axis grid lines
+                        }
+                },
+                y: {
+                    display: true,
+                    title: {
+                        display: true,
+                        text: 'Value'
+                    },
+                    suggestedMin: 0,
+                    suggestedMax: 120,
+                    grid: {
+                            color: 'rgba(0, 0, 0, 0.06)' // Reduced opacity for the y-axis grid lines
+                        }
+                }
+            }
+        }
+    });
+
+</script>
+
+
+
 
 {% endblock %}
 

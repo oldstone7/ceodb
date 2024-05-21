@@ -1,29 +1,32 @@
 <html>
     <head>
         <title>Register</title>
-        <style>
-            :root {
-    --primary-color: #4EA685;
-    --secondary-color: #57B894;
-    --black: #000000;
-    --white: #ffffff;
-    --gray: #efefef;
-    --gray-2: #757575;
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+        
+    <style>
+    :root {
+        --primary-color: #4EA685;
+        --secondary-color: #57B894;
+        --black: #000000;
+        --white: #ffffff;
+        --gray: #efefef;
+        --gray-2: #757575;
 
-    --facebook-color: #4267B2;
-    --google-color: #DB4437;
-    --twitter-color: #1DA1F2;
-    --insta-color: #E1306C;
-}
+        --facebook-color: #4267B2;
+        --google-color: #DB4437;
+        --twitter-color: #1DA1F2;
+        --insta-color: #E1306C;
+    }
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap');
 
-* {
-    font-family: 'Poppins', sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+    * {
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
 html,
 body {
@@ -85,6 +88,46 @@ body {
     color: var(--gray-2);
 }
 
+.toggle-password1 {
+  position: absolute;
+  top: 50%;
+  right: 3.4rem;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.toggle-password2 {
+  position: absolute;
+  top: 50%;
+  right: 3.4rem;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.toggle-password1 i {
+  color: #777;
+}
+
+.toggle-password1:hover i {
+  color: #333;
+}
+
+.toggle-password2 i {
+  color: #777;
+}
+
+.toggle-password2:hover i {
+  color: #333;
+}
+
+.password-group input:focus + .toggle-password {
+  opacity: 1; /* Show the eye icon when the input field is focused */
+}
+
+.error-message {
+    color: red;
+}
+
 .input-group input {
     width: 100%;
     padding: 1rem 3rem;
@@ -118,6 +161,10 @@ body {
 
 .flex-col {
     flex-direction: column;
+}
+
+.error-message {
+    color: red;
 }
 
 .social-list {
@@ -347,42 +394,68 @@ body {
         font-size: 2rem;
     }
 }
-        </style>
+    </style>
+    
     </head>
-
+<body>
 <div id="container" class="container">
     <!-- FORM SECTION -->
     <div class="row">
         <!-- SIGN UP -->
+        
         <div class="col align-items-center flex-col sign-up">
             <div class="form-wrapper align-items-center">
-                <div class="form sign-up">
-                    <div class="input-group">
-                        <i class='bx bxs-user'></i>
-                        <input type="text" placeholder="Username">
-                    </div>
-                    <div class="input-group">
-                        <i class='bx bx-mail-send'></i>
-                        <input type="email" placeholder="Email">
-                    </div>
-                    <div class="input-group">
-                        <i class='bx bxs-lock-alt'></i>
-                        <input type="password" placeholder="Password">
-                    </div>
-                    <div class="input-group">
-                        <i class='bx bxs-lock-alt'></i>
-                        <input type="password" placeholder="Confirm password">
-                    </div>
-                    <button>
-                        Sign up
-                    </button>
+                <form method="post" action="{% url 'register' %}" id="registerForm" autocomplete="off">
+                    {% csrf_token %}
+                    <div class="form sign-up">
+                        <div class="input-group">
+                            <i class='bx bxs-user'></i>
+                            {{ registerform.username }}
+                        </div>
+                        <div class="error-message" id="usernameError"></div>
+                        <div class="input-group">
+                            <i class='bx bxs-user'></i>
+                            {{ registerform.first_name }}
+                        </div>
+                        <div class="error-message" id="firstNameError"></div>
+                        <div class="input-group">
+                            <i class='bx bxs-user'></i>
+                            {{ registerform.last_name }}
+                        </div>
+                        <div class="error-message" id="lastNameError"></div>
+                        <div class="input-group">
+                            <i class='bx bx-mail-send'></i>
+                            {{ registerform.email }}
+                        </div>
+                        <div class="error-message" id="emailError"></div>
+                        <div class="input-group">
+                            <i class='bx bxs-lock-alt'></i>
+                            {{ registerform.password1 }}
+                            <span class="toggle-password1" onclick="togglePasswordVisibility1()">
+                                <i class="fas fa-eye "></i>
+                            </span>
+                        </div>
+                        <div class="error-message" id="passwordError"></div>
+                        <div class="input-group">
+                            <i class='bx bxs-lock-alt'></i>
+                            {{ registerform.password2 }}
+                            <span class="toggle-password2" onclick="togglePasswordVisibility2()">
+                                <i class="fas fa-eye"></i>
+                            </span>
+                        </div> 
+                        <div class="error-message" id="repeatPasswordError"></div>
+
+                        <button type="submit">
+                            Sign up
+                        </button>
+                </form>            
                     <p>
                         <span>
                             Already have an account?
                         </span>
-                        <b onclick="toggle()" class="pointer">
+                        <a href="{% url 'login' %}"><b >
                             Sign in here
-                        </b>
+                        </b> </a>
                     </p>
                 </div>
             </div>
@@ -392,18 +465,21 @@ body {
         <!-- SIGN IN -->
         <div class="col align-items-center flex-col sign-in">
             <div class="form-wrapper align-items-center">
+                <form method="post" action="{% url 'login' %}">
+                    {% csrf_token %}
                 <div class="form sign-in">
                     <div class="input-group">
                         <i class='bx bxs-user'></i>
-                        <input type="text" placeholder="Username">
+                        {{ loginform.username }}
                     </div>
                     <div class="input-group">
                         <i class='bx bxs-lock-alt'></i>
-                        <input type="password" placeholder="Password">
+                        {{ loginform.password }}
                     </div>
-                    <button>
+                    <button type="submit">
                         Sign in
                     </button>
+                </form>
                     <p>
                         <b>
                             Forgot password?
@@ -432,7 +508,7 @@ body {
         <div class="col align-items-center flex-col">
             <div class="text sign-in">
                 <h2>
-                    Welcome
+                    Register here
                 </h2>
 
             </div>
@@ -456,25 +532,172 @@ body {
         <!-- END SIGN UP CONTENT -->
     </div>
     <!-- END CONTENT SECTION -->
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-vtXRMe3mGCbOeY7l30aIg8H9p3GdeSe4IFlP6G8JMa7o7lXvnz3GFKzPxzJdPfGK" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+    
     <script>
         let container = document.getElementById('container')
 
-toggle = () => {
-	container.classList.toggle('sign-in')
-	container.classList.toggle('sign-up')
-}
+        toggle = () => {
+            container.classList.toggle('sign-in')
+            container.classList.toggle('sign-up')
+        }
 
-setTimeout(() => {
-	container.classList.add('sign-in')
-}, 200)
+        setTimeout(() => {
+            container.classList.add('sign-up')
+        }, 200)
+
+        function togglePasswordVisibility1() {
+            var passwordInput = document.getElementById("password");
+            var eyeIcon1 = document.querySelector(".toggle-password1 i");
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                eyeIcon1.className = "fas fa-eye-slash ";
+            } else {
+                passwordInput.type = "password";
+                eyeIcon1.className = "fas fa-eye ";
+            }
+        }
+
+        function togglePasswordVisibility2() {
+            var passwordInput = document.getElementById("repeatPassword");
+            var eyeIcon2 = document.querySelector(".toggle-password2 i");
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                eyeIcon2.className = "fas fa-eye-slash";
+            } else {
+                passwordInput.type = "password";
+                eyeIcon2.className = "fas fa-eye";
+            }
+        }
+ 
+ 
+        (function() {
+            'use strict';
+
+            
+            window.addEventListener('load', function() {
+                var form = document.getElementById('registerForm');
+                
+
+                
+                form.addEventListener('input', function(event) {
+                    var target = event.target;
+                    var errorId = target.id + 'Error';
+                    var errorElement = document.getElementById(errorId);
+                    
+                    switch (target.id) {
+                        case 'username':
+                            validateUsername(target, errorElement);
+                            break;
+                        case 'password':
+                            validatePassword(target, errorElement);
+                            break;
+                        case 'repeatPassword':
+                            validateRepeatPassword(target, errorElement);
+                            break;
+                        case 'email':
+                            validateEmail(target, errorElement);
+                            break;
+                        case 'firstName':
+                            validateFirstName(target, errorElement);
+                            break;
+                        case 'lastName':
+                            validateLastName(target, errorElement);
+                            break;                        
+                    }
+                });
+
+                function validateUsername(usernameInput, errorElement) {
+                    if (usernameInput.value.trim() === '') {
+                        showError(usernameInput, errorElement, 'Username cannot be empty');
+                    } else {
+                        hideError(usernameInput, errorElement);
+                    }
+                }
+
+                function validatePassword(passwordInput, errorElement) {
+                    if (passwordInput.value === '') {
+                        showError(passwordInput, errorElement, 'Password cannot be empty');
+                    } else if (passwordInput.value.length < 8 || !/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(passwordInput.value)) {
+                        showError(passwordInput, errorElement, 'Set a strong password');
+                    } else {
+                        hideError(passwordInput, errorElement);
+                    }
+                }
+
+                function validateRepeatPassword(repeatPasswordInput, errorElement) {
+                    var passwordInput = document.getElementById('password');
+                    if (repeatPasswordInput.value === '') {
+                        showError(repeatPasswordInput, errorElement, 'Password cannot be empty');
+                    } else if (repeatPasswordInput.value !== passwordInput.value) {
+                        showError(repeatPasswordInput, errorElement, 'Passwords do not match');
+                    } else {
+                        hideError(repeatPasswordInput, errorElement);
+                    }
+                }
+
+                function validateEmail(emailInput, errorElement) {
+                    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (emailInput.value === '') {
+                        showError(emailInput, errorElement, 'Email cannot be empty');
+                    } else if (!emailRegex.test(emailInput.value) || emailInput.value.endsWith('.')) {
+                        showError(emailInput, errorElement, 'Enter a valid email');
+                    } else {
+                        hideError(emailInput, errorElement);
+                    }
+                }
+                
+                function validateFirstName(firstNameInput, errorElement) {
+                const nameRegex = /^[A-Za-z]+$/;
+                const consecutiveRegex = /(.)\1{2,}/; // Checks if the same letter is repeated 3 or more times
+                if (firstNameInput.value.trim() === '') {
+                    showError(firstNameInput, errorElement, 'First Name cannot be empty');
+                } else if (!nameRegex.test(firstNameInput.value)) {
+                    showError(firstNameInput, errorElement, 'First Name should be Alphabets only');
+                } else if (consecutiveRegex.test(firstNameInput.value)) {
+                    showError(firstNameInput, errorElement, 'Consecutive letters are not allowed');
+                } else {
+                    hideError(firstNameInput, errorElement);
+                }
+            }
+
+            function validateLastName(lastNameInput, errorElement) {
+                const nameRegex = /^[A-Za-z]+$/;
+                const consecutiveRegex = /(.)\1{2,}/;
+                if (lastNameInput.value.trim() === '') {
+                    showError(lastNameInput, errorElement, 'Last Name cannot be empty');
+                } else if (!nameRegex.test(lastNameInput.value)) {
+                    showError(lastNameInput, errorElement, 'Last Name should be Alphabets only');
+                } else if (consecutiveRegex.test(lastNameInput.value)) {
+                    showError(lastNameInput, errorElement, 'Consecutive letters are not allowed');
+                } 
+                else {
+                    hideError(lastNameInput, errorElement);
+                }
+            }
+
+
+                function showError(inputElement, errorElement, errorMessage) {
+                    inputElement.classList.add('is-invalid');
+                    errorElement.textContent = errorMessage;
+                    errorElement.style.display = 'block';
+                }
+
+                function hideError(inputElement, errorElement) {
+                    inputElement.classList.remove('is-invalid');
+                    errorElement.textContent = '';
+                    errorElement.style.display = 'none';
+                }
+            }, false);
+    })();
+
+
     </script>
-</div>
 
+</body>
 </html>
-
-
-
-
-
-
-

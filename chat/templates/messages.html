@@ -9,16 +9,68 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.js"></script>
-
-        <link rel="stylesheet" href="{% static 'css/messages.css' %}">
+        <link rel="stylesheet" href="{% static 'css/message.css' %}">
+        
 
     </head>
 	
 	<body>
-    {% if user.is_authenticated %}
+        <div class="navbar-custom">
+            <div class="topbar">
+                <div class="topbar-menu d-flex justify-content-end gap-lg-2 gap-1">
+
+                    
+
+                    <li class="dropdown" style="list-style-type: none;">
+                        <a class="nav-link dropdown-toggle nav-user me-0 waves-effect waves-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                            <img src="{% static 'img/avatar-1.jpg' %}" alt="user-image" class="rounded-circle user_img_msg">
+                            <span class="ms-1 d-none d-md-inline-block" style="color: black;">
+                                {{ user.first_name }} <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="21"><title>chevron-down</title><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" /></svg>
+                            </span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end profile-dropdown " >
+                            <!-- item-->
+                            <div class="dropdown-header noti-title">
+                                <h6 class="text-overflow m-0">Welcome !</h6>
+                            </div>
+
+                            <!-- item-->
+                            <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                <i class="fe-user"></i>
+                                <span>My Account</span>
+                            </a>
+
+                            <!-- item-->
+                            <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                <i class="fe-settings"></i>
+                                <span>Settings</span>
+                            </a>
+
+                            <!-- item-->
+                            <a class='dropdown-item notify-item' href='/dashtrap/pages-lock-screen'>
+                                <i class="fe-lock"></i>
+                                <span>Lock Screen</span>
+                            </a>
+
+                            <div class="dropdown-divider"></div>
+
+                            <!-- item-->
+                            <a class='dropdown-item notify-item' href='/dashtrap/pages-login'>
+                                <i class="fe-log-out"></i>
+                                <span>Logout</span>
+                            </a>
+
+                        </div>
+                    </li>
+      
+                </ul>
+            </div>
+        </div>
+        </div>
+    <!--{% if user.is_authenticated %}
         <h1 style="text-align: end; padding-right: 10px">Logged in as : {{ user.first_name }}</h1>
         <input type="hidden" id="logged-in-user" value="{{ user.id }}">
-    {% endif %}
+    {% endif %} -->
 		<div class="container-fluid h-100">
 			<div class="row justify-content-center h-100 ">
 				<div class="col-md-4 col-xl-3 chat h-100 mt-4">
@@ -47,7 +99,7 @@
                                                 <span>{{ thread.first_person.first_name }}</span>
                                             {% endif %}
 
-{#                                            <p>Kalid is online</p>#}
+                                            {#<p>Kalid is online</p>#}
                                         </div>
                                     </div>
                                 </li>
@@ -136,7 +188,7 @@
                                             <span class="input-group-text attach_btn"><i class="fas fa-paperclip" id="paperclipIcon"></i></span>
                                             
                                         </div>
-                                        <input type="text" name="" id="input-message" class="form-control type_msg" placeholder="Type your message...">
+                                        <input type="text" name="" id="input-message" class="form-control type_msg" placeholder="Type your message..." autocomplete="off">
                                         <div class="input-group-append">
                                             <button class="btn btn-secondary" type="submit">
                                                 <span class="input-group-text send_btn">
@@ -152,12 +204,6 @@
 				</div>
 			</div>
 		</div>
-        <script>
-            document.getElementById('paperclipIcon').addEventListener('click', function() {
-                // Trigger click event on file input element
-                document.getElementById('fileInput').click();
-            });
-        </script>
 
         <script src="{% static 'js/messages.js' %}"></script>
 

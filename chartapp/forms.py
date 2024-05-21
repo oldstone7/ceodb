@@ -55,6 +55,7 @@ class RegisterForm(UserCreationForm):
                                  widget=forms.TextInput(attrs={'placeholder': 'First Name',
                                                                'class': 'form-control',
                                                                'id': 'firstName',
+                                                               
                                                                }))
     last_name = forms.CharField(max_length=100,
                                 required=True,
@@ -176,8 +177,8 @@ class CreateUserForm(UserCreationForm):
 
 
 class LoginForm(AuthenticationForm):
-        username = forms.CharField(widget=TextInput(attrs={'style': 'width: 95%;'}),required=False)
-        password = forms.CharField(widget=PasswordInput(attrs={'style': 'width: 77%;'}),required=False)
+        username = forms.CharField(widget=TextInput(attrs={'style': 'width: 100%;'}),required=True)
+        password = forms.CharField(widget=PasswordInput(attrs={'style': 'width: 100%;'}),required=True)
         
 
         def __init__(self, *args, **kwargs):           
@@ -187,14 +188,16 @@ class LoginForm(AuthenticationForm):
                 'type':"username",                  
                 'id':"username",
                 'name':"username",
-                'placeholder':"Enter your username"                      
+                'placeholder':"Username"
+                                      
             })
 
             self.fields['password'].widget.attrs.update({
                 'type':"password",            
                 'id':"password",
                 'name':"password",
-                'placeholder':"Enter your password"                      
+                'placeholder':"Password"
+                                      
             })
 
 
