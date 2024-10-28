@@ -1,0 +1,121 @@
+{% extends 'admin_panel/base.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    
+    <div class="py-3 py-lg-4">
+        <div class="row">
+            <div class="col-lg-6">
+                <h4 class="page-title mb-0">Finance Management</h4>
+            </div>
+            <div class="col-lg-6">
+               <div class="d-none d-lg-block">
+                <ol class="breadcrumb m-0 float-end">
+                    <li class="breadcrumb-item"><a href="">Finance Items</a></li>
+                    {% if title == "Edit Finance Record" %}
+                    <li class="breadcrumb-item active">Item Edit</li>
+                    {% else %}
+                    <li class="breadcrumb-item active">Item Add</li>
+                    {% endif %}
+                </ol>
+               </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    {% if title == "Edit Finance Record" %}
+                    <h4 class="header-title">Edit records</h4>
+                    <p class="sub-header">
+                       Finance record details can be changed here.
+                    </p>
+                    {% else %}
+                    <h4 class="header-title">Add new records</h4>
+                    <p class="sub-header">
+                       New Finance record can be added here.
+                    </p>
+                    {% endif %}
+                    <div class="row">
+                        <div class="col-12">
+                            {% for message in messages %}
+                                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                                    {{ message }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="col-12">
+                            <div class="p-2">
+                    <form class="form-horizontal"  method="post">
+                        {% csrf_token %}
+                        <div class="mb-2 row">
+                            <label class="col-md-2 col-form-label">Client</label>
+                            <div class="col-md-10">
+                            {{ form.Client }}
+                            </div>
+                        </div>
+                        <div class="mb-2 row">
+                            <label class="col-md-2 col-form-label">Order</label>
+                            <div class="col-md-10">
+                            {{ form.order }}
+                            </div>
+                        </div>
+                        <div class="mb-2 row">
+                            <label class="col-md-2 col-form-label">Cash</label>
+                            <div class="col-md-10">
+                            {{ form.cash }}
+                            </div>
+                        </div>
+                        <div class="mb-2 row">
+                            <label class="col-md-2 col-form-label">Amount</label>
+                            <div class="col-md-10">
+                            {{ form.amount }}
+                            </div>
+                        </div>
+                        <div class="mb-2 row">
+                            <label class="col-md-2 col-form-label">Liquidity</label>
+                            <div class="col-md-10">
+                            {{ form.liquid }}
+                            </div>
+                        </div>
+                        <div class="mb-2 row">
+                            <label class="col-md-2 col-form-label">Asset</label>
+                            <div class="col-md-10">
+                            {{ form.asset }}
+                            </div>
+                        </div>
+                        <div class="mb-2 row">
+                           <label class="col-md-2 col-form-label">Liabilities</label>
+                            <div class="col-md-10">
+                            {{ form.liab }}
+                            </div>
+                        </div>
+                        <div class="mb-2 row">
+                            <label class="col-md-2 col-form-label">Date</label>
+                            <div class="col-md-10">
+                            {{ form.date }}
+                            </div>
+                        </div>
+                        <br>
+                        <div class="d-flex justify-content-between">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                            {% if finance %}
+                                <a href="{% url 'finance_delete' finance.id %}" class="btn btn-danger">Delete</a>
+                            {% endif %}
+                            <a href="{% url 'finance_list' %}" class="btn btn-secondary">Cancel</a>
+                        </div>
+                        
+                    </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

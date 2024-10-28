@@ -1,0 +1,461 @@
+{% extends "partials/base.html" %}
+{% block content %}
+{% load static %}
+
+<div class="px-3">
+
+    <!-- Start Content-->
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="py-3 py-lg-4">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h4 class="page-title mb-0"> Operations Dashboard</h4>
+                </div>
+                <div class="col-lg-6">
+                   <div class="d-none d-lg-block">
+                    <ol class="breadcrumb m-0 float-end">
+                        <li class="breadcrumb-item"><a href="{% url 'index' %}">Salvador</a></li>
+                        <li class="breadcrumb-item active"> Operations Dashboard</li>
+                    </ol>
+                   </div>
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+            <div class="col-md-6 col-xl-3">
+                <div class="smallcard">
+                    <div class="card-body">
+                        <div class="mb-4">
+                            
+                            <h6 class="card-title mb-0">{{ metric1.heading }}</h6>
+                            <span class="badge badge-soft-primary float-end">Daily</span>
+                        </div>
+                        <div class="row d-flex align-items-center mb-4">
+                            <div class="col-8">
+                                <h2 class="d-flex align-items-center mb-0">
+                                    ${{ metric1.data }}
+                                </h2>
+                            </div>
+                            <div class="col-4 text-end">
+                                <span class="text-muted"> {{ metric1.percentage }}% 
+                                <span class="mdi mdi-arrow-up text-success"></span>
+                            </div>
+                        </div>
+
+                        <div class="progress shadow-sm" style="height: 5px;">
+                            <div class="progress-bar bg-success" role="progressbar" style="width: 57%;">
+                            </div>
+                        </div>
+                    </div>
+                    <!--end card body-->
+                </div><!-- end card-->
+            </div> <!-- end col-->
+
+            <div class="col-md-6 col-xl-3">
+                <div class="smallcard">
+                    <div class="card-body">
+                        <div class="mb-4">
+                            <h6 class="card-title mb-0">{{ metric2.heading }}</h6>
+                            <span class="badge badge-soft-primary float-end">Per Week</span>
+                        </div>
+                        <div class="row d-flex align-items-center mb-4">
+                            <div class="col-8">
+                                <h2 class="d-flex align-items-center mb-0">
+                                    ${{ metric2.data }}
+                                </h2>
+                            </div>
+                            <div class="col-4 text-end">
+                                <span class="text-muted">{{ metric2.percentage }}% <i
+                                        class="mdi mdi-arrow-down text-danger"></i></span>
+                            </div>
+                        </div>
+
+                        <div class="progress shadow-sm" style="height: 5px;">
+                            <div class="progress-bar bg-danger" role="progressbar" style="width: 57%;">
+                            </div>
+                        </div>
+                    </div>
+                    <!--end card body-->
+                </div><!-- end card-->
+            </div> <!-- end col-->
+
+            <div class="col-md-6 col-xl-3">
+                <div class="smallcard">
+                    <div class="card-body">
+                        <div class="mb-4">
+                            
+                            <h6 class="card-title mb-0">{{ metric3.heading }}</h6>
+                            <span class="badge badge-soft-primary float-end">Per Month</span>
+                        </div>
+                        <div class="row d-flex align-items-center mb-4">
+                            <div class="col-8">
+                                <h2 class="d-flex align-items-center mb-0">
+                                    ${{ metric3.data }}
+                                </h2>
+                            </div>
+                            <div class="col-4 text-end">
+                                <span class="text-muted">{{ metric3.percentage }}% <i
+                                        class="mdi mdi-arrow-up text-success"></i></span>
+                            </div>
+                        </div>
+
+                        <div class="progress shadow-sm" style="height: 5px;">
+                            <div class="progress-bar bg-warning" role="progressbar" style="width: 57%;">
+                            </div>
+                        </div>
+                    </div>
+                    <!--end card body-->
+                </div>
+                <!--end card-->
+            </div> <!-- end col-->
+
+            <div class="col-md-6 col-xl-3">
+                <div class="smallcard">
+                    <div class="card-body">
+                        <div class="mb-4">
+                            <h6 class="card-title mb-0">{{ metric4.heading }}</h6>
+                            <span class="badge badge-soft-primary float-end">All Time</span>
+                            
+                        </div>
+                        <div class="row d-flex align-items-center mb-4">
+                            <div class="col-8">
+                                <h2 class="d-flex align-items-center mb-0">
+                                    {{ metric4.data }}
+                                </h2>
+                            </div>
+                            <div class="col-4 text-end">
+                                <span class="text-muted">{{ metric4.percentage }}% <i
+                                        class="mdi mdi-arrow-down text-danger"></i></span>
+                            </div>
+                        </div>
+
+                        <div class="progress shadow-sm" style="height: 5px;">
+                            <div class="progress-bar bg-info" role="progressbar" style="width: 57%;"></div>
+                        </div>
+                    </div>
+                    <!--end card body-->
+                </div><!-- end card-->
+            </div> <!-- end col-->
+        </div>
+        <!-- end row-->
+
+
+        <!--end row-->
+
+        
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="header-title">Supply Chain</h4>
+
+                        <div class="mt-4 chartjs-chart">
+                            <canvas id="supplyChainChart" height="250" data-colors="#4a81d4,#fa5c7c,#4fc6e1,#ebeff2"> </canvas>
+                        </div>
+
+                    </div> <!-- end card-body-->
+                </div> <!-- end card-->
+            </div> <!-- end col -->
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="header-title">Inventory</h4>
+
+                        <div class="mt-4 chartjs-chart">
+                            <canvas id="inventoryChart" height="300" data-colors="#39afd1,#a17fe0"></canvas>
+                        </div>
+                    </div> <!-- end card-body-->
+                </div> <!-- end card-->
+            </div> <!-- end col -->
+        </div>
+        <div class="row">
+            <div class="col-lg-7">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="header-title">Production rates</h4>
+
+                        <div class="mt-4 chartjs-chart">
+                            <canvas id="productionOutputChart" height="200" data-colors="#4a81d4,#fa5c7c,#4fc6e1,#ebeff2"> </canvas>
+                        </div>
+
+                    </div> <!-- end card-body-->
+                </div> <!-- end card-->
+            </div> <!-- end col -->
+            <div class="col-lg-5">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="header-title">Efficiency</h4>
+
+                        <div class="mt-4 chartjs-chart">
+                            <canvas id="efficiencyChart" height="300" data-colors="#39afd1,#a17fe0"></canvas>
+                        </div>
+                    </div> <!-- end card-body-->
+                </div> <!-- end card-->
+            </div> <!-- end col -->
+        </div>
+    </div> <!-- container -->
+
+</div>
+
+
+
+
+<script>
+    const supplyChainChart = new Chart(document.getElementById('supplyChainChart'), {
+    type: 'radar',
+    data: {
+        labels: JSON.parse('{{ supply_chain_labels|escapejs }}'),
+        datasets: [
+            {
+                label: 'On-Time Delivery Rate (%)',
+                data: JSON.parse('{{ avg_on_time_delivery_rate|escapejs }}'),
+                backgroundColor: 'rgba(255, 99, 132, 0.4)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 2
+            },
+            {
+                label: 'Cost Per Unit ($)',
+                data: JSON.parse('{{ avg_cost_per_unit|escapejs }}'),
+                backgroundColor: 'rgba(54, 162, 235, 0.4)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 2
+            },
+            {
+                label: 'Delivery Lead Time (Days)',
+                data: JSON.parse('{{ avg_delivery_lead_time|escapejs }}'),
+                backgroundColor: 'rgba(255, 255, 0, 0.4)',
+                borderColor: 'rgba(255, 255, 0, 1)',
+                borderWidth: 2
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                labels: {
+                    font: {
+                        size: 12  // Increase the font size of labels
+                    }
+                }
+            },
+            tooltip: {
+                callbacks: {
+                    label: function(context) {
+                        return `${context.dataset.label}: ${context.raw}`;
+                    }
+                }
+            }
+        },
+        scales: {
+            r: {  // 'r' is used for radial axis in radar charts
+                ticks: {
+                    font: {
+                        size: 14, // Increase font size for axis labels
+                    },
+                    color: '#000', // Color for axis labels
+                },
+                pointLabels: {
+                    font: {
+                        size: 14, // Increase font size for the point labels
+                    },
+                    color: '#000' // Color for point labels
+                }
+            }
+        }
+    }
+});
+
+    
+    // Inventory Bar Chart
+    const inventoryChart = new Chart(document.getElementById('inventoryChart'), {
+        type: 'bar',
+        data: {
+            labels: {{ inventory_labels|safe }},
+            datasets: [
+                {
+                    label: 'Current Stock',
+                    data: {{ total_stock|safe }},
+                    backgroundColor: 'rgba(33, 48, 159, 1)',
+                    borderColor: 'rgba(33, 48, 159, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Reorder Level',
+                    data: {{ avg_reorder_level|safe }},
+                    backgroundColor: 'rgba(255, 225, 0, 1)',
+                    borderColor: 'rgba(255, 225, 0, 1))',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Stock Turnover Rate',
+                    data: {{ avg_stock_turnover_rate|safe }},
+                    backgroundColor: 'rgba(255, 0, 0, 1)',
+                    borderColor: 'rgba(255, 0, 0, 1)',
+                    borderWidth: 1
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+        }
+    });
+    
+    // Production Output Line Chart
+const ctx = document.getElementById('productionOutputChart').getContext('2d');
+const productionLabels = JSON.parse('{{ production_output_labels|escapejs }}');
+const unitsProduced = JSON.parse('{{ total_units_produced|escapejs }}');
+const productionTime = JSON.parse('{{ avg_production_time|escapejs }}');
+const defectRate = JSON.parse('{{ avg_defect_rate|escapejs }}');
+
+new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: productionLabels,
+        datasets: [
+            {
+                label: 'Units Produced',
+                data: unitsProduced,
+                borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                yAxisID: 'y-axis-1',
+            },
+            {
+                label: 'Production Time (Hours)',
+                data: productionTime,
+                borderColor: 'rgba(153, 102, 255, 1)',
+                backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                yAxisID: 'y-axis-2',
+            },
+            {
+                label: 'Defect Rate (%)',
+                data: defectRate,
+                borderColor: 'rgba(255, 99, 132, 1)',
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                yAxisID: 'y-axis-2',
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: {
+                'y-axis-1': {
+                    type: 'linear',
+                    position: 'left',
+                    title: {
+                        display: true,
+                        text: 'Units Produced'
+                    }
+                },
+                'y-axis-2': {
+                    type: 'linear',
+                    position: 'right',
+                    title: {
+                        display: true,
+                        text: 'Production Time / Defect Rate'
+                    },
+                    grid: {
+                        drawOnChartArea: false
+                    }
+                }
+            }
+        },
+        plugins: {
+            legend: {
+                position: 'top',
+            },
+            tooltip: {
+                callbacks: {
+                    label: function(context) {
+                        return `${context.dataset.label}: ${context.raw}`;
+                    }
+                }
+            }
+        }
+    }
+});
+    
+    // Efficiency Pie Chart
+    const efficiencyChart = new Chart(document.getElementById('efficiencyChart'), {
+    type: 'bar',
+    data: {
+        labels: JSON.parse('{{ efficiency_labels|escapejs }}'),
+        datasets: [
+            {
+                label: 'Machine Utilization Rate (%)',
+                data: JSON.parse('{{ avg_machine_utilization_rate|escapejs }}'),
+                backgroundColor: 'rgba(255, 99, 132, 1)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1
+            },
+            {
+                label: 'Labor Efficiency Rate (%)',
+                data: JSON.parse('{{ avg_labor_efficiency_rate|escapejs }}'),
+                backgroundColor: 'rgba(54, 162, 235, 1)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            },
+            {
+                label: 'Energy Consumption (kWh)',
+                data: JSON.parse('{{ total_energy_consumption|escapejs }}'),
+                backgroundColor: 'rgba(75, 192, 192, 1)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            x: {
+                stacked: true,  // Ensure the x-axis stacks the bars
+                ticks: {
+                    font: {
+                        size: 14
+                    }
+                }
+            },
+            y: {
+                beginAtZero: true,
+                stacked: true,  // Ensure the y-axis stacks the bars vertically
+                ticks: {
+                    font: {
+                        size: 14
+                    },
+                    stepSize: 10,
+                    color: '#000',
+                    weight: 'bold'
+                }
+            }
+        },
+        plugins: {
+            legend: {
+                labels: {
+                    font: {
+                        size: 12
+                    }
+                }
+            },
+            tooltip: {
+                mode: 'index',
+                intersect: false
+            }
+        }
+    }
+});
+
+
+
+
+</script>
+    
+
+
+{% endblock %}
+
+{{ redirect_to_login_immediately }}

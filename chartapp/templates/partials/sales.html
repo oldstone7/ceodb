@@ -1,0 +1,696 @@
+{% extends "partials/base.html" %}
+{% block content %}
+{% load static %}
+
+<div class="px-3">
+
+    <!-- Start Content-->
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="py-3 py-lg-4">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h4 class="page-title mb-0"> Sales & Marketing Dashboard</h4>
+                </div>
+                <div class="col-lg-6">
+                   <div class="d-none d-lg-block">
+                    <ol class="breadcrumb m-0 float-end">
+                        <li class="breadcrumb-item"><a href="{% url 'index' %}">Salvador</a></li>
+                        <li class="breadcrumb-item active"> Sales & Marketing Dashboard</li>
+                    </ol>
+                   </div>
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+            <div class="col-md-6 col-xl-3">
+                <div class="smallcard">
+                    <div class="card-body">
+                        <div class="mb-4">
+                            
+                            <h6 class="card-title mb-0" id="metric1-heading"></h6>
+                            <span class="badge badge-soft-primary float-end">Daily</span>
+                        </div>
+                        <div class="row d-flex align-items-center mb-4">
+                            <div class="col-8">
+                                <h2 id="metric1-data" class="d-flex align-items-center mb-0">
+                                    
+                                </h2>
+                            </div>
+                            <div class="col-4 text-end">
+                                <span id="metric1-percentage" class="text-muted"> 
+                                <span class="mdi mdi-arrow-up text-success"></span>
+                            </div>
+                        </div>
+
+                        <div class="progress shadow-sm" style="height: 5px;">
+                            <div class="progress-bar bg-success" role="progressbar" style="width: 57%;">
+                            </div>
+                        </div>
+                    </div>
+                    <!--end card body-->
+                </div><!-- end card-->
+            </div> <!-- end col-->
+
+            <div class="col-md-6 col-xl-3">
+                <div class="smallcard">
+                    <div class="card-body">
+                        <div class="mb-4">
+                            <h6 id="metric2-heading" class="card-title mb-0"></h6>
+                            <span class="badge badge-soft-primary float-end">Per Week</span>
+                        </div>
+                        <div class="row d-flex align-items-center mb-4">
+                            <div class="col-8">
+                                <h2 id="metric2-data" class="d-flex align-items-center mb-0">
+                                    
+                                </h2>
+                            </div>
+                            <div class="col-4 text-end">
+                                <span id="metric2-percentage" class="text-muted">
+                                    <i class="mdi mdi-arrow-down text-danger"></i></span>
+                            </div>
+                        </div>
+
+                        <div class="progress shadow-sm" style="height: 5px;">
+                            <div class="progress-bar bg-danger" role="progressbar" style="width: 57%;">
+                            </div>
+                        </div>
+                    </div>
+                    <!--end card body-->
+                </div><!-- end card-->
+            </div> <!-- end col-->
+
+            <div class="col-md-6 col-xl-3">
+                <div class="smallcard">
+                    <div class="card-body">
+                        <div class="mb-4">
+                            
+                            <h6 id="metric3-heading" class="card-title mb-0"></h6>
+                            <span class="badge badge-soft-primary float-end">Per Month</span>
+                        </div>
+                        <div class="row d-flex align-items-center mb-4">
+                            <div class="col-8">
+                                <h2 id="metric3-data" class="d-flex align-items-center mb-0">
+                                    
+                                </h2>
+                            </div>
+                            <div class="col-4 text-end">
+                                <span id="metric3-percentage" class="text-muted"> <i
+                                        class="mdi mdi-arrow-up text-success"></i></span>
+                            </div>
+                        </div>
+
+                        <div class="progress shadow-sm" style="height: 5px;">
+                            <div class="progress-bar bg-warning" role="progressbar" style="width: 57%;">
+                            </div>
+                        </div>
+                    </div>
+                    <!--end card body-->
+                </div>
+                <!--end card-->
+            </div> <!-- end col-->
+
+            <div class="col-md-6 col-xl-3">
+                <div class="smallcard">
+                    <div class="card-body">
+                        <div class="mb-4">
+                            <h6 id="metric4-heading" class="card-title mb-0"></h6>
+                            <span class="badge badge-soft-primary float-end">All Time</span>
+                            
+                        </div>
+                        <div class="row d-flex align-items-center mb-4">
+                            <div class="col-8">
+                                <h2 id="metric4-data" class="d-flex align-items-center mb-0">
+                                   
+                                </h2>
+                            </div>
+                            <div class="col-4 text-end">
+                                <span id="metric4-percentage" class="text-muted"><i
+                                        class="mdi mdi-arrow-down text-danger"></i></span>
+                            </div>
+                        </div>
+
+                        <div class="progress shadow-sm" style="height: 5px;">
+                            <div class="progress-bar bg-info" role="progressbar" style="width: 57%;"></div>
+                        </div>
+                    </div>
+                    <!--end card body-->
+                </div><!-- end card-->
+            </div> <!-- end col-->
+        </div>
+        <!-- end row-->
+
+
+        <div class="row">
+            <div class="col-lg-5">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Performance Analytics</h4>
+                        <p class="card-subtitle mb-4">From date of 1st Jan 2023 to continue</p>
+                        <div class="mt-4 chartjs-chart">
+                            <canvas id="performanceChart" height="300"></canvas>
+                        </div>
+                        
+                    </div> <!--end card body-->
+                </div> <!-- end card-->
+            </div> <!-- end col -->
+            <div class="col-lg-7">
+                <div class="card">
+                    <div class="card-body">
+
+                        <h4 class="card-title">Top 5 Customers</h4>
+                        <p class="card-subtitle mb-4 font-size-13">Transaction period from 21 July to 25 Aug
+                        </p>
+
+                        <div class="table-responsive">
+                            <table class="table table-centered table-striped table-nowrap mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Customer</th>
+                                        <th>Phone</th>
+                                        <th>Email</th>
+                                        <th>Location</th>
+                                        <th>Added Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="table-user">
+                                            <img src="{% static 'img/avatar-4.jpg' %}" alt="table-user"
+                                                class="mr-2 avatar-xs rounded-circle">
+                                            <a href="javascript:void(0);"
+                                                class="text-body font-weight-semibold">Naveen Kumar</a>
+                                        </td>
+                                        <td>
+                                            937-330-1634
+                                        </td>
+                                        <td>
+                                            naveen123@gmail.com
+                                        </td>
+                                        <td>
+                                            Chennai
+                                        </td>
+                                        <td>
+                                            07/07/2018
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="table-user">
+                                            <img src="{% static 'img/avatar-1.jpg' %}" alt="table-user"
+                                                class="mr-2 avatar-xs rounded-circle">
+                                            <a href="javascript:void(0);"
+                                                class="text-body font-weight-semibold">Selva Sankar</a>
+                                        </td>
+                                        <td>
+                                            215-302-3376
+                                        </td>
+                                        <td>
+                                            sankar123@hotmail.com
+                                        </td>
+                                        <td>
+                                            Salem
+                                        </td>
+                                        <td>
+                                            09/12/2018
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-user">
+                                            <img src="{% static 'img/avatar-3.jpg' %}" alt="table-user"
+                                                class="mr-2 avatar-xs rounded-circle">
+                                            <a href="javascript:void(0);"
+                                                class="text-body font-weight-semibold">Kathryn Rose
+                                                </a>
+                                        </td>
+                                        <td>
+                                            828-216-2190
+                                        </td>
+                                        <td>
+                                            kathryn@gmail.com
+                                        </td>
+                                        <td>
+                                            Chennai
+                                        </td>
+                                        <td>
+                                            06/30/2018
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-user">
+                                            <img src="{% static 'img/avatar-4.jpg' %}" alt="table-user"
+                                                class="mr-2 avatar-xs rounded-circle">
+                                            <a href="javascript:void(0);"
+                                                class="text-body font-weight-semibold">Ahamed Farhan</a>
+                                        </td>
+                                        <td>
+                                            63 75 612 706
+                                        </td>
+                                        <td>
+                                            qwerty@gmail.com
+                                        </td>
+                                        <td>
+                                            Tirunelveli
+                                        </td>
+                                        <td>
+                                            09/08/2018
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-user">
+                                            <img src="{% static 'img/avatar-1.jpg' %}" alt="table-user"
+                                                class="mr-2 avatar-xs rounded-circle">
+                                            <a href="javascript:void(0);"
+                                                class="text-body font-weight-semibold">Zara Khan</a>
+                                        </td>
+                                        <td>
+                                            99 75 150 655
+                                        </td>
+                                        <td>
+                                            zarak@hotmail.com
+                                        </td>
+                                        <td>
+                                            Chennai
+                                        </td>
+                                        <td>
+                                            07/15/2018
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                    <!--end card body-->
+
+                </div>
+                <!--end card-->
+            </div>
+            <!-- end col -->
+        </div>
+        <!--end row-->
+
+        
+        <div class="row">
+            <div class="col-lg-5">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="header-title">Product Inventory</h4>
+
+                        <div class="mt-4 chartjs-chart">
+                            <canvas id="productDoughnutChart" height="200"></canvas></div>
+
+                    </div> <!-- end card-body-->
+                </div> <!-- end card-->
+            </div> <!-- end col -->
+            <div class="col-lg-7">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="header-title">Sales Figures</h4>
+
+                        <div class="mt-4 chartjs-chart">
+                            <canvas id="salesBarChart" height="200" data-colors="#00acc1,#f1556c"></canvas>
+                        </div>    
+                    </div> <!-- end card-body-->
+                </div> <!-- end card-->
+            </div> <!-- end col -->
+        </div>
+        
+        <div class="row">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="header-title">Marketing Analytics</h4>
+
+                        <div class="mt-4 chartjs-chart">
+                            <canvas id="marketingChart" height="100"></canvas>
+                        </div>
+                    </div> <!-- end card-body-->
+                </div> <!-- end card-->
+        </div>
+        <div class="row">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="header-title">Demand Forecasting</h4>
+                    <div class="mt-4 chartjs-chart">
+                        <canvas id="demandChart" height="100"></canvas>
+                    </div>
+                </div> <!-- end card-body-->
+            </div> <!-- end card-->
+    </div>
+    </div> 
+
+</div>
+<script>
+        fetch('http://127.0.0.1:8000/api/metrics/')
+        .then(response => response.json())
+        .then(data => {
+            // Assuming the response is a list of metrics
+            const metrics = data;
+
+            // Loop through each metric and populate the corresponding DOM elements
+            metrics.forEach((metric, index) => {
+                // Assuming you have HTML elements with ids like metric1-heading, metric2-heading, etc.
+                document.getElementById(`metric${index + 1}-heading`).textContent = metric.heading;
+                document.getElementById(`metric${index + 1}-data`).textContent = `$${metric.data}`;
+                document.getElementById(`metric${index + 1}-percentage`).textContent = `${metric.percentage}%`;
+            });
+        })
+        .catch(error => console.error('Error fetching metrics data:', error));
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    fetch('http://127.0.0.1:8000/api/sales')
+        .then(response => response.json())
+        .then(data => {
+            var months = data.months;
+            var combinedData = data.combined_data;  // Actual demand data with placeholders
+            var forecastData = data.forecast_only;  // Forecasted demand data with placeholders
+
+            var ctx3 = document.getElementById('demandChart').getContext('2d');
+            var demandChart = new Chart(ctx3, {
+                type: 'line',
+                data: {
+                    labels: months,  // X-axis labels
+                    datasets: [
+                        {
+                            label: 'Actual Demand',
+                            data: combinedData,  // Actual demand with forecast placeholders
+                            borderColor: 'rgba(75, 192, 192, 1)',  // Color for actual demand
+                            fill: false,
+                            borderWidth: 2
+                        },
+                        {
+                            label: 'Forecasted Demand',
+                            data: forecastData,  // Forecast data with actual demand placeholders
+                            borderColor: 'rgba(255, 99, 132, 1)',  // Color for forecast
+                            fill: false,
+                            borderDash: [5, 5],  // Dashed line for forecast data
+                            borderWidth: 2
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        })
+        .catch(error => console.error('Error fetching demand forecast data:', error));
+});
+
+
+
+
+
+
+
+    const ctx2 = document.getElementById('marketingChart').getContext('2d');
+    const marketingChart = new Chart(ctx2, {
+        type: 'line', // Type of chart: line
+        data: {
+            labels: ['Mobiles', 'Keyboards', 'Laptops', 'Mouses', 'Printers', 'Desktops'], // Replace with your time period
+            datasets: [{
+                label: 'Before Marketing',
+                data: [120, 190, 300, 500, 200, 300], // Replace with your actual sales data
+                borderColor: '#FF6384',
+                backgroundColor: 'rgba(255, 99, 132, 0.2)', 
+                fill: true
+            }, {
+                label: 'After Marketing',
+                data: [150, 230, 400, 600, 350, 500], // Replace with your actual sales data
+                borderColor: '#36A2EB',
+                backgroundColor: 'rgba(54, 162, 235, 0.2)', 
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Months',
+                        color: '#666'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Sales',
+                        color: '#666'
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: true,
+                    labels: {
+                        color: '#666' // Custom text color
+                    }
+                }
+            }
+        }
+    });
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+    // Fetch the sales data from the API
+    fetch('http://127.0.0.1:8000/api/sales')
+        .then(response => response.json())
+        .then(data => {
+            // Extract the relevant chart data from the API response
+            var chartData = data.chart_data;
+
+            // Get the canvas context
+            var ctx1 = document.getElementById('salesBarChart').getContext('2d');
+
+            // Gradient for the bars
+            var gradient = ctx1.createLinearGradient(0, 0, 0, 400);
+            gradient.addColorStop(0, '#FF5F6D');
+            gradient.addColorStop(1, '#FFC371');
+    
+            // Create the chart using the fetched data
+            var salesBarChart = new Chart(ctx1, {
+                type: 'bar',
+                data: {
+                    labels: chartData.labels, // Months from the API
+                    datasets: [{
+                        label: 'Revenue',
+                        data: chartData.datasets[0].data, // Revenues from the API
+                        backgroundColor: gradient,
+                        barThickness: 10,
+                        borderColor: '#FF5F6D',
+                        borderWidth: 2,
+                        hoverBackgroundColor: '#FFC371',
+                        hoverBorderColor: '#FF5F6D',
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false,
+                        },
+                        title: {
+                            display: true,
+                            text: 'Monthly Sales Revenue and Transactions',
+                            font: {
+                                size: 20,
+                                family: 'Helvetica, Arial, sans-serif',
+                                weight: 'bold',
+                            },
+                            color: '#333',
+                            padding: {
+                                top: 20,
+                                bottom: 30
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: '#333',
+                            titleColor: '#FFF',
+                            titleFont: {
+                                size: 16,
+                                weight: 'bold'
+                            },
+                            bodyColor: '#FFF',
+                            bodyFont: {
+                                size: 14
+                            },
+                            borderColor: '#FF5F6D',
+                            borderWidth: 1,
+                            cornerRadius: 4,
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Month',
+                                color: '#666',
+                                font: {
+                                    size: 16,
+                                    weight: '600'
+                                }
+                            },
+                            grid: {
+                                display: false,
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Revenue',
+                                color: '#666',
+                                font: {
+                                    size: 16,
+                                    weight: '600'
+                                }
+                            },
+                            grid: {
+                                color: '#F0F0F0',
+                                borderDash: [3, 3],
+                            },
+                            ticks: {
+                                color: '#FF5F6D',
+                                font: {
+                                    size: 14,
+                                    weight: 'bold'
+                                }
+                            }
+                        }
+                    },
+                    animation: {
+                        duration: 2000,
+                        easing: 'easeInOutBounce'
+                    },
+                }
+            });
+        })
+        .catch(error => console.error('Error fetching sales data:', error));
+});
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    fetch('http://127.0.0.1:8000/api/sales')
+        .then(response => response.json())
+        .then(data => {
+            var productLabels = data.product_labels;  // Array of product categories
+            var productData = data.product_data;      // Array of product values
+
+            var ctx = document.getElementById('productDoughnutChart').getContext('2d');
+
+            var backgroundColors = [
+                'rgba(255, 99, 132, 1)',   // Red
+                'rgba(54, 162, 235, 1)',   // Blue
+                'rgba(255, 206, 86, 1)',   // Yellow
+                'rgba(75, 192, 192, 1)',   // Green
+                'rgba(153, 102, 255, 1)'   // Purple
+            ];
+
+            var productDoughnutChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: productLabels,
+                    datasets: [{
+                        data: productData,
+                        backgroundColor: backgroundColors.slice(0, productData.length),
+                        borderColor: '#ffffff',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        title: {
+                            display: true,
+                            text: 'Product Distribution by Category',
+                            font: {
+                                size: 18
+                            }
+                        }
+                    },
+                    animation: {
+                        animateScale: true,
+                        animateRotate: true
+                    }
+                }
+            });
+        })
+        .catch(error => console.error('Error fetching product distribution data:', error));
+});
+
+
+const ctx5 = document.getElementById('performanceChart').getContext('2d');
+
+    const performanceChart = new Chart(ctx5, {
+        type: 'line',
+        data: {
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            datasets: [{
+                label: 'Performance',
+                data: [65, 59, 80, 81, 56, 55, 90],
+                borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderWidth: 2,
+                tension: 0.4, /* Smooth curves */
+                pointRadius: 4,
+                pointHoverRadius: 6,
+                pointBackgroundColor: 'rgba(75, 192, 192, 1)',
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                x: {
+                    grid: {
+                        display: false,
+                    },
+                    ticks: {
+                        color: '#6c757d',
+                    }
+                },
+                y: {
+                    grid: {
+                        borderDash: [5, 5], /* Dotted grid lines */
+                        color: '#e9ecef',
+                    },
+                    ticks: {
+                        color: '#6c757d',
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false, /* Hide the legend for a cleaner look */
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                    titleFont: { size: 16 },
+                    bodyFont: { size: 14 },
+                    padding: 10,
+                    cornerRadius: 8,
+                },
+            }
+        }
+    });
+
+</script>
+    
+
+
+{% endblock %}
+
+{{ redirect_to_login_immediately }}

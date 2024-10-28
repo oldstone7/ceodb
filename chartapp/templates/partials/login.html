@@ -1,0 +1,456 @@
+
+
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    
+    
+    
+    <style>
+
+      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap');
+
+    * {
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }  
+
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding-top: 34px;
+      }
+
+      body {
+        color: #000;
+        overflow-x: hidden;
+        background-color: #B0BEC5;
+        background-repeat: no-repeat;
+      }
+
+      .container-fluid {
+        height: 100%;
+        padding: 0;
+      }
+
+      .card0 {
+        height: 100%;
+        box-shadow: 0px 4px 8px 0px #757575;
+        border-radius: 0px;
+      }
+
+      .card2 {
+        margin: 0px 40px;
+        max-width: 500px;
+        width: 100%;
+      }
+
+
+      .px-3 {
+        padding-bottom: 5px;
+      }
+
+
+      .error-message {
+        color: red;
+
+      }
+
+      .logo {
+        width: 200px;
+        height: 100px;
+        margin-top: 20px;
+        margin-left: 35px;
+      }
+
+      .image {
+        width: 360px;
+        height: 280px;
+      }
+
+      .border-line {
+        border-right: 1px solid #EEEEEE;
+      }
+
+      .line {
+        height: 1px;
+        width: 45%;
+        background-color: #E0E0E0;
+        margin-top: 10px;
+      }
+
+      .or {
+        width: 10%;
+        font-weight: bold;
+      }
+
+      .text-sm {
+        font-size: 14px !important;
+      }
+
+      ::placeholder {
+        color: #BDBDBD;
+        opacity: 1;
+        font-weight: 300
+      }
+
+      :-ms-input-placeholder {
+        color: #BDBDBD;
+        font-weight: 300
+      }
+
+      ::-ms-input-placeholder {
+        color: #BDBDBD;
+        font-weight: 300
+      }
+
+      input, textarea {
+        padding: 10px 12px 10px 12px;
+        border: 1px solid lightgrey;
+        border-radius: 2px;
+        margin-bottom: 5px;
+        margin-top: 2px;
+        width: 100%;
+        box-sizing: border-box;
+        color: #2C3E50;
+        font-size: 14px;
+        letter-spacing: 1px;
+      }
+
+      input:focus, textarea:focus {
+            -moz-box-shadow: none !important;
+            -webkit-box-shadow: none !important;
+            box-shadow: none !important;
+            border: 1px solid #304FFE;
+            outline-width: 0;
+        }
+
+        input.error:focus, textarea.error:focus {
+            border: 1px solid red; /* Red focus border when there's an error */
+            outline-width: 0;
+        }
+
+        input.error, textarea.error {
+            border: 1px solid red; /* Red border even when not focused */
+        }
+
+
+      
+
+      button:focus {
+        -moz-box-shadow: none !important;
+        -webkit-box-shadow: none !important;
+        box-shadow: none !important;
+        outline-width: 0;
+      }
+
+      a {
+        color: inherit;
+        cursor: pointer;
+      }
+
+      .btn-blue {
+        background-color: #0a405f;
+        width: 150px;
+        color: #cedcd4;
+        border-radius: 2px;
+      }
+
+      .btn-blue:hover {
+        color: #50c594;
+        cursor: pointer;
+      }
+
+    .bg-blue {
+        color: #fff;
+        background-color: #0a405f;
+        }
+
+        .alert-container {
+          position: fixed;
+          top: 80px; /* Adjust according to the height of your topbar */
+          left: 50%;
+          transform: translateX(-50%);
+          z-index: 1050; /* Ensure it is on top of other elements */
+          width: 100%;
+          max-width: 600px; /* Adjust the maximum width of the alert */
+        }
+
+        .alert {
+          margin-bottom: 0; /* Remove bottom margin */
+          border-radius: 5px;
+          box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }    
+        
+    /* Dark mode navbar with custom background color */
+#navbar {
+    background-color: #0c4a6e; 
+}
+
+.navbar-dark .navbar-brand img {
+    height: 42px;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: #fff;
+}
+
+.navbar-dark .navbar-toggler {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.navbar-nav .nav-item .nav-link {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    color: #cedcd4;
+    padding: 0px 20px;
+}
+
+.navbar-nav .nav-item .nav-link:hover {
+    color: #50c594;
+}
+
+.navbar-brand img {
+    height: 42px; /* Adjust the height as needed */
+}
+
+.nav-btn {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+}
+
+
+
+
+      @media screen and (max-width: 991px) {
+        .logo {
+          margin-left: 0px;
+        }
+
+        .image {
+          width: 300px;
+          height: 220px;
+        }
+
+        .border-line {
+          border-right: none;
+        }
+
+        .card2 {
+          border-top: 1px solid #EEEEEE !important;
+          margin: 0px 15px;
+        }
+      }
+
+      @media screen and (min-width: 768px) {
+        .card2 {
+          max-width: 600px;
+        }
+      }
+
+      @media screen and (min-width: 992px) {
+        .card2 {
+          max-width: 550px;
+        }
+      }
+
+      
+
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top sticky" id="navbar">
+        <div class="container">
+            <a href="{% url 'index' %}" class="navbar-brand me-5">
+                <img src="{% static 'img/logo_l.png' %}" class="logo-light" alt="" />
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'index' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'index' %}">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'index' %}">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'index' %}">Faq</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#{% url 'index' %}">Pricing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#{% url 'index' %}">Client</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'index' %}t">Join Us</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="alert-container">
+      {% for message in messages %}
+          <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+              {{ message }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+      {% endfor %}
+    </div>      
+    
+    <div class="container-fluid">
+      <div class="card card0 border-0">
+        <div class="row d-flex h-100">
+          <div class="col-lg-6 d-flex align-items-center justify-content-center">
+            <div class="card1 pb-5">
+              <div class="row">&nbsp;</div>
+              <div class="row px-3 justify-content-center mt-4 mb-5 border-line">
+                <img src="https://i.imgur.com/uNGdWHi.png" class="image">
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 d-flex align-items-center justify-content-center">
+            <div class="card2 card border-0 px-4 py-5">
+              <div class="row mb-4 px-3">
+                <h2 class="mb-0 mr-4 mt-2">Sign in</h2>
+              </div>
+              <div class="row px-3 mb-4">
+                <div class="line"></div>
+                <small class=" text-center"></small>
+                <div class="line"></div>
+              </div>
+              
+              <form method="post" action="{% url 'login' %}" id="loginForm" autocomplete="off">
+                {% csrf_token %}
+                {% if error %}
+                    <div class="error-message">{{ error }}</div>
+                {% endif %}
+                <div class="form-group">  
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+                    <div class="error-message" id="emailError"></div>
+                  </div>
+                <div class="form-group">                  
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" required>
+                    <div class="error-message" id="passwordError"></div>
+                </div>
+                <div style="display: flex; justify-content: flex-end">
+                  <small class="font-weight-bold"> <a href="" class="text-danger ">Forgot Password?</a></small>
+                </div>
+                <button type="submit" class="btn btn-blue" id="login">Sign In</button>
+            </form>
+            <br>
+              <div class="row mb-4 px-3">
+                <small class="font-weight-bold">Don't have an account? <a href="{% url 'register' %}" class="text-danger ">Register</a></small>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bg-blue py-3">
+          <div class="row px-3">
+            <small class="ml-4 ml-sm-5 mb-2">Copyright &copy; 2024. All rights reserved.</small>
+            <div class="social-contact ml-4 ml-sm-auto">
+              <span class="fa fa-facebook mr-4 text-sm"></span>
+              <span class="fa fa-google-plus mr-4 text-sm"></span>
+              <span class="fa fa-linkedin mr-4 text-sm"></span>
+              <span class="fa fa-twitter mr-4 mr-sm-5 text-sm"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+
+document.addEventListener("DOMContentLoaded", function() {
+            // Select all alert elements
+            var alerts = document.querySelectorAll('.alert');
+
+            // Set a timeout to remove each alert after 2 seconds (2000 milliseconds)
+            setTimeout(function() {
+                alerts.forEach(function(alert) {
+                    alert.style.transition = "opacity 0.5s ease-out";
+                    alert.style.opacity = "0";
+                    setTimeout(function() {
+                        alert.style.display = "none";
+                    }, 500); // 500 milliseconds transition time
+                });
+            }, 3000);
+        });
+
+
+                (function() {
+            'use strict';
+
+            window.addEventListener('load', function() {
+                var form = document.getElementById('loginForm');
+
+                form.addEventListener('input', function(event) {
+                    var target = event.target;
+                    var errorId = target.id + 'Error';
+                    var errorElement = document.getElementById(errorId);
+
+                    switch (target.id) {
+                        case 'email':
+                            validateEmail(target, errorElement);
+                            break;
+                        case 'password':
+                            validatePassword(target, errorElement);
+                            break;
+                    }
+                });
+
+                function validateEmail(emailInput, errorElement) {
+                    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (emailInput.value === '') {
+                        showError(emailInput, errorElement, 'Email cannot be empty');
+                    } else if (!emailRegex.test(emailInput.value) || emailInput.value.endsWith('.')) {
+                        showError(emailInput, errorElement, 'Enter a valid email');
+                    } else {
+                        hideError(emailInput, errorElement);
+                    }
+                }
+                function validatePassword(passwordInput, errorElement) {
+                    if (passwordInput.value === '') {
+                        showError(passwordInput, errorElement, 'Password cannot be empty');
+                    } else {
+                        hideError(passwordInput, errorElement);
+                    }
+                }
+
+     
+            function showError(inputElement, errorElement, errorMessage) {
+                inputElement.classList.add('error');
+                errorElement.textContent = errorMessage;
+                errorElement.style.display = 'block';
+            }
+
+            function hideError(inputElement, errorElement) {
+                inputElement.classList.remove('error');
+                errorElement.textContent = '';
+                errorElement.style.display = 'none';
+            }
+        }, false);
+    })();
+    
+    </script>
+  </body>
+</html>

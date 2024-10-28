@@ -1,0 +1,64 @@
+{% extends 'admin_panel/base.html' %}
+
+{% block title %}Product List{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="py-3 py-lg-4">
+        <div class="row">
+            <div class="col-lg-6">
+                <h4 class="page-title mb-0">Product Management</h4>
+            </div>
+            <div class="col-lg-6">
+               <div class="d-none d-lg-block">
+                <ol class="breadcrumb m-0 float-end">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Products</a></li>
+                    <li class="breadcrumb-item active">product List</li>
+                </ol>
+               </div>
+            </div>
+        </div>
+    </div>
+    <h4 class="page-title mb-3" style="margin:15px 20px 30px 10px;">Products</h4>
+    <div class="row">
+        <div class="col-12">
+            <div class="col-12">
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="basic-datatable" class="table dt-responsive nowrap w-100">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>No. of Products</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for product in products %}
+                                <tr>
+                                    <td><a href="{% url 'product_update' product.id %}">{{ product.category }}</a></td>
+                                    <td>{{ product.num_of_products }}</td>
+                                    
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                 </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-end">
+            <a href="{% url 'product_create' %}" class="btn btn-sm btn-primary" style="margin-right: 35px;">
+                <i class="fas fa-plus"></i> Add New product
+            </a>
+        </div>
+    </div> <br>
+</div>
+{% endblock %}

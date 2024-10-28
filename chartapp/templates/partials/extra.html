@@ -1,0 +1,2033 @@
+{% extends "users/base.html" %}
+{% block title %} Register Page {% endblock title%}
+{% block content %}
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Registration Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anta&family=Protest+Revolution&display=swap" rel="stylesheet">
+    <!-- Include the flag-icon-css stylesheet using a CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
+    
+ 
+    <script src="{% static 'js/intlTelInput.js' %}"></script>
+    
+    <link rel="stylesheet" href="{% static 'css/demo.css' %}">
+    <link rel="stylesheet" href="{% static 'css/intlTelInput.css' %}"> 
+
+    <style>
+        .error-message {
+            color: red;
+            
+            margin-top: 5px;
+        }
+    </style>
+
+    
+
+
+</head>
+
+
+    <div class="form-content my-3 p-3">
+		<div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-7">
+                    <div class="card shadow-lg border-0 rounded-lg mt-0 mb-5">
+                        <div class="card-header justify-content-center">
+                        	<h3 class="font-weight-light my-4 text-center">Create Account</h3>
+                        </div>
+                        <div class="card-body">
+                            
+                           <form method="POST" id="RegisterForm" class="needs-validation">
+                                {% csrf_token %}
+ 
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="small mb-1">First Name</label>
+                                            {{ registerform.first_name }}
+                                        </div>
+                                        <div class="error-message" id="firstNameError"></div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="small mb-1">Last Name</label>
+                                            {{ registerform.last_name }}
+                                        </div>
+                                        <div class="error-message" id="lastNameError"></div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-6">
+		                                <div class="form-group">
+		                                	<label class="small mb-1">Username</label>
+		                                    {{ registerform.username }}
+		                                </div>
+                                        <div class="error-message" id="usernameError"></div>
+		                            </div>
+                                    <div class="col-md-6">
+		                                <div class="form-group">
+		                                	<label class="small mb-1">Email</label>
+		                                    {{ registerform.email }}
+		                                </div>
+                                        <div class="error-message" id="emailError"></div>
+		                            </div>
+		                        </div>
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="small mb-1">Password</label>
+                                            {{ registerform.password1 }}
+                                            <div class="error-message" id="passwordError"></div> 
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+
+                                        <div class="form-group">
+                                            <label class="small mb-1">Confirm Password</label>
+                                            {{ registerform.password2 }}
+                                            <div class="error-message" id="repeatPasswordError"></div> 
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="small mb-1">Phone</label>
+                                            <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="Phone Number" required>
+                                            <div class="error-message" id="phoneNumberError"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="small mb-1">Country</label>
+                                            <select class="form-select country" id="country" aria-label="Default select example" onchange="loadStates()">
+                                                <option selected>Select Country</option>              
+                                            </select>
+                                            <div class="error-message" id="countryError"></div>
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="small mb-1">State</label>
+                                            <select class="form-select state" id="state" aria-label="Default select example" onchange="loadCities()">
+                                                <option selected>Select State</option>
+                                            </select>
+                                            <div class="error-message" id="stateError"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="small mb-1">City</label>
+                                            
+                                            <select class="form-select city" id="city" aria-label="Default select example">
+                                                <option selected>Select State</option>
+                                            </select>
+                                            <div class="error-message" id="cityError"></div>
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group mt-4 mb-0">
+                                    <button type="submit" class="col-md-12 btn btn-dark">Sign Up</button><br><br>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="card-footer text-center">
+                            <div class="small">
+                                <a href="{% url 'login' %}">Already a member? Go to Sign in</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</div>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-vtXRMe3mGCbOeY7l30aIg8H9p3GdeSe4IFlP6G8JMa7o7lXvnz3GFKzPxzJdPfGK" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+
+<script> 
+
+
+    var input = document.querySelector("#phoneNumber");
+    window.intlTelInput(input,{});
+
+
+
+
+    (function() {
+        'use strict';
+
+
+        var agreeTermsCheckbox = document.getElementById('agreeTerms');
+        var regbutton = document.getElementById('Regbutton');
+        function disableRegisterButton() {
+
+
+            agreeTermsCheckbox.addEventListener('change', function() {
+                regbutton.disabled = !agreeTermsCheckbox.checked;
+            });
+        }  
+        window.addEventListener('load', disableRegisterButton);   
+
+        window.addEventListener('load', function() {
+            var form = document.getElementById('RegisterForm');
+            var agreeTermsCheckbox = document.getElementById('agreeTerms');
+
+            
+            form.addEventListener('input', function(event) {
+                var target = event.target;
+                var errorId = target.id + 'Error';
+                var errorElement = document.getElementById(errorId);
+                
+                switch (target.id) {
+                    case 'username':
+                        validateUsername(target, errorElement);
+                        break;
+                    case 'password':
+                        validatePassword(target, errorElement);
+                        break;
+                    case 'repeatPassword':
+                        validateRepeatPassword(target, errorElement);
+                        break;
+                    case 'firstName':
+                        validateFirstName(target, errorElement);
+                        break;
+                    case 'lastName':
+                        validateLastName(target, errorElement);
+                        break;
+                    case 'email':
+                        validateEmail(target, errorElement);
+                        break;
+                    case 'phoneNumber':
+                        validatePhoneNumber(target, errorElement);
+                        break;
+                    case 'country':
+                        validateCountry(target, errorElement);
+                        break;
+                    case 'state':
+                        validateState(target, errorElement);
+                        break;
+                    case 'city':
+                        validateCity(target, errorElement);
+                        break;
+                    case 'address':
+                        validateAddress(target, errorElement);
+                        break;
+                    case 'agreeTerms':
+                        validateAgreeTerms(target, errorElement);
+                        break;
+                    default:
+                        break;
+                }
+            });
+
+            function validateUsername(usernameInput, errorElement) {
+                if (usernameInput.value.trim() === '') {
+                    showError(usernameInput, errorElement, 'Username cannot be empty');
+                } else {
+                    hideError(usernameInput, errorElement);
+                }
+            }
+
+            function validatePassword(passwordInput, errorElement) {
+                if (passwordInput.value === '') {
+                    showError(passwordInput, errorElement, 'Password cannot be empty');
+                } else if (passwordInput.value.length < 8 || !/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(passwordInput.value)) {
+                    showError(passwordInput, errorElement, 'Password must be alphanumeric with one special character and minimum 8 characters');
+                } else {
+                    hideError(passwordInput, errorElement);
+                }
+            }
+
+            function validateRepeatPassword(repeatPasswordInput, errorElement) {
+                var passwordInput = document.getElementById('password');
+                if (repeatPasswordInput.value === '') {
+                    showError(repeatPasswordInput, errorElement, 'Repeat Password cannot be empty');
+                } else if (repeatPasswordInput.value !== passwordInput.value) {
+                    showError(repeatPasswordInput, errorElement, 'Passwords do not match');
+                } else {
+                    hideError(repeatPasswordInput, errorElement);
+                }
+            }
+
+            function validateFirstName(firstNameInput, errorElement) {
+                const nameRegex = /^[A-Za-z]+$/;
+                const consecutiveRegex = /(.)\1{2,}/; // Checks if the same letter is repeated 3 or more times
+                if (firstNameInput.value.trim() === '') {
+                    showError(firstNameInput, errorElement, 'First Name cannot be empty');
+                } else if (!nameRegex.test(firstNameInput.value)) {
+                    showError(firstNameInput, errorElement, 'First Name should be Alphabets only');
+                } else if (consecutiveRegex.test(firstNameInput.value)) {
+                    showError(firstNameInput, errorElement, 'Consecutive letters are not allowed');
+                } else {
+                    hideError(firstNameInput, errorElement);
+                }
+            }
+
+            function validateLastName(lastNameInput, errorElement) {
+                const nameRegex = /^[A-Za-z]+$/;
+                const consecutiveRegex = /(.)\1{2,}/;
+                if (lastNameInput.value.trim() === '') {
+                    showError(lastNameInput, errorElement, 'Last Name cannot be empty');
+                } else if (!nameRegex.test(lastNameInput.value)) {
+                    showError(lastNameInput, errorElement, 'Last Name should be Alphabets only');
+                } else if (consecutiveRegex.test(lastNameInput.value)) {
+                    showError(lastNameInput, errorElement, 'Consecutive letters are not allowed');
+                } 
+                else {
+                    hideError(lastNameInput, errorElement);
+                }
+            }
+
+            function validateEmail(emailInput, errorElement) {
+                var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (emailInput.value === '') {
+                    showError(emailInput, errorElement, 'Email cannot be empty');
+                } else if (!emailRegex.test(emailInput.value) || emailInput.value.endsWith('.')) {
+                    showError(emailInput, errorElement, 'Enter a valid email');
+                } else {
+                    hideError(emailInput, errorElement);
+                }
+            }
+
+
+            function validatePhoneNumber(phoneNumberInput, errorElement) {
+                var phoneRegex = /^\d{10}$/;
+                if (phoneNumberInput.value === '') {
+                    showError(phoneNumberInput, errorElement, 'Phone Number cannot be empty');
+                } else if (!phoneRegex.test(phoneNumberInput.value)) {
+                    showError(phoneNumberInput, errorElement, 'Enter a valid phone number');
+                } else {
+                    hideError(phoneNumberInput, errorElement);
+                }
+            }
+
+            function validateCountry(countryInput, errorElement) {
+                if (countryInput.value === '') {
+                    showError(countryInput, errorElement, 'Country cannot be empty');
+                } else {
+                    hideError(countryInput, errorElement);
+                }
+            }
+
+            function validateState(stateInput, errorElement) {
+                if (stateInput.value.trim() === '') {
+                    showError(stateInput, errorElement, 'State cannot be empty');
+                } else {
+                    hideError(stateInput, errorElement);
+                }
+            }
+
+            function validateCity(cityInput, errorElement) {
+                if (cityInput.value.trim() === '') {
+                    showError(cityInput, errorElement, 'City cannot be empty');
+                } else {
+                    hideError(cityInput, errorElement);
+                }
+            }
+
+            function validateAddress(addressInput, errorElement) {
+                if (addressInput.value.trim() === '') {
+                    showError(addressInput, errorElement, 'Address cannot be empty');
+                } else {
+                    hideError(addressInput, errorElement);
+                }
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+                loadCountryCodes();
+
+                // Add flag icons to select options
+                const select = document.getElementById('countryCodeSelect');
+                Array.from(select.options).forEach(option => {
+                    const countryCode = option.getAttribute('data-countryCode');
+                    if (countryCode) {
+                        const flagIcon = document.createElement('i');
+                        flagIcon.classList.add('flag-icon');
+                        flagIcon.classList.add(`flag-icon-${countryCode.toLowerCase()}`);
+                        option.prepend(flagIcon);
+                    }
+                });
+            });
+
+
+            function showError(inputElement, errorElement, errorMessage) {
+                inputElement.classList.add('is-invalid');
+                errorElement.textContent = errorMessage;
+                errorElement.style.display = 'block';
+            }
+
+            function hideError(inputElement, errorElement) {
+                inputElement.classList.remove('is-invalid');
+                errorElement.textContent = '';
+                errorElement.style.display = 'none';
+            }
+        }, false);
+    })();
+
+    var config = {
+    cUrl: 'https://api.countrystatecity.in/v1/countries',
+    ckey: 'U25vSFMzTHEzODRCVG5EZFpnbnR1dXhXZDUzdEJhRmlKT0Y4dkJUVw=='
+}
+
+
+var countrySelect = document.querySelector('.country'),
+    stateSelect = document.querySelector('.state'),
+    citySelect = document.querySelector('.city')
+
+
+function loadCountries() {
+
+    let apiEndPoint = config.cUrl
+
+    fetch(apiEndPoint, {headers: {"X-CSCAPI-KEY": config.ckey}})
+    .then(Response => Response.json())
+    .then(data => {
+        // console.log(data);
+
+        data.forEach(country => {
+            const option = document.createElement('option')
+            option.value = country.iso2
+            option.textContent = country.name 
+            countrySelect.appendChild(option)
+        })
+    })
+    .catch(error => console.error('Error loading countries:', error))
+
+    stateSelect.disabled = true
+    citySelect.disabled = true
+    stateSelect.style.pointerEvents = 'none'
+    citySelect.style.pointerEvents = 'none'
+}
+
+
+function loadCountryCodes() {
+    let apiEndPoint = config.cUrl;
+    let countryCodeSelect = document.getElementById('countryCodeSelect'); // Assuming countryCodeSelect is the ID of your select element
+
+    fetch(apiEndPoint, { headers: { "X-CSCAPI-KEY": config.ckey } })
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(country => {
+                const option = document.createElement('option');
+                option.value = country.phonecode;
+                option.textContent = `+${country.phonecode} (${country.name})`;
+                option.setAttribute('data-countryCode', country.iso2); // Add data attribute for country code
+                countryCodeSelect.appendChild(option);
+            });
+        })
+        .catch(error => console.error('Error loading country codes:', error));
+}
+
+
+function loadStates() {
+    stateSelect.disabled = false
+    citySelect.disabled = true
+    stateSelect.style.pointerEvents = 'auto'
+    citySelect.style.pointerEvents = 'none'
+
+    const selectedCountryCode = countrySelect.value
+    // console.log(selectedCountryCode);
+    stateSelect.innerHTML = '<option value="">Select State</option>' // for clearing the existing states
+    citySelect.innerHTML = '<option value="">Select City</option>' // Clear existing city options
+
+    fetch(`${config.cUrl}/${selectedCountryCode}/states`, {headers: {"X-CSCAPI-KEY": config.ckey}})
+    .then(response => response.json())
+    .then(data => {
+        // console.log(data);
+
+        data.forEach(state => {
+            const option = document.createElement('option')
+            option.value = state.iso2
+            option.textContent = state.name 
+            stateSelect.appendChild(option)
+        })
+    })
+    .catch(error => console.error('Error loading countries:', error))
+}
+
+
+function loadCities() {
+    citySelect.disabled = false
+    citySelect.style.pointerEvents = 'auto'
+
+    const selectedCountryCode = countrySelect.value
+    const selectedStateCode = stateSelect.value
+    // console.log(selectedCountryCode, selectedStateCode);
+
+    citySelect.innerHTML = '<option value="">Select City</option>' // Clear existing city options
+
+    fetch(`${config.cUrl}/${selectedCountryCode}/states/${selectedStateCode}/cities`, {headers: {"X-CSCAPI-KEY": config.ckey}})
+    .then(response => response.json())
+    .then(data => {
+        // console.log(data);
+
+        data.forEach(city => {
+            const option = document.createElement('option')
+            option.value = city.iso2
+            option.textContent = city.name 
+            citySelect.appendChild(option)
+        })
+    })
+}
+
+window.onload = loadCountries()
+
+
+</script>
+
+
+</body>
+</html>
+{% endblock %}
+
+<!--Green register/Login-->
+<html>
+    <head>
+        <title>Register</title>
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+        
+    <style>
+    :root {
+        --primary-color: #4EA685;
+        --secondary-color: #57B894;
+        --black: #000000;
+        --white: #ffffff;
+        --gray: #efefef;
+        --gray-2: #757575;
+
+        --facebook-color: #4267B2;
+        --google-color: #DB4437;
+        --twitter-color: #1DA1F2;
+        --insta-color: #E1306C;
+    }
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap');
+
+    * {
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+html,
+body {
+    height: 100vh;
+    overflow: hidden;
+    background-color: #0C4A6E;
+}
+
+.container {
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    height: 100vh;
+}
+
+.col {
+    width: 50%;
+}
+
+.align-items-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.form-wrapper {
+    width: 100%;
+    max-width: 28rem;
+}
+
+.form {
+    padding: 1rem;
+    background-color: var(--white);
+    border-radius: 1.5rem;
+    width: 100%;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    transform: scale(0);
+    transition: .5s ease-in-out;
+    transition-delay: 1s;
+}
+
+.input-group {
+    position: relative;
+    width: 100%;
+    margin: 1rem 0;
+}
+
+.input-group i {
+    position: absolute;
+    top: 50%;
+    left: 1rem;
+    transform: translateY(-50%);
+    font-size: 1.4rem;
+    color: var(--gray-2);
+}
+
+.toggle-password1 {
+  position: absolute;
+  top: 50%;
+  right: 3.4rem;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.toggle-password2 {
+  position: absolute;
+  top: 50%;
+  right: 3.4rem;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.toggle-password1 i {
+  color: #777;
+}
+
+.toggle-password1:hover i {
+  color: #333;
+}
+
+.toggle-password2 i {
+  color: #777;
+}
+
+.toggle-password2:hover i {
+  color: #333;
+}
+
+.password-group input:focus + .toggle-password {
+  opacity: 1; /* Show the eye icon when the input field is focused */
+}
+
+.error-message {
+    color: red;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 1rem 3rem;
+    font-size: 1rem;
+    background-color: var(--gray);
+    border-radius: .5rem;
+    border: 0.125rem solid var(--white);
+    outline: none;
+}
+
+.input-group input:focus {
+    border: 0.125rem solid var(--primary-color);
+}
+
+.form button {
+    cursor: pointer;
+    width: 100%;
+    padding: .6rem 0;
+    border-radius: .5rem;
+    border: none;
+    background-color: var(--primary-color);
+    color: var(--white);
+    font-size: 1.2rem;
+    outline: none;
+}
+
+.form p {
+    margin: 1rem 0;
+    font-size: .7rem;
+}
+
+.flex-col {
+    flex-direction: column;
+}
+
+.error-message {
+    color: red;
+}
+
+a {
+    text-decoration: none;
+}
+
+.social-list {
+    margin: 2rem 0;
+    padding: 1rem;
+    border-radius: 1.5rem;
+    width: 100%;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    transform: scale(0);
+    transition: .5s ease-in-out;
+    transition-delay: 1.2s;
+}
+
+.social-list>div {
+    color: var(--white);
+    margin: 0 .5rem;
+    padding: .7rem;
+    cursor: pointer;
+    border-radius: .5rem;
+    cursor: pointer;
+    transform: scale(0);
+    transition: .5s ease-in-out;
+}
+
+.social-list>div:nth-child(1) {
+    transition-delay: 1.4s;
+}
+
+.social-list>div:nth-child(2) {
+    transition-delay: 1.6s;
+}
+
+.social-list>div:nth-child(3) {
+    transition-delay: 1.8s;
+}
+
+.social-list>div:nth-child(4) {
+    transition-delay: 2s;
+}
+
+.social-list>div>i {
+    font-size: 1.5rem;
+    transition: .4s ease-in-out;
+}
+
+.social-list>div:hover i {
+    transform: scale(1.5);
+}
+
+.facebook-bg {
+    background-color: var(--facebook-color);
+}
+
+.google-bg {
+    background-color: var(--google-color);
+}
+
+.twitter-bg {
+    background-color: var(--twitter-color);
+}
+
+.insta-bg {
+    background-color: var(--insta-color);
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.container.sign-in .form.sign-in,
+.container.sign-in .social-list.sign-in,
+.container.sign-in .social-list.sign-in>div,
+.container.sign-up .form.sign-up,
+.container.sign-up .social-list.sign-up,
+.container.sign-up .social-list.sign-up>div {
+    transform: scale(1);
+}
+
+.content-row {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 6;
+    width: 100%;
+}
+
+.text {
+    margin: 4rem;
+    color: var(--white);
+}
+
+.text h2 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin: 2rem 0;
+    transition: 1s ease-in-out;
+}
+
+.text p {
+    font-weight: 600;
+    transition: 1s ease-in-out;
+    transition-delay: .2s;
+}
+
+.img img {
+    width: 30vw;
+    transition: 1s ease-in-out;
+    transition-delay: .4s;
+}
+
+.text.sign-in h2,
+.text.sign-in p,
+.img.sign-in img {
+    transform: translateX(-250%);
+}
+
+.text.sign-up h2,
+.text.sign-up p,
+.img.sign-up img {
+    transform: translateX(250%);
+}
+
+.container.sign-in .text.sign-in h2,
+.container.sign-in .text.sign-in p,
+.container.sign-in .img.sign-in img,
+.container.sign-up .text.sign-up h2,
+.container.sign-up .text.sign-up p,
+.container.sign-up .img.sign-up img {
+    transform: translateX(0);
+}
+
+/* BACKGROUND */
+
+.container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 300vw;
+    transform: translate(35%, 0);
+    background-image: linear-gradient(-45deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    transition: 1s ease-in-out;
+    z-index: 6;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-bottom-right-radius: max(50vw, 50vh);
+    border-top-left-radius: max(50vw, 50vh);
+}
+
+.container.sign-in::before {
+    transform: translate(0, 0);
+    right: 50%;
+}
+
+.container.sign-up::before {
+    transform: translate(100%, 0);
+    right: 50%;
+}
+
+/* RESPONSIVE */
+
+@media only screen and (max-width: 425px) {
+
+    .container::before,
+    .container.sign-in::before,
+    .container.sign-up::before {
+        height: 100vh;
+        border-bottom-right-radius: 0;
+        border-top-left-radius: 0;
+        z-index: 0;
+        transform: none;
+        right: 0;
+    }
+
+    /* .container.sign-in .col.sign-up {
+        transform: translateY(100%);
+    } */
+
+    .container.sign-in .col.sign-in,
+    .container.sign-up .col.sign-up {
+        transform: translateY(0);
+    }
+
+    .content-row {
+        align-items: flex-start !important;
+    }
+
+    .content-row .col {
+        transform: translateY(0);
+        background-color: unset;
+    }
+
+    .col {
+        width: 100%;
+        position: absolute;
+        padding: 2rem;
+        background-color: var(--white);
+        border-top-left-radius: 2rem;
+        border-top-right-radius: 2rem;
+        transform: translateY(100%);
+        transition: 1s ease-in-out;
+    }
+
+    .row {
+        align-items: flex-end;
+        justify-content: flex-end;
+    }
+
+    .form,
+    .social-list {
+        box-shadow: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .text {
+        margin: 0;
+    }
+
+    .text p {
+        display: none;
+    }
+
+    .text h2 {
+        margin: .5rem;
+        font-size: 2rem;
+    }
+}
+    </style>
+    
+    </head>
+<body>
+<div id="container" class="container">
+    <!-- FORM SECTION -->
+    <div class="row">
+        <!-- SIGN UP -->
+        
+        <div class="col align-items-center flex-col sign-up">
+            <div class="form-wrapper align-items-center">
+                <form method="post" action="{% url 'register' %}" id="registerForm" autocomplete="off">
+                    {% csrf_token %}
+                    <div class="form sign-up">
+                        <div class="input-group">
+                            <i class='bx bxs-user'></i>
+                            {{ registerform.username }}
+                        </div>
+                        <div class="error-message" id="usernameError"></div>
+                        <div class="input-group">
+                            <i class='bx bxs-user'></i>
+                            {{ registerform.first_name }}
+                        </div>
+                        <div class="error-message" id="firstNameError"></div>
+                        <div class="input-group">
+                            <i class='bx bxs-user'></i>
+                            {{ registerform.last_name }}
+                        </div>
+                        <div class="error-message" id="lastNameError"></div>
+                        <div class="input-group">
+                            <i class='bx bx-mail-send'></i>
+                            {{ registerform.email }}
+                        </div>
+                        <div class="error-message" id="emailError"></div>
+                        <div class="input-group">
+                            <i class='bx bxs-lock-alt'></i>
+                            {{ registerform.password1 }}
+                            <span class="toggle-password1" onclick="togglePasswordVisibility1()">
+                                <i class="fas fa-eye "></i>
+                            </span>
+                        </div>
+                        <div class="error-message" id="passwordError"></div>
+                        <div class="input-group">
+                            <i class='bx bxs-lock-alt'></i>
+                            {{ registerform.password2 }}
+                            <span class="toggle-password2" onclick="togglePasswordVisibility2()">
+                                <i class="fas fa-eye"></i>
+                            </span>
+                        </div> 
+                        <div class="error-message" id="repeatPasswordError"></div>
+
+                        <button type="submit">
+                            Sign up
+                        </button>
+                </form>            
+                    <p>
+                        <span>
+                            Already have an account?
+                        </span>
+                        <a href="{% url 'login' %}"><b >
+                            Sign in here
+                        </b> </a>
+                    </p>
+                </div>
+            </div>
+        
+        </div>
+        <!-- END SIGN UP -->
+        <!-- SIGN IN -->
+        <div class="col align-items-center flex-col sign-in">
+            <div class="form-wrapper align-items-center">
+                <form method="post" action="{% url 'login' %}">
+                    {% csrf_token %}
+                <div class="form sign-in">
+                    <div class="input-group">
+                        <i class='bx bxs-user'></i>
+                        {{ loginform.username }}
+                    </div>
+                    <div class="input-group">
+                        <i class='bx bxs-lock-alt'></i>
+                        {{ loginform.password }}
+                    </div>
+                    <button type="submit">
+                        Sign in
+                    </button>
+                </form>
+                    <p>
+                        <b>
+                            Forgot password?
+                        </b>
+                    </p>
+                    <p>
+                        <span>
+                            Don't have an account?
+                        </span>
+                        <b onclick="toggle()" class="pointer">
+                            Sign up here
+                        </b>
+                    </p>
+                </div>
+            </div>
+            <div class="form-wrapper">
+    
+            </div>
+        </div>
+        <!-- END SIGN IN -->
+    </div>
+    <!-- END FORM SECTION -->
+    <!-- CONTENT SECTION -->
+    <div class="row content-row">
+        <!-- SIGN IN CONTENT -->
+        <div class="col align-items-center flex-col">
+            <div class="text sign-in">
+                <h2>
+                    Register here
+                </h2>
+
+            </div>
+            <div class="img sign-in">
+    
+            </div>
+        </div>
+        <!-- END SIGN IN CONTENT -->
+        <!-- SIGN UP CONTENT -->
+        <div class="col align-items-center flex-col">
+            <div class="img sign-up">
+            
+            </div>
+            <div class="text sign-up">
+                <h2>
+                    Register here
+                </h2>
+
+            </div>
+        </div>
+        <!-- END SIGN UP CONTENT -->
+    </div>
+    <!-- END CONTENT SECTION -->
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-vtXRMe3mGCbOeY7l30aIg8H9p3GdeSe4IFlP6G8JMa7o7lXvnz3GFKzPxzJdPfGK" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+    
+    <script>
+        let container = document.getElementById('container')
+
+        toggle = () => {
+            container.classList.toggle('sign-in')
+            container.classList.toggle('sign-up')
+        }
+
+        setTimeout(() => {
+            container.classList.add('sign-up')
+        }, 200)
+
+        function togglePasswordVisibility1() {
+            var passwordInput = document.getElementById("password");
+            var eyeIcon1 = document.querySelector(".toggle-password1 i");
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                eyeIcon1.className = "fas fa-eye-slash ";
+            } else {
+                passwordInput.type = "password";
+                eyeIcon1.className = "fas fa-eye ";
+            }
+        }
+
+        function togglePasswordVisibility2() {
+            var passwordInput = document.getElementById("repeatPassword");
+            var eyeIcon2 = document.querySelector(".toggle-password2 i");
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                eyeIcon2.className = "fas fa-eye-slash";
+            } else {
+                passwordInput.type = "password";
+                eyeIcon2.className = "fas fa-eye";
+            }
+        }
+ 
+ 
+        (function() {
+            'use strict';
+
+            
+            window.addEventListener('load', function() {
+                var form = document.getElementById('registerForm');
+                
+
+                
+                form.addEventListener('input', function(event) {
+                    var target = event.target;
+                    var errorId = target.id + 'Error';
+                    var errorElement = document.getElementById(errorId);
+                    
+                    switch (target.id) {
+                        case 'username':
+                            validateUsername(target, errorElement);
+                            break;
+                        case 'password':
+                            validatePassword(target, errorElement);
+                            break;
+                        case 'repeatPassword':
+                            validateRepeatPassword(target, errorElement);
+                            break;
+                        case 'email':
+                            validateEmail(target, errorElement);
+                            break;
+                        case 'firstName':
+                            validateFirstName(target, errorElement);
+                            break;
+                        case 'lastName':
+                            validateLastName(target, errorElement);
+                            break;                        
+                    }
+                });
+
+                function validateUsername(usernameInput, errorElement) {
+                    if (usernameInput.value.trim() === '') {
+                        showError(usernameInput, errorElement, 'Username cannot be empty');
+                    } else {
+                        hideError(usernameInput, errorElement);
+                    }
+                }
+
+                function validatePassword(passwordInput, errorElement) {
+                    if (passwordInput.value === '') {
+                        showError(passwordInput, errorElement, 'Password cannot be empty');
+                    } else if (passwordInput.value.length < 8 || !/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(passwordInput.value)) {
+                        showError(passwordInput, errorElement, 'Set a strong password');
+                    } else {
+                        hideError(passwordInput, errorElement);
+                    }
+                }
+
+                function validateRepeatPassword(repeatPasswordInput, errorElement) {
+                    var passwordInput = document.getElementById('password');
+                    if (repeatPasswordInput.value === '') {
+                        showError(repeatPasswordInput, errorElement, 'Password cannot be empty');
+                    } else if (repeatPasswordInput.value !== passwordInput.value) {
+                        showError(repeatPasswordInput, errorElement, 'Passwords do not match');
+                    } else {
+                        hideError(repeatPasswordInput, errorElement);
+                    }
+                }
+
+                function validateEmail(emailInput, errorElement) {
+                    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (emailInput.value === '') {
+                        showError(emailInput, errorElement, 'Email cannot be empty');
+                    } else if (!emailRegex.test(emailInput.value) || emailInput.value.endsWith('.')) {
+                        showError(emailInput, errorElement, 'Enter a valid email');
+                    } else {
+                        hideError(emailInput, errorElement);
+                    }
+                }
+                
+                function validateFirstName(firstNameInput, errorElement) {
+                const nameRegex = /^[A-Za-z]+$/;
+                const consecutiveRegex = /(.)\1{2,}/; // Checks if the same letter is repeated 3 or more times
+                if (firstNameInput.value.trim() === '') {
+                    showError(firstNameInput, errorElement, 'First Name cannot be empty');
+                } else if (!nameRegex.test(firstNameInput.value)) {
+                    showError(firstNameInput, errorElement, 'First Name should be Alphabets only');
+                } else if (consecutiveRegex.test(firstNameInput.value)) {
+                    showError(firstNameInput, errorElement, 'Consecutive letters are not allowed');
+                } else {
+                    hideError(firstNameInput, errorElement);
+                }
+            }
+
+            function validateLastName(lastNameInput, errorElement) {
+                const nameRegex = /^[A-Za-z]+$/;
+                const consecutiveRegex = /(.)\1{2,}/;
+                if (lastNameInput.value.trim() === '') {
+                    showError(lastNameInput, errorElement, 'Last Name cannot be empty');
+                } else if (!nameRegex.test(lastNameInput.value)) {
+                    showError(lastNameInput, errorElement, 'Last Name should be Alphabets only');
+                } else if (consecutiveRegex.test(lastNameInput.value)) {
+                    showError(lastNameInput, errorElement, 'Consecutive letters are not allowed');
+                } 
+                else {
+                    hideError(lastNameInput, errorElement);
+                }
+            }
+
+
+                function showError(inputElement, errorElement, errorMessage) {
+                    inputElement.classList.add('is-invalid');
+                    errorElement.textContent = errorMessage;
+                    errorElement.style.display = 'block';
+                }
+
+                function hideError(inputElement, errorElement) {
+                    inputElement.classList.remove('is-invalid');
+                    errorElement.textContent = '';
+                    errorElement.style.display = 'none';
+                }
+            }, false);
+    })();
+
+
+    </script>
+
+</body>
+</html>
+
+
+<div class="mt-5 d-none d-xl-block">
+    <h5 class="text-center">How It Works ?</h5>
+
+    <ul class="ps-3">
+        <li class="text-muted mb-3">
+            You can add, delete and manage events and plan your schedule throughout your day, week, or months.</li>
+        <li class="text-muted mb-3">
+            Just choose an existing theme from the list here or create a new one of your choice and customize it into a category such as Success,Danger ., </li>
+        <li class="text-muted mb-3">
+            Drag and drop the event to your choice of the day in week, day, or month calendar by selecting the option.</li>
+    </ul>
+</div>
+
+
+<!--Register/Login-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <title>Sign Up</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body{
+            background-color: #c9d6ff;
+            background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .container{
+            background-color: #fff;
+            border-radius: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+            position: relative;
+            overflow: hidden;
+            width: 768px;
+            max-width: 100%;
+            min-height: 480px;
+        }
+
+        .container p{
+            font-size: 14px;
+            line-height: 20px;
+            letter-spacing: 0.3px;
+            margin: 20px 0;
+        }
+
+        .container span{
+            font-size: 12px;
+        }
+
+        .container a{
+            color: #333;
+            font-size: 13px;
+            text-decoration: none;
+            margin: 15px 0 10px;
+        }
+
+        .container button{
+            background-color: #512da8;
+            color: #fff;
+            font-size: 12px;
+            padding: 10px 45px;
+            border: 1px solid transparent;
+            border-radius: 8px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        .container button.hidden{
+            background-color: transparent;
+            border-color: #fff;
+        }
+
+        .container form{
+            background-color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 0 40px;
+            height: 100%;
+        }
+
+        .container input{
+            background-color: #eee;
+            border: none;
+            margin: 8px 0;
+            padding: 10px 15px;
+            font-size: 13px;
+            border-radius: 8px;
+            width: 100%;
+            outline: none;
+        }
+
+        .form-container{
+            position: absolute;
+            top: 0;
+            height: 100%;
+            transition: all 0.6s ease-in-out;
+        }
+
+        .sign-in{
+            left: 0;
+            width: 50%;
+            z-index: 2;
+        }
+
+        .container.active .sign-in{
+            transform: translateX(100%);
+        }
+
+        .sign-up{
+            left: 0;
+            width: 50%;
+            opacity: 0;
+            z-index: 1;
+        }
+
+        .container.active .sign-up{
+            transform: translateX(100%);
+            opacity: 1;
+            z-index: 5;
+            animation: move 0.6s;
+        }
+
+        @keyframes move{
+            0%, 49.99%{
+                opacity: 0;
+                z-index: 1;
+            }
+            50%, 100%{
+                opacity: 1;
+                z-index: 5;
+            }
+        }
+
+        .social-icons{
+            margin: 20px 0;
+        }
+
+        .social-icons a{
+            border: 1px solid #ccc;
+            border-radius: 20%;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 3px;
+            width: 40px;
+            height: 40px;
+        }
+
+        .toggle-container{
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 50%;
+            height: 100%;
+            overflow: hidden;
+            transition: all 0.6s ease-in-out;
+            border-radius: 150px 0 0 100px;
+            z-index: 1000;
+        }
+
+        .container.active .toggle-container{
+            transform: translateX(-100%);
+            border-radius: 0 150px 100px 0;
+        }
+
+        .toggle{
+            background-color: #512da8;
+            height: 100%;
+            background: linear-gradient(to right, #5c6bc0, #512da8);
+            color: #fff;
+            position: relative;
+            left: -100%;
+            height: 100%;
+            width: 200%;
+            transform: translateX(0);
+            transition: all 0.6s ease-in-out;
+        }
+
+        .container.active .toggle{
+            transform: translateX(50%);
+        }
+
+        .toggle-panel{
+            position: absolute;
+            width: 50%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 0 30px;
+            text-align: center;
+            top: 0;
+            transform: translateX(0);
+            transition: all 0.6s ease-in-out;
+        }
+
+        .toggle-left{
+            transform: translateX(-200%);
+        }
+
+        .container.active .toggle-left{
+            transform: translateX(0);
+        }
+
+        .toggle-right{
+            right: 0;
+            transform: translateX(0);
+        }
+
+        .container.active .toggle-right{
+            transform: translateX(200%);
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="container" id="container">
+        <div class="form-container sign-up">
+            <form method="POST" action="{% url 'register' %}">
+                {% csrf_token %}
+                <h1>Create Account</h1>
+                <div class="social-icons">
+                    <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
+                </div>
+                <span>or use your email for registeration</span>   
+                {{ registerform.username }}
+                {{ registerform.email }}
+                {{ registerform.password1 }}
+                {{ registerform.password2 }}
+                <button type="submit">Sign Up</button>
+            </form>
+        </div>
+        <div class="form-container sign-in">
+            <form method="POST" action="{% url 'login' %}">
+                {% csrf_token %}
+                <h1>Sign In</h1>
+                <div class="social-icons">
+                    <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
+                </div>
+                
+                {{ loginform.username }}
+                {{ loginform.password }}
+                <a href="#">Forget Your Password?</a>
+                <button type="submit">Sign In</button>
+            </form>
+        </div>
+        <div class="toggle-container">
+            <div class="toggle">
+                <div class="toggle-panel toggle-left">
+                    <h1>Welcome Back!</h1>
+                    <p>Enter your personal details to use all of site features</p>
+                    <button class="hidden" id="login">Sign In</button>
+                </div>
+                <div class="toggle-panel toggle-right">
+                    <h1>Hello, Friend!</h1>
+                    <p>Register with your personal details to use all of site features</p>
+                    <button class="hidden" id="register">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const container = document.getElementById('container');
+        const registerBtn = document.getElementById('register');
+        const loginBtn = document.getElementById('login');
+
+        registerBtn.addEventListener('click', () => {
+            container.classList.add("active");
+        });
+
+        loginBtn.addEventListener('click', () => {
+            container.classList.remove("active");
+        });
+    </script>
+</body>
+
+</html>
+
+<!-- chat -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Application</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f2f5;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+    max-width: 100vw;
+}
+
+.sidebar {
+    width: 30%;
+    background-color: #075e54;
+    color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #075e54;
+}
+
+.profile-pic {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.user-info {
+    flex: 1;
+}
+
+.sidebar-icons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.sidebar-icons .material-icons {
+    cursor: pointer;
+}
+
+.search-bar {
+    padding: 10px 20px;
+    background-color: #0d7a71;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    background-color: #f0f2f5;
+}
+
+.contact-list {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.contact {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    cursor: pointer;
+}
+
+.contact:hover {
+    background-color: #0d7a71;
+}
+
+.contact-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.contact-info {
+    flex: 1;
+}
+
+.contact-meta {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-meta .unread-count {
+    background-color: #25d366;
+    color: white;
+    border-radius: 50%;
+    padding: 5px 10px;
+    margin-top: 5px;
+}
+
+.chat-section {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+}
+
+.chat-header {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #f1f1f1;
+    background-color: #f0f2f5;
+}
+
+.chat-header .contact-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.chat-header h3 {
+    flex: 1;
+}
+
+.chat-header-icons {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.chat-header-icons .material-icons {
+    cursor: pointer;
+}
+
+.chat-messages {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background-color: #e5ddd5;
+}
+
+.message {
+    max-width: 60%;
+    padding: 10px 15px;
+    border-radius: 15px;
+    margin-bottom: 15px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.message.sent {
+    background-color: #dcf8c6;
+    margin-left: auto;
+}
+
+.message.received {
+    background-color: #fff;
+    border: 1px solid #f1f1f1;
+}
+
+.message span {
+    font-size: 12px;
+    color: gray;
+    align-self: flex-end;
+}
+
+.message-input {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    border-top: 1px solid #f1f1f1;
+    background-color: #f0f2f5;
+}
+
+.message-input .material-icons {
+    cursor: pointer;
+    margin: 0 10px;
+}
+
+.message-input input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    background-color: white;
+    margin-right: 10px;
+}
+
+.message-input button {
+    background-color: #075e54;
+    border: none;
+    color: white;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <img src="user-profile.jpg" alt="Profile Picture" class="profile-pic">
+                <div class="user-info">
+                    <h2>Username</h2>
+                    <p>Status message here</p>
+                </div>
+                <div class="sidebar-icons">
+                    <i class="material-icons">donut_large</i>
+                    <i class="material-icons">chat</i>
+                    <i class="material-icons">more_vert</i>
+                </div>
+            </div>
+            <div class="search-bar">
+                <input type="text" placeholder="Search or start new chat">
+            </div>
+            <div class="contact-list">
+                <div class="contact">
+                    <img src="contact1.jpg" alt="Contact Picture" class="contact-pic">
+                    <div class="contact-info">
+                        <h3>Contact Name</h3>
+                        <p>Last message...</p>
+                    </div>
+                    <div class="contact-meta">
+                        <span>12:45 PM</span>
+                        <span class="unread-count">2</span>
+                    </div>
+                </div>
+                <!-- Repeat for more contacts -->
+            </div>
+        </div>
+        <div class="chat-section">
+            <div class="chat-header">
+                <img src="contact1.jpg" alt="Contact Picture" class="contact-pic">
+                <h3>Contact Name</h3>
+                <div class="chat-header-icons">
+                    <i class="material-icons">search</i>
+                    <i class="material-icons">attach_file</i>
+                    <i class="material-icons">more_vert</i>
+                </div>
+            </div>
+            <div class="chat-messages">
+                <div class="message sent">
+                    <p>Hello, how are you?</p>
+                    <span>10:00 AM</span>
+                </div>
+                <div class="message received">
+                    <p>I'm good, thank you!</p>
+                    <span>10:05 AM</span>
+                </div>
+                <!-- Repeat for more messages -->
+            </div>
+            <div class="message-input">
+                <i class="material-icons">insert_emoticon</i>
+                <input type="text" placeholder="Type a message">
+                <i class="material-icons">mic</i>
+                <button><i class="material-icons">send</i></button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+
+
+<!--
+
+{% extends 'users/base.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Salvador Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anta&family=Protest+Revolution&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .heading {
+            display: flex;
+            padding: 45px 0px;
+            justify-content: center;
+        }
+
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 62vh;
+            
+        }
+
+        .login-box {
+            width: 300px;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+
+        .login-title {
+            text-align: center;
+            color: #000000;
+            margin-bottom: 30px;
+            font-size: 33px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .eye-icon {
+            cursor: pointer;
+        }
+
+        .forgot-password {
+            text-align: right;
+            font-size: 14px;
+            margin: 20px 0px;
+        }
+
+        .register-link {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+        .anta-regular {
+            font-family: "Anta", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+            text-align: center;
+            
+        }
+        .error-message {
+            color: red;
+            
+        }
+        .alert-icon {
+            display: none;
+            color: red;
+            margin-left: 5px;
+        }
+        .alert-icon-circle {
+            border: 1px solid red;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            text-align: center;
+            line-height: 18px;
+            font-size: 12px;
+        }
+        .s-input-icon.js-alert-icon svg {
+            fill: red;
+        }
+        .s-input-icon.js-alert-icon.svg-icon.iconAlertCircle path {
+            fill: red !important;
+        }
+        .form-control {
+            border-color: #555;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <br><br>
+    <div class="login-container">
+        <div class="login-box">
+            <h1 class="login-title">Login</h1>
+            <form action="{% url 'login' %}" method="post" id="loginForm" class="needs-validation">
+                {% csrf_token %}
+
+                {% if error_message %}
+                    <p id="errorMessage" class="error-message" style="text-align:center;">{{ error_message }}</p>
+                {% endif %}    
+                <div class="mb-3">
+                    
+                    <input type="text" class="form-control" id="username" name="username" placeholder="Username">
+                    <div class="error-message" id="usernameError"></div>
+                    
+                </div>
+                <div class="mb-3">
+                    
+                    <div class="input-group">
+                        <input type="password"  class="form-control" id="password" name="password" placeholder="Password">
+                        <span style="border-color:#555 ;" class="input-group-text eye-icon" onclick="togglePasswordVisibility()">
+                            <i class="fas fa-eye"></i>
+                        </span>
+                    </div>
+                    <div class="error-message" id="passwordError"></div>
+                    
+                </div>
+                <div class="error-message" id="errorMessage"></div>
+                <div class="forgot-password">
+                    <a href="{% url 'password_reset' %}">Forgot Password?</a>
+                </div>
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-dark">Login</button>
+                </div>
+                
+            </form>
+           
+            <div class="register-link">
+                <p>Not a member? <a href="{% url 'register' %}">Register here</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-vtXRMe3mGCbOeY7l30aIg8H9p3GdeSe4IFlP6G8JMa7o7lXvnz3GFKzPxzJdPfGK" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+    
+    <script>
+        function togglePasswordVisibility() {
+            var passwordInput = document.getElementById("password");
+            var eyeIcon = document.querySelector(".eye-icon i");
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                eyeIcon.className = "fas fa-eye-slash";
+            } else {
+                passwordInput.type = "password";
+                eyeIcon.className = "fas fa-eye";
+            }
+        }
+      
+        
+        (function() {
+            'use strict';
+
+            window.addEventListener('load', function() {
+                var form = document.getElementById('loginForm');
+
+                form.addEventListener('input', function(event) {
+                    var target = event.target;
+                    var errorId = target.id + 'Error';
+                    var errorElement = document.getElementById(errorId);
+
+                    switch (target.id) {
+                        case 'username':
+                            validateUsername(target, errorElement);
+                            break;
+                        case 'password':
+                            validatePassword(target, errorElement);
+                            break;
+                    }
+                });
+
+                function validateUsername(usernameInput, errorElement) {
+                    if (usernameInput.value.trim() === '') {
+                        showError(usernameInput, errorElement, 'Username cannot be empty');
+                    } else {
+                        hideError(usernameInput, errorElement);
+                    }
+                }
+                function validatePassword(passwordInput, errorElement) {
+                    if (passwordInput.value === '') {
+                        showError(passwordInput, errorElement, 'Password cannot be empty');
+                    } else {
+                        hideError(passwordInput, errorElement);
+                    }
+                }
+
+     
+            function showError(inputElement, errorElement, errorMessage) {
+                inputElement.classList.add('is-invalid');
+                errorElement.textContent = errorMessage;
+                errorElement.style.display = 'block';
+            }
+
+            function hideError(inputElement, errorElement) {
+                inputElement.classList.remove('is-invalid');
+                errorElement.textContent = '';
+                errorElement.style.display = 'none';
+            }
+        }, false);
+    })();
+
+        
+
+
+
+      
+    </script>
+</body>
+</html>
+
+{% endblock %}

@@ -1,0 +1,236 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light" data-menu-color="brand" data-topbar-color="light">
+
+<head>
+    <meta charset="utf-8" />
+    <title>CEO Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="assets/images/favicon.ico">
+
+    <link href="{% static 'css/morris.css' %}" rel="stylesheet" type="text/css"/>
+
+
+    <!-- App css -->
+    <!-- Include Font Awesome CSS
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"> -->
+    <link href="{% static 'css/style.min.css' %}" rel="stylesheet" type="text/css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css" rel="stylesheet" type="text/css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="{% static 'css/icons.min.css' %}" rel="stylesheet" type="text/css">
+    <script src="{% static 'js/config.js' %}"></script>
+    <script src="https://kit.fontawesome.com/13916af6b0.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    <!-- Begin page -->
+    <div class="layout-wrapper">
+
+        <!-- ========== Left Sidebar ========== -->
+        <div class="main-menu">
+            <!-- Brand Logo -->
+            <div class="logo-box">
+                <!-- Brand Logo Light -->
+                <a class='logo-light' href="{% url 'index' %}">
+                    <img src="{% static 'img/B_logo.png' %}" alt="logo" class="logo-lg" height="68"> 
+                </a>
+
+                
+            </div>
+            <script>
+
+            </script>
+
+            <!--- Menu -->
+            <div data-simplebar>
+                <ul class="app-menu">
+
+                    <li class="menu-title">Menu</li>
+
+                    
+                    {% if show_finance %}
+                    <li class="menu-item">
+                        <a class='menu-link waves-effect waves-light' href="{% url 'finance' %}">
+                            <span class="menu-icon"><i class="mdi mdi-finance"></i></span>
+                            <span class="menu-text"> Finance </span>
+                        </a>
+                    </li>
+                    {% endif %}
+
+                    {% if show_sales %}
+                    <li class="menu-item">
+                        <a class='menu-link waves-effect waves-light' href="{% url 'sales' %}">
+                            <span class="menu-icon"><i class="mdi mdi-sale-outline"></i></span>
+                            <span class="menu-text"> Sales </span>
+                        </a>
+                    </li>
+                    {% endif %}
+
+                    {% if show_operations %}
+                    <li class="menu-item">
+                        <a class='menu-link waves-effect waves-light' href="{% url 'op' %}">
+                            <span class="menu-icon"><i class="mdi mdi-chart-box-outline"></i></span>
+                            <span class="menu-text"> Operations </span>
+                        </a>
+                    </li>
+                    {% endif %}
+                    
+
+
+                    <li class="menu-item">
+                        <a class='menu-link waves-effect waves-light' href="{% url 'user_list' %}">
+                            <span class="menu-icon"><i class="mdi mdi-chat-outline"></i></span>
+                            <span class="menu-text"> Chat </span>
+                        </a>
+                    </li>
+                    {% if user.is_staff %}
+                    <li class="menu-item">
+                        <a href="{% url 'admindash' %}" class="menu-link waves-effect waves-light">
+                            <span class="menu-icon"><i class="mdi mdi-account-box-outline"></i></span>
+                            <span class="menu-text"> Admin </span>
+                            
+                        </a>
+
+                    </li>
+                    {% endif %}
+
+                    
+                    <li class="menu-item">
+                        <a href="{% url 'logout' %}" class="menu-link waves-effect waves-light">
+                            <span class="menu-icon"><i class="mdi mdi-logout" style="color: #cedce4;"></i></span>
+                            <span class="menu-text"> Logout </span>
+                            
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+
+        
+
+        <!-- ============================================================== -->
+        <!-- Start Page Content here -->
+        <!-- ============================================================== -->
+
+        <div class="page-content">
+
+            <!-- ========== Topbar Start ========== -->
+            <div class="navbar-custom">
+                <div class="topbar">
+                    <div class="topbar-menu d-flex align-items-center gap-lg-2 gap-1">
+
+                        
+
+                        <!-- Sidebar Menu Toggle Button -->
+                        <button class="button-toggle-menu">
+                            <i class="mdi mdi-menu"></i></button>
+                    </div>
+
+                    <ul class="topbar-menu d-flex align-items-center gap-4">
+
+
+                        <li class="nav-link" id="theme-mode">
+                            <i class="bx bx-moon font-size-24"></i>
+                        </li>
+
+                        <li class="dropdown">
+                            <a class="nav-link dropdown-toggle nav-user me-0 waves-effect waves-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                                <img src="{% static 'img/avatar-1.jpg' %}" alt="user-image" class="rounded-circle">
+                                <span class="ms-1 d-none d-md-inline-block">
+                                    {{ user.first_name }} <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="21"><title>chevron-down</title><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" /></svg>
+                                </span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end profile-dropdown ">
+                                
+
+                                <!-- item-->
+                                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                    <i class="fe-user"></i>
+                                    <span>My Account</span>
+                                </a>
+
+                                <!-- item-->
+                                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                    <i class="fe-settings"></i>
+                                    <span>Settings</span>
+                                </a>
+
+                                <div class="dropdown-divider"></div>
+
+                                <!-- item-->
+                                <a class='dropdown-item notify-item' href="{% url 'logout' %}">
+                                    <i class="fe-log-out"></i>
+                                    <span>Logout</span>
+                                </a>
+
+                            </div>
+                        </li>
+          
+                    </ul>
+                </div>
+            </div>
+            <!-- ========== Topbar End ========== -->
+            {% block content %}
+             <!-- content -->
+            {% endblock %}
+            <!-- Footer Start -->
+            <footer class="footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6">
+                            
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-none d-md-flex gap-4 align-item-center justify-content-md-end">
+                                <div><script>document.write(new Date().getFullYear())</script> © Salvador.Inc,</div>  
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+            <!-- end Footer -->
+
+        </div>
+
+        <!-- ============================================================== -->
+        <!-- End Page content -->
+        <!-- ============================================================== -->
+
+    </div>
+    <!-- END wrapper -->
+
+    <!-- App js -->
+    <script src="https://myrathemes.com/dashtrap/assets/js/vendor.min.js"></script>
+    <script src="https://myrathemes.com/dashtrap/assets/js/app.js"></script>
+
+    <!-- Apex charts js -->
+    <script src="https://myrathemes.com/dashtrap/assets/libs/apexcharts/apexcharts.min.js"></script>
+    <script src="https://apexcharts.com/samples/assets/irregular-data-series.js"></script>
+    <script src="https://apexcharts.com/samples/assets/ohlc.js"></script>
+    <script src="{% static 'js/apexcharts.js' %}"></script>
+
+    <!-- Sparkline Js-->
+    <script src="https://myrathemes.com/dashtrap/assets/libs/jquery-sparkline/jquery.sparkline.min.js"></script>
+
+    <script src="https://myrathemes.com/dashtrap/assets/libs/morris.js/morris.min.js"></script>
+
+    <script src="https://myrathemes.com/dashtrap/assets/libs/raphael/raphael.min.js"></script>
+
+    <!-- Dashboard init-->
+    <script src="{% static 'js/dashboard.js' %}"></script>
+
+</body>
+
+</html>
+
+
+{{ redirect_to_login_immediately }}
+
+      

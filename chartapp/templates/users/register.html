@@ -1,0 +1,286 @@
+{% extends "users/base.html" %}
+{% block title %} Register Page {% endblock title%}
+{% block content %}
+    <div class="form-content my-3 p-3">
+		<div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-7">
+                    <div class="card shadow-lg border-0 rounded-lg mt-0 mb-5">
+                        <div class="card-header justify-content-center">
+                        	<h3 class="font-weight-light my-4 text-center">Create Account</h3>
+                        </div>
+                        <div class="card-body">
+                            <form method="POST" id="RegisterForm" class="needs-validation">
+                                {% csrf_token %}
+                                {% if form.errors %}
+                                    <div class="alert alert-danger alert-dismissible" role="alert">
+                                        <div id="form_errors">
+                                            {% for key, value in form.errors.items %}
+                                                <strong>{{ value }}</strong>
+                                            {% endfor %}
+                                        </div>
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                {% endif %}
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="small mb-1">First Name</label>
+                                            {{ form.first_name }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="small mb-1">Last Name</label>
+                                            {{ form.last_name }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-6">
+		                                <div class="form-group">
+		                                	<label class="small mb-1">Username</label>
+		                                    {{ form.username }}
+		                                </div>
+		                            </div>
+                                    <div class="col-md-6">
+		                                <div class="form-group">
+		                                	<label class="small mb-1">Email</label>
+		                                    {{ form.email }}
+		                                </div>
+		                            </div>
+		                        </div>
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="small mb-1">Password</label>
+                                            {{ form.password1 }}
+                                            <div class="error-message" id="passwordError"></div> 
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+
+                                        <div class="form-group">
+                                            <label class="small mb-1">Confirm Password</label>
+                                            {{ form.password2 }}
+                                            <div class="error-message" id="repeatPasswordError"></div> 
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group mt-4 mb-0">
+                                    <button type="submit" class="col-md-12 btn btn-dark">Sign Up</button><br><br>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="card-footer text-center">
+                            <div class="small">
+                                <a href="{% url 'login' %}">Have an account? Go to Sign in</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</div>
+    <script>
+        (function() {
+            'use strict';
+
+        window.addEventListener('load', function() {
+            var form = document.getElementById('RegisterForm');
+            var agreeTermsCheckbox = document.getElementById('agreeTerms');
+
+            
+            form.addEventListener('input', function(event) {
+                var target = event.target;
+                var errorId = target.id + 'Error';
+                var errorElement = document.getElementById(errorId);
+                
+                switch (target.id) {
+                    case 'username':
+                        validateUsername(target, errorElement);
+                        break;
+                    case 'password':
+                        validatePassword(target, errorElement);
+                        break;
+                    case 'repeatPassword':
+                        validateRepeatPassword(target, errorElement);
+                        break;
+                    case 'firstName':
+                        validateFirstName(target, errorElement);
+                        break;
+                    case 'lastName':
+                        validateLastName(target, errorElement);
+                        break;
+                    case 'email':
+                        validateEmail(target, errorElement);
+                        break;
+                    case 'phoneNumber':
+                        validatePhoneNumber(target, errorElement);
+                        break;
+                    case 'country':
+                        validateCountry(target, errorElement);
+                        break;
+                    case 'state':
+                        validateState(target, errorElement);
+                        break;
+                    case 'city':
+                        validateCity(target, errorElement);
+                        break;
+                    case 'address':
+                        validateAddress(target, errorElement);
+                        break;
+                    case 'agreeTerms':
+                        validateAgreeTerms(target, errorElement);
+                        break;
+                    default:
+                        break;
+                }
+            });
+
+            function validateUsername(usernameInput, errorElement) {
+                if (usernameInput.value.trim() === '') {
+                    showError(usernameInput, errorElement, 'Username cannot be empty');
+                } else {
+                    hideError(usernameInput, errorElement);
+                }
+            }
+
+            function validatePassword(passwordInput, errorElement) {
+                if (passwordInput.value === '') {
+                    showError(passwordInput, errorElement, 'Password cannot be empty');
+                } else if (passwordInput.value.length < 8 || !/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(passwordInput.value)) {
+                    showError(passwordInput, errorElement, 'Password must be alphanumeric with one special character and minimum 8 characters');
+                } else {
+                    hideError(passwordInput, errorElement);
+                }
+            }
+
+            function validateRepeatPassword(repeatPasswordInput, errorElement) {
+                var passwordInput = document.getElementById('password');
+                if (repeatPasswordInput.value === '') {
+                    showError(repeatPasswordInput, errorElement, 'Repeat Password cannot be empty');
+                } else if (repeatPasswordInput.value !== passwordInput.value) {
+                    showError(repeatPasswordInput, errorElement, 'Passwords do not match');
+                } else {
+                    hideError(repeatPasswordInput, errorElement);
+                }
+            }
+
+            function validateFirstName(firstNameInput, errorElement) {
+                const nameRegex = /^[A-Za-z]+$/;
+                const consecutiveRegex = /(.)\1{2,}/; // Checks if the same letter is repeated 3 or more times
+                if (firstNameInput.value.trim() === '') {
+                    showError(firstNameInput, errorElement, 'First Name cannot be empty');
+                } else if (!nameRegex.test(firstNameInput.value)) {
+                    showError(firstNameInput, errorElement, 'First Name should be Alphabets only');
+                } else if (consecutiveRegex.test(firstNameInput.value)) {
+                    showError(firstNameInput, errorElement, 'Consecutive letters are not allowed');
+                } else {
+                    hideError(firstNameInput, errorElement);
+                }
+            }
+
+            function validateLastName(lastNameInput, errorElement) {
+                if (lastNameInput.value.trim() === '') {
+                    showError(lastNameInput, errorElement, 'Last Name cannot be empty');
+                } else if (!nameRegex.test(lastNameInput.value)) {
+                    showError(lastNameInput, errorElement, 'Last Name should be Alphabets only');
+                } else if (consecutiveRegex.test(lastNameInput.value)) {
+                    showError(lastNameInput, errorElement, 'Consecutive letters are not allowed');
+                } 
+                else {
+                    hideError(lastNameInput, errorElement);
+                }
+            }
+
+            function validateEmail(emailInput, errorElement) {
+                var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (emailInput.value === '') {
+                    showError(emailInput, errorElement, 'Email cannot be empty');
+                } else if (!emailRegex.test(emailInput.value) || emailInput.value.endsWith('.')) {
+                    showError(emailInput, errorElement, 'Enter a valid email');
+                } else {
+                    hideError(emailInput, errorElement);
+                }
+            }
+
+
+            function validatePhoneNumber(phoneNumberInput, errorElement) {
+                var phoneRegex = /^\d{10}$/;
+                if (phoneNumberInput.value === '') {
+                    showError(phoneNumberInput, errorElement, 'Phone Number cannot be empty');
+                } else if (!phoneRegex.test(phoneNumberInput.value)) {
+                    showError(phoneNumberInput, errorElement, 'Enter a valid phone number');
+                } else {
+                    hideError(phoneNumberInput, errorElement);
+                }
+            }
+
+            function validateCountry(countryInput, errorElement) {
+                if (countryInput.value === '') {
+                    showError(countryInput, errorElement, 'Country cannot be empty');
+                } else {
+                    hideError(countryInput, errorElement);
+                }
+            }
+
+            function validateState(stateInput, errorElement) {
+                if (stateInput.value.trim() === '') {
+                    showError(stateInput, errorElement, 'State cannot be empty');
+                } else {
+                    hideError(stateInput, errorElement);
+                }
+            }
+
+            function validateCity(cityInput, errorElement) {
+                if (cityInput.value.trim() === '') {
+                    showError(cityInput, errorElement, 'City cannot be empty');
+                } else {
+                    hideError(cityInput, errorElement);
+                }
+            }
+
+            function validateAddress(addressInput, errorElement) {
+                if (addressInput.value.trim() === '') {
+                    showError(addressInput, errorElement, 'Address cannot be empty');
+                } else {
+                    hideError(addressInput, errorElement);
+                }
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+                loadCountryCodes();
+
+                // Add flag icons to select options
+                const select = document.getElementById('countryCodeSelect');
+                Array.from(select.options).forEach(option => {
+                    const countryCode = option.getAttribute('data-countryCode');
+                    if (countryCode) {
+                        const flagIcon = document.createElement('i');
+                        flagIcon.classList.add('flag-icon');
+                        flagIcon.classList.add(`flag-icon-${countryCode.toLowerCase()}`);
+                        option.prepend(flagIcon);
+                    }
+                });
+            });
+
+
+            function showError(inputElement, errorElement, errorMessage) {
+                inputElement.classList.add('is-invalid');
+                errorElement.textContent = errorMessage;
+                errorElement.style.display = 'block';
+            }
+
+            function hideError(inputElement, errorElement) {
+                inputElement.classList.remove('is-invalid');
+                errorElement.textContent = '';
+                errorElement.style.display = 'none';
+            }
+        }, false);
+    })();
+
+    </script>
+{% endblock content %}

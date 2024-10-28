@@ -1,0 +1,20 @@
+# Sensitive environment file
+.env
+
+# Compiled files
+chartapp/__pycache__/
+*.py[cod]
+
+chart_django_project/__pycache__/
+
+# Virtual environment
+venv/
+
+# Django database
+db.sqlite3
+
+# Log files
+*.log
+
+#media files
+media

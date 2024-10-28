@@ -1,0 +1,183 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<div class="chat-container">
+    <!-- Chat Header -->
+    <div class="chat-header">
+        <div class="chat-user-info">
+            <h4>{{ other_user.first_name }}</h4>
+        </div>
+        <div class="chat-header-icons">
+            <span class="mdi mdi-magnify mdi-24px"></span>
+            <span class="mdi mdi-information-outline mdi-24px"></span>
+            <span class="mdi mdi-dots-vertical mdi-24px"></span>
+        </div>
+    </div>
+
+    <!-- Chat Box (Messages) -->
+    <div id="chat-box" class="chat-box">
+        {% for message in messages %}
+        <div class="chat-message {% if message.sender == user %}sent{% else %}received{% endif %}">
+            <div class="message-content">
+                <!-- Show Text Content -->
+                {% if message.content %}
+                    {{ message.content }}
+                {% endif %}
+                
+                <!-- Show File (if any) -->
+                {% if message.file %}
+                    <a href="{{ message.file.url }}" download>{{ message.file.name|slice:"11:" }}</a>
+                {% endif %}
+                
+                <span class="message-timestamp">{{ message.timestamp|date:"g:i A" }}</span>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Chat Input & File Upload Form -->
+    <div class="chat-input-container">
+        <form id="chat-form" class="chat-form" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div id="file-name-display" class="file-name-display"></div>
+            
+            <input type="file" name="file" id="chat-file-input" class="chat-file-input">
+            <label for="chat-file-input" class="file-upload-button">
+                <i id="paperclip" class="mdi mdi-paperclip mdi-24px"></i>
+            </label>
+    
+            <input type="text" name="message" id="chat-message-input" class="chat-input" autocomplete="off" placeholder="Type a message">
+        
+            <button type="submit" class="send-button">
+                <i class="mdi mdi-send mdi-24px"></i>
+            </button>
+        </form>
+    </div>
+    
+</div>
+
+    
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const fileInput = document.getElementById('chat-file-input');
+        const fileNameDisplay = document.getElementById('file-name-display');
+        const chatBox = document.getElementById('chat-box');
+        const userId = "{{ user.id }}";
+        const otherUserId = "{{ other_user.id }}";
+
+        // Scroll to the bottom of the chat box on load
+        chatBox.scrollTop = chatBox.scrollHeight;
+
+        // File input change event
+        fileInput.addEventListener('change', function() {
+            const file = fileInput.files[0]; // Get the selected file
+            if (file) {
+                fileNameDisplay.textContent = "Selected File: " + file.name; // Update the text to show the file name
+                fileNameDisplay.style.display = 'block'; // Make the file name display visible
+            } else {
+                fileNameDisplay.style.display = 'none'; // Hide if no file is selected
+            }
+        });
+
+        // WebSocket connection
+        const chatSocket = new WebSocket(
+            'ws://' + window.location.host + '/ws/chat/' + otherUserId + '/'
+        );
+
+        chatSocket.onopen = function(e) {
+            console.log('WebSocket connection opened');
+        };
+
+        chatSocket.onmessage = function(e) {
+            const data = JSON.parse(e.data);
+            const message = document.createElement('div');
+
+            // Check if the message is sent by the logged-in user or the other user
+            if (data.sender_id == userId) {
+                message.className = 'chat-message sent';  // Apply styles for sent messages
+                message.innerHTML = `
+                    <div class="message-content">
+                        ${data.message}
+                        <span class="message-timestamp">${data.timestamp}</span>       
+                    </div>`;
+            } else {
+                message.className = 'chat-message received';  // Apply styles for received messages
+                message.innerHTML = `
+                    <div class="message-content">
+                        ${data.message}
+                        <span class="message-timestamp">${data.timestamp}</span>                       
+                    </div>`;
+            }
+
+            chatBox.appendChild(message);
+            chatBox.scrollTop = chatBox.scrollHeight;  // Scroll to the latest message
+
+            // Update the last message and timestamp in the contact list
+            const lastMessageElement = document.getElementById(`last-message-${otherUserId}`);
+            const contactElement = document.querySelector(`.contacts a[href$="${otherUserId}/"]`);
+            const lastSeenElement = contactElement.querySelector('.last-seen');
+
+            if (lastMessageElement) {
+                lastMessageElement.textContent = data.message;
+            }
+            if (lastSeenElement) {
+                lastSeenElement.textContent = data.timestamp;
+            }
+        };
+
+        chatSocket.onclose = function(e) {
+            console.error('Chat socket closed unexpectedly');
+        };
+
+        chatSocket.onerror = function(e) {
+            console.error('WebSocket error:', e);
+        };
+
+        // Send message when button is clicked
+        document.getElementById('chat-message-submit').onclick = function(e) {
+            sendMessage();
+        };
+
+        // Send message on Enter key press
+        document.getElementById('chat-message-input').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+
+        // Function to send the message
+        function sendMessage() {
+            const input = document.getElementById('chat-message-input');
+            const message = input.value;
+            if (message.trim() === '') return;
+
+            if (chatSocket.readyState === WebSocket.OPEN) {
+                chatSocket.send(JSON.stringify({
+                    'message': message
+                }));
+                input.value = ''; // Clear input after sending
+            } else {
+                console.error('WebSocket is not open: ', chatSocket.readyState);
+            }
+        }
+
+        // Function to format the timestamp
+        function formatTimestamp(date) {
+            const now = new Date();
+            const timeDiff = Math.abs(now - date);
+            const oneDay = 24 * 60 * 60 * 1000;
+
+            if (timeDiff < oneDay) {
+                return date.toLocaleTimeString([], { hour: '1-digit', minute: '2-digit', hour12: true });
+            } else {
+                return date.toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric' });
+            }
+        }
+    });
+</script>
+
+    
+
+{% endblock %}

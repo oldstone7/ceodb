@@ -1,0 +1,683 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Salvador Inc.,</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- favicon -->
+    <link rel="shortcut icon" href="images/favicon.ico" />
+
+    <!-- tinyslider -->
+    <link rel="stylesheet" href="https://themesdesign.in/stabig/layouts/css/tiny-slider.css" />
+
+    <!-- css -->
+    <link href="https://themesdesign.in/stabig/layouts/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="{% static 'css/styles.min.css' %}" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body data-bs-spy="scroll" data-bs-target="#navbar" data-bs-offset="67">
+    <!-- start navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top sticky" id="navbar">
+        <div class="container">
+            <a href="index.html" class="navbar-brand me-5">
+                    <img src="{% static 'img/logo_l.png' %}" class="logo-light" alt="" height="42"/>
+                    <img src="{% static 'img/logo_d.png' %}" class="logo-dark" alt="" height="42" />
+                    
+                </a>
+            <a href="javascript:void(0)" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggle-icon"><i data-feather="menu"></i></span>
+                </a>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav navbar-center me-auto mt-lg-0 mt-2">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#feature">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#service">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#faq">Faq</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#pricing">Pricing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#client">Client</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Join Us</a>
+                    </li>
+                </ul>
+                <div>
+                    <a href="{% url 'login' %}" class="btn btn-sm nav-btn btn-primary mb-2 mb-lg-0 ms-auto">Register/Login</a>
+                </div>
+            </div>
+        </div>
+        <!-- end container -->
+    </nav>
+    <!-- end navba r -->
+
+    <!-- start hero -->
+    <section class="hero-2 bg-dark position-relative overflow-hidden" id="home">
+        <div class="container">
+            <div class="row align-items-center justify-content-center text-center">
+                <div class="col-lg-8">
+                    <h1 class="hero-2-title fw-medium text-white mb-3 pb-2">What are you looking upto?</h1>
+                    <h6 class="text-muted lh-base fw-normal mb-4 pb-3">Keep track of your personal or company performances in real time with smooth data visualization.</h6>
+                    <div class="input-group subsc">
+                        <input type="email" class="form-control bg-dark rounded position-relative ps-4" placeholder="Enter Email...">
+                        <button class="btn btn-primary rounded hero-btn">Get Started</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-4 mt-lg-5 pt-5">
+                    <img class="img-fluid rounded" src="{% static 'img/img-1.jpg' %}" alt="">
+                </div>
+                <div class="col-lg-6 mt-lg-5 pt-lg-5">
+                    <div class="row">
+                        <div class="col-lg-6 mt-lg-0 mt-4">
+                            <img class="img-fluid rounded" src="{% static 'img/img-2.jpg' %}" alt="">
+                        </div>
+                        <div class="col-lg-6 mt-lg-0 mt-4">
+                            <img class="img-fluid rounded" src="{% static 'img/img-3.jpg' %}"  alt="">
+                        </div>
+
+                        <div class="col-lg-12 mt-4">
+                            <img class="img-fluid rounded" src="{% static 'img/img-4.jpg' %}" alt="">
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end container -->
+    </section>
+    <!-- end hero -->
+
+    <!-- start solution -->
+    <section class="section">
+        <div class="container">
+            <div class="row justify-content-center text-center">
+                <div class="col-12 mb-4">
+                    <h4 class="fw-semibold mb-3">Get Every Solution</h4>
+                    <h5 class="text-muted fw-normal">Don't you get what you want?</h5>
+                </div>
+            </div>
+            <div class="row text-center">
+                <div class="col-lg-12">
+                    <div class="feature-slider">
+                        <div>
+                            <div class="mt-4 pt-2">
+                                <div class="solution border rounded position-relative px-4 py-5">
+                                    <i data-feather="user" class="sw-1 mb-4 icon-xxl sol-icon"></i>
+                                    <h5 class="lh-base fs-16 mb-2">Employee Management</h5>
+                                    <a class="text-muted"><span class="fw-semibold fs-15 text-dark">$2.98</span> - Month</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="mt-4 pt-2">
+                                <div class="solution border rounded position-relative px-4 py-5 active">
+                                    <i data-feather="layout" class="sw-1 mb-4 icon-xxl sol-icon"></i>
+                                    <h5 class="lh-base fs-16 mb-2">Dashboards</h5>
+                                    <a class="text-muted"><span class="fw-semibold fs-15 text-dark">$5.80</span> - Month</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="mt-4 pt-2">
+                                <div class="solution border rounded position-relative px-4 py-5">
+                                    <i data-feather="cloud" class="sw-1 mb-4 icon-xxl sol-icon"></i>
+                                    <h5 class="lh-base fs-16 mb-2">Image Cloud</h5>
+                                    <a class="text-muted"><span class="fw-semibold fs-15 text-dark">$0.59</span> - Month</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="mt-4 pt-2">
+                                <div class="solution border rounded position-relative px-4 py-5">
+                                    <i data-feather="smartphone" class="sw-1 mb-4 icon-xxl sol-icon"></i>
+                                    <h5 class="lh-base fs-16 mb-2">Digital Marketing</h5>
+                                    <a class="text-muted"><span class="fw-semibold fs-15 text-dark">$1.78</span> - Month</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="mt-4 pt-2">
+                                <div class="solution border rounded position-relative px-4 py-5">
+                                    <i data-feather="mail" class="sw-1 mb-4 icon-xxl sol-icon"></i>
+                                    <h5 class="lh-base fs-16 mb-2">Email Marketing</h5>
+                                    <a class="text-muted"><span class="fw-semibold fs-15 text-dark">$6.7</span> - Month</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="mt-4 pt-2">
+                                <div class="solution border rounded position-relative px-4 py-5">
+                                    <i data-feather="bar-chart-2" class="sw-1 mb-4 icon-xxl sol-icon"></i>
+                                    <h5 class="lh-base fs-16 mb-2">Digital Analytics</h5>
+                                    <a class="text-muted"><span class="fw-semibold fs-15 text-dark">$3.2</span> - Month</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="mt-4 pt-2">
+                                <div class="solution border rounded position-relative px-4 py-5">
+                                    <i data-feather="voicemail" class="sw-1 mb-4 icon-xxl sol-icon"></i>
+                                    <h5 class="lh-base fs-16 mb-2">Optimization</h5>
+                                    <a class="text-muted"><span class="fw-semibold fs-15 text-dark">$0.58</span> - Month</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- end solution -->
+
+
+    <!-- start feature -->
+    <section class="section bg-light overflow-hidden" id="feature">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <img class="img-container" src="{% static 'img/chat.png' %}" alt="">
+                </div>
+                <div class="col-lg-6 mt-lg-0 mt-5 pt-lg-0 pt-4">
+                    <h3 class="fw-semibold lh-base mb-4">Customer support is our main <br> priority for your growth <br> at every stage</h3>
+                    <h5 class="text-muted fw-normal">We're always here to help you.</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="p-4 border rounded mt-4">
+                                <span class="fw-semibold fs-18"><i data-feather="star" class="text-warning icon-xs icon me-2"></i>4.9</span>
+                                <h6 class="fw-semibold fs-14 my-3">Ram Kumar</h6>
+                                <p class="text-muted">Dashboard services are worth the buck.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-4 border rounded mt-4">
+                                <span class="fw-semibold fs-18"><i data-feather="award" class="text-warning icon-xs icon me-2"></i>Awards</span>
+                                <h6 class="fw-semibold fs-14 my-3">28<sup>+</sup> </h6>
+                                <p class="text-muted">Multipurpose web solutions provider.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- end feature -->
+
+    <!-- start services -->
+    <section class="section" id="service">
+        <div class="container">
+            <div class="row justify-content-center text-center">
+                <div class="col-12 mb-4">
+                    <h4 class="fw-semibold mb-3">Our Services</h4>
+                    <h5 class="text-muted fw-normal">Don't you get what you want?</h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 mt-4 pt-2">
+                    <div class="service rounded px-4 py-md-5 py-3">
+                        <div class="bg-info p-3 d-inline-block rounded-circle">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="25" height="25" style="fill: white;"><title>finance</title><path d="M6,16.5L3,19.44V11H6M11,14.66L9.43,13.32L8,14.64V7H11M16,13L13,16V3H16M18.81,12.81L17,11H22V16L20.21,14.21L13,21.36L9.53,18.34L5.75,22H3L9.47,15.66L13,18.64" /></svg>     
+                            
+                        </div>
+                        <h6 class="my-4">Finance</h6>
+                        <p class="text-muted mb-4">
+                            Keep track of your company's liquidity, networth ,assets ,PnL and more easily.
+                        </p>
+                        <div class="ser-link"><a href="#" class="fs-15 text-dark fw-medium">Read More <i data-feather="arrow-right" class="icon-xs"></i></a></div>
+                    </div>
+                </div>
+                <div class="col-md-4 mt-4 pt-2">
+                    <div class="service rounded px-4 py-md-5 py-3 active">
+                        <div class="bg-warning p-3 d-inline-block rounded-circle">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="25" height="25" style="fill: white;"><title>sale-outline</title><path d="M9.5 7C10.33 7 11 7.67 11 8.5C11 9.33 10.33 10 9.5 10C8.67 10 8 9.33 8 8.5C8 7.67 8.67 7 9.5 7M14.5 14C15.33 14 16 14.67 16 15.5C16 16.33 15.33 17 14.5 17C13.67 17 13 16.33 13 15.5C13 14.67 13.67 14 14.5 14M8.41 17L7 15.59L15.59 7L17 8.41L8.41 17M18.65 2.85L19.26 6.71L22.77 8.5L21 12L22.78 15.5L19.24 17.29L18.63 21.15L14.74 20.54L11.97 23.31L9.19 20.5L5.33 21.14L4.71 17.25L1.22 15.47L3 11.97L1.23 8.5L4.74 6.69L5.35 2.87L9.22 3.5L12 .695L14.76 3.46L18.65 2.85M20.1 9.37L17.5 8L17 5.11L14.1 5.53L12 3.5L9.9 5.53L7 5.11L6.5 8L3.9 9.37L5.2 12L3.9 14.63L6.5 16L7 18.89L9.9 18.47L12 20.5L14.1 18.47L17 18.89L17.5 16L20.1 14.63L18.8 12L20.1 9.37Z" /></svg>  
+                        </div>
+                        <h6 class="my-4">Sales</h6>
+                        <p class="text-muted mb-4">
+                           Sales performance can be measured and visualized easily with sales dashboards.
+                        </p>
+                        <div class="ser-link"><a href="#" class="fs-15 text-dark fw-medium">Read More <i data-feather="arrow-right" class="icon-xs"></i></a></div>
+                    </div>
+                </div>
+                <div class="col-md-4 mt-4 pt-2">
+                    <div class="service rounded px-4 py-md-5 py-3">
+                        <div class="bg-danger p-3 d-inline-block rounded-circle">
+                            <i data-feather="grid" class="text-white"></i>
+                        </div>
+                        <h6 class="my-4">CEO/Admin</h6>
+                        <p class="text-muted mb-4">
+                            Company's overall performance and growth can now monitored easily.
+                        </p>
+                        <div class="ser-link"><a href="#" class="fs-15 text-dark fw-medium">Read More <i data-feather="arrow-right" class="icon-xs"></i></a></div>
+                    </div>
+                </div>
+                <div class="col-md-4 mt-4 pt-2">
+                    <div class="service rounded px-4 py-md-5 py-3">
+                        <div class="bg-success p-3 d-inline-block rounded-circle">
+                            <i data-feather="file" class="text-white"></i>
+                        </div>
+                        <h6 class="my-4">Reports</h6>
+                        <p class="text-muted mb-4">
+                            Progress and performance was recorded and maintained for elegant usage.
+                        </p>
+                        <div class="ser-link"><a href="#" class="fs-15 text-dark fw-medium">Read More <i data-feather="arrow-right" class="icon-xs"></i></a></div>
+                    </div>
+                </div>
+                <div class="col-md-4 mt-4 pt-2">
+                    <div class="service rounded px-4 py-md-5 py-3">
+                        <div class="bg-secondary p-3 d-inline-block rounded-circle">
+                            <i data-feather="droplet" class="text-white"></i>
+                        </div>
+                        <h6 class="my-4">Vibrant UI</h6>
+                        <p class="text-muted mb-4">
+                            Dashboards has night mode for better user experiencex.
+                        </p>
+                        <div class="ser-link"><a href="#" class="fs-15 text-dark fw-medium">Read More <i data-feather="arrow-right" class="icon-xs"></i></a></div>
+                    </div>
+                </div>
+                <div class="col-md-4 mt-4 pt-2">
+                    <div class="service rounded px-4 py-md-5 py-3">
+                        <div class="bg-dark p-3 d-inline-block rounded-circle">
+                            <i data-feather="settings" class="text-white"></i>
+                        </div>
+                        <h6 class="my-4">Efficient</h6>
+                        <p class="text-muted mb-4">
+                           Selective charts for best possible evaluation.
+                        </p>
+                        <div class="ser-link"><a href="#" class="fs-15 text-dark fw-medium">Read More <i data-feather="arrow-right" class="icon-xs"></i></a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- end servies -->
+
+    <!-- start faq -->
+    <section class="section border-top overflow-hidden" id="faq">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-xl-6 col-lg-12">
+                    <h6 class="text-muted mb-3">Ask Us Anything</h6>
+                    <h3 class="faq-title pb-4">Frequently Asked Question</h3>
+                    <div class="accordion accordion-flush mt-4 pt-2" id="accordionFlushExample">
+                        <div class="accordion-item border-0 my-2">
+                            <h2 class="accordion-header" id="flush-headingOne">
+                                <button class="accordion-button text-start text-dark fw-medium" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                    Dashboards are free or paid to use?
+                                </button>
+                            </h2>
+                            <div id="flush-collapseOne" class="accordion-collapse collapse show" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body text-muted pt-3">Dashboards are pay per use and charged by usage and scalability accordingly.</div>
+                            </div>
+                        </div>
+                        <div class="accordion-item border-0 my-2">
+                            <h2 class="accordion-header" id="flush-headingTwo">
+                                <button class="accordion-button text-start text-dark fw-medium collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                                    Using dashboards has any additional benefits?
+                                </button>
+                            </h2>
+                            <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body text-muted pt-3">Yes, it has built-in calendar section and chat section which comes with the application free of charge. </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item border-0 my-2">
+                            <h2 class="accordion-header" id="flush-headingThree">
+                                <button class="accordion-button text-start text-dark fw-medium collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                                    Is dark mode available?
+                                </button>
+                            </h2>
+                            <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body text-muted pt-3">Yes, it has dark mode available.</div>
+                            </div>
+                        </div>
+
+                    </div>
+    
+    
+                </div>
+                <div class="col-xl-5 offset-xl-1 col-lg-12">
+                    <img class="faq-img mt-sm-0 mt-5" src="{% static 'img/faq.png' %}" alt="faq">
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- end faq -->
+
+    <!-- start pricing -->
+    <section class="section bg-light" id="pricing">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-12 text-center mb-4">
+                    <h4 class="fw-semibold mb-3">Our Prices</h4>
+                    <h5 class="text-muted fw-normal">Get Your Best Package</h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mt-4 pt-2">
+                    <div class="bg-white border px-4 py-5 text-center rounded">
+                        <h6 class="text-uppercase pri-text position-relative">Basic</h6>
+                        <h1 class="mt-4 pt-4 display-5"><sup class="fs-3">$</sup>4</h1>
+                        <h6 class="text-uppercase text-muted">Per Month</h6>
+                        <div class="mt-4">
+                            <p class="py-2"><span class="text-primary icon me-2">∎</span> 10 GB Disk Space</p>
+                            <p class="py-2"><span class="text-primary icon me-2">∎</span> 1 Year Technical Support</p>
+                            <p class="py-2"><span class="text-primary icon me-2">∎</span> SQL Database</p>
+                            <p class="py-2"><span class="text-primary icon me-2">∎</span> 10-50 Employees</p>
+                        </div>
+                        <a href="#" class="btn btn-primary mt-4">Start Trial <i data-feather="arrow-right" class="icon icon-xs"></i></a>
+
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mt-4 pt-2">
+                    <div class="bg-dark border px-4 py-5 text-center rounded">
+                        <h6 class="text-uppercase text-white pri-text position-relative">Business</h6>
+                        <h1 class="mt-4 pt-4 text-white display-5"><sup class="fs-3">$</sup>20</h1>
+                        <h6 class="text-uppercase text-muted">Per Month</h6>
+                        <div class="mt-4 text-muted">
+                            <p class="py-2"><span class="text-muted icon me-2">∎</span> 5 GB Disk Space</p>
+                            <p class="py-2"><span class="text-muted icon me-2">∎</span> 1 Year Technical Support</p>
+                            <p class="py-2"><span class="text-muted icon me-2">∎</span> SQL Database</p>
+                            <p class="py-2"><span class="text-muted icon me-2">∎</span> 50-150 Employees</p>
+                        </div>
+                        <a href="#" class="btn btn-primary mt-4">Start Trial <i data-feather="arrow-right" class="icon icon-xs"></i></a>
+
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mt-4 pt-2">
+                    <div class="bg-white border px-4 py-5 text-center rounded">
+                        <h6 class="text-uppercase pri-text position-relative">Premium</h6>
+                        <h1 class="mt-4 pt-4 display-5"><sup class="fs-3">$</sup>30</h1>
+                        <h6 class="text-uppercase text-muted">Per Month</h6>
+                        <div class="mt-4">
+                            <p class="py-2"><span class="text-primary icon me-2">∎</span> 10 GB Disk Space</p>
+                            <p class="py-2"><span class="text-primary icon me-2">∎</span> 1 Year Technical Support</p>
+                            <p class="py-2"><span class="text-primary icon me-2">∎</span> SQL Database</p>
+                            <p class="py-2"><span class="text-primary icon me-2">∎</span> 150-300 Employees</p>
+                        </div>
+                        <a href="#" class="btn btn-primary mt-4">Start Trial <i data-feather="arrow-right" class="icon icon-xs"></i></a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- end pricing -->
+
+    <!-- start testimonial -->
+    <section class="section" id="client">
+        <div class="container">
+            <div class="row justify-content-center text-center">
+                <div class="col-12 mb-4">
+                    <h4 class="fw-semibold mb-3">Our Client Says</h4>
+                    <h5 class="text-muted fw-normal">Here From Our Members</h5>
+                </div>
+            </div>
+            <div class="row text-center">
+                <div class="col-lg-12 mt-4 pt-2">
+                    <div class="testi-slider">
+                        <div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="client-review">
+                                        <div class="name position-relative">
+                                            <img class="img-fluid" src="{% static 'img/quotation.png' %}" alt="">
+                                            <h5 class="mt-4">Sulaiman Alfareeth</h5>
+                                            <p class="text-muted">CEO, Bistol connects</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-6 mt-5 pt-5">
+                                        <div class="cli-text text-center text-muted">
+                                            <p>Nice interfaces and UI <br> Versatile options and charts <br> Added applications are really helpful.
+                                                
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="client-review">
+                                        <div class="name position-relative">
+                                            <img class="img-fluid" src="{% static 'img/quotation.png' %}" alt="">
+                                            <h5 class="mt-4">Naveen Kumar</h5>
+                                            <p class="text-muted">Senior Web Designer</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-6 mt-5 pt-5">
+                                        <div class="cli-text text-center text-muted">
+                                            <p>Useful for maintaining tabs for companies <br>which is a good SaaS.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="client-review">
+                                        <div class="name position-relative">
+                                            <img class="img-fluid" src="{% static 'img/quotation.png' %}" alt="">
+                                            <h5 class="mt-4">Samuel Charles</h5>
+                                            <p class="text-muted">Web Developer</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-6 mt-5 pt-5">
+                                        <div class="cli-text text-center text-muted">
+                                            <p>
+                                                Useful dashboards and other services are impressive and worth the money.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- start subscription -->
+    <section class="service-section overflow-hidden" id="contact">
+        <div class="container">
+            <div class="row align-items-center bg-light rounded p-4">
+                <div class="col-lg-6">
+                    <h5 class="text-primary mb-3">Recent</h5>
+                    <h3 class="mb-4">5000<sup>+</sup> Project <br> all over the world</h3>
+                    <h6 class="text-muted fw-normal">Join the community now !</h6>
+                    <form class="mt-4">
+                        <input type="email" class="form-control" placeholder="enter email">
+                        <a href="#" class="btn btn-primary mt-3">Submit <i data-feather="send" class="icon-xxs icon"></i></a>
+                    </form>
+                </div>
+                <div class="col-lg-5 offset-lg-1">
+                    <img class="img-fluid mt-sm-0 mt-5" src="{% static 'img/subscribe-img.png' %}" alt="">
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- end subscription -->
+
+    <!-- brand-logo -->
+    <section class="brand-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-6 my-4">
+                    <img class="img-fluid mx-auto brand-logo" src="images/brand-logo-1.png" alt="" />
+                </div>
+                <div class="col-md-3 col-6 my-4">
+                    <img class="img-fluid mx-auto brand-logo" src="images/brand-logo-2.png" alt="" />
+                </div>
+                <div class="col-md-3 col-6 my-4">
+                    <img class="img-fluid mx-auto brand-logo" src="images/brand-logo-3.png" alt="" />
+                </div>
+                <div class="col-md-3 col-6 my-4">
+                    <img class="img-fluid mx-auto brand-logo" src="images/brand-logo-4.png" alt="" />
+                </div>
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end-container -->
+    </section>
+    <!-- end brand logo -->
+
+    <!-- start footer -->
+    <footer class="footer bg-dark">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-sm-6">
+                    <a href="layout-1.html">
+                            <img src="{% static 'img/logo_l.png' %}" alt="" height="45" weight="42" />
+                        </a>
+                    <h6 class="mt-4 pt-2 text-white">Locate Us</h6>
+                    <p class="mt-3 text-muted fs-15">315 South Main Road, <br> Valliyoor, Tamilnadu <br> 627103
+                    </p>
+                    <h6 class="text-primary fw-medium fs-15 mt-4">801-468-2313</h6>
+                    <h6 class="text-primary fw-medium fs-15 mt-2">591-578-1234</h6> <br>
+                    <ul class="list-unstyled social-icon foot-social-icon mb-0 m">
+                        <li class="list-inline-item" style="padding:3px;"><a href="#" class="rounded"><i data-feather="facebook" class="fea icon-sm fea-social" style="color: white;"></i></a></li>
+                        <li class="list-inline-item" style="padding: 3px;"><a href="#" class="rounded"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" style="fill: white;" viewBox="0 0 30 30">
+                            <path d="M26.37,26l-8.795-12.822l0.015,0.012L25.52,4h-2.65l-6.46,7.48L11.28,4H4.33l8.211,11.971L12.54,15.97L3.88,26h2.65 l7.182-8.322L19.42,26H26.37z M10.23,6l12.34,18h-2.1L8.12,6H10.23z"></path>
+                            </svg></a></li>
+                        <li class="list-inline-item" style="padding: 3px;"><a href="#" class="rounded"><i data-feather="instagram" class="fea icon-sm fea-social" style="color: white;"></i></a></li>
+                        <li class="list-inline-item" style="padding: 3px;"><a href="#" class="rounded"><i data-feather="linkedin" class="fea icon-sm fea-social" style="color: white;"></i></a></li>
+                    </ul>    
+                </div>
+                
+                <div class="col-lg-3 col-sm-6">
+                    &nbsp;
+                    <h6 class="mb-3 mt-sm-0 mt-5 text-white">Others Links</h6>
+                    <ul class="list-unstyled footer-list">
+                       
+                        <li class="py-2"><a class="fs-15" href="#"><span class="icon fs-12 me-2">∎</span> About Us</a></li>
+                        <li class="py-2"><a class="fs-15" href="#"><span class="icon fs-12 me-2">∎</span> Contact Us</a></li>
+                        <li class="py-2"><a class="fs-15" href="#"><span class="icon fs-12 me-2">∎</span> Pricing</a></li>
+                        <li class="py-2"><a class="fs-15" href="#"><span class="icon fs-12 me-2">∎</span> Privacy Policy</a></li>
+                        <li class="py-2"><a class="fs-15" href="#"><span class="icon fs-12 me-2">∎</span> Terms & Condition</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 offset-lg-1">
+                    <div class="card rounded border-0 mt-sm-0 mt-4">
+                        <div class="map rounded">
+                            <a href="#" class="btn btn-light text-dark position-absolute top-50 start-50 translate-middle map-btn">View Map</a>
+                            <div class="bg-overlay rounded position-absolute top-0 right-0 bottom-0 left-0"></div>
+                            <iframe class="rounded" src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d8814.313831164833!2d77.61293857991728!3d8.401473548460151!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1714145303209!5m2!1sen!2sin" width="100%" height="230" style="border: 0" allowfullscreen></iframe>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end container -->
+    </footer>
+    <!-- end footer -->
+
+    <!-- start footer alter -->
+    <div class="footer-alt bg-dark">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-lg-12">
+                    <script>
+                        document.write(new Date().getFullYear())
+                    </script> &copy; Salvador Inc., <a href="" class="text-muted"></a>
+                </div>
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end container -->
+    </div>
+    <!-- end footer alter -->
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Get In Touch</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" name="myForm" onsubmit="return validateForm()">
+                        <span id="error-msg"></span>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="fw-medium form-label" for="name">Name</label>
+                                        <input type="text" class="form-control" placeholder="Your name" id="name" />
+                                    </div>
+                                    <!-- end col -->
+                                    <div class="col-md-6 mb-3">
+                                        <label class="fw-medium form-label" for="email">Email</label>
+                                        <input type="email" class="form-control" placeholder="Your email" id="email" />
+                                    </div>
+                                    <!-- end col -->
+                                    <div class="col-md-6 mb-3">
+                                        <label class="fw-medium form-label" for="subject">Subject</label>
+                                        <input type="text" class="form-control" placeholder="your subject" id="subject" />
+                                    </div>
+                                    <!-- end col -->
+                                    <div class="col-md-6 mb-3">
+                                        <label class="fw-medium form-label" for="number">Contact</label>
+                                        <input type="text" class="form-control" placeholder="+00 1234 5678 90" id="number" />
+                                    </div>
+                                    <!-- end col -->
+                                    <div class="col-12 mb-3">
+                                        <label class="fw-medium form-label" for="comments">Message</label>
+                                        <textarea class="form-control" id="comments" placeholder="Enter your message..." rows="5"></textarea>
+                                    </div>
+                                    <!-- end col -->
+                                    <div class="col-12">
+                                        <input type="submit" id="submit" name="send" class="btn btn-primary mt-2" value="Send Information" />
+                                    </div>
+                                    <!-- end col -->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end row -->
+                    </form>
+                    <!-- end form -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end modal -->
+
+    <script src="https://themesdesign.in/stabig/layouts/js/bootstrap.bundle.min.js"></script>
+
+    <!-- feather icon -->
+    <script src="https://themesdesign.in/stabig/layouts/js/feather.js"></script>
+
+    <!-- client-slider -->
+    <script src="https://themesdesign.in/stabig/layouts/js/tiny-slider.js"></script>
+    <script src="https://themesdesign.in/stabig/layouts/js/tiny.init.js"></script>
+
+    <script src="https://themesdesign.in/stabig/layouts/js/app.js"></script>
+</body>
+
+</html>

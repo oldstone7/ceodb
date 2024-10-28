@@ -1,0 +1,97 @@
+
+{% extends "admin_panel/base.html" %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <!-- Page Title -->
+     <br>
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box d-flex align-items-center justify-content-between">
+                <h4 class="mb-0">Admin Dashboard</h4>
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="#">Admin Panel</a></li>
+                    <li class="breadcrumb-item active">Dashboard</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+<br>
+
+    <!-- Quick Access Links -->
+    <div class="row mt-4">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body text-center">
+                    <i class="mdi mdi-account-multiple-outline mdi-48px"></i>
+                    <h5 class="card-title mt-3">Manage Users</h5>
+                    <a href="{% url 'admin_user_list' %}" class="btn btn-primary btn-sm">Go</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body text-center">
+                    <i class="mdi mdi-cube-outline mdi-48px"></i>
+                    <h5 class="card-title mt-3">Manage Products</h5>
+                    <a href="{% url 'product_list' %}" class="btn btn-primary btn-sm">Go</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body text-center">
+                    <i class="mdi mdi-currency-usd mdi-48px"></i>
+                    <h5 class="card-title mt-3">View Finances</h5>
+                    <a href="{% url 'finance_list' %}" class="btn btn-primary btn-sm">Go</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body text-center">
+                    <i class="mdi mdi-chart-line mdi-48px"></i>
+                    <h5 class="card-title mt-3">Metrics</h5>
+                    <a href="#" class="btn btn-primary btn-sm">Go</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Activities -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Recent Activities</h5>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Activity</th>
+                                    <th scope="col">User</th>
+                                    <th scope="col">Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Example row -->
+                                <tr>
+                                    <td>Added new product</td>
+                                    <td>John Doe</td>
+                                    <td>2024-06-26</td>
+                                </tr>
+                                <!-- Add more rows as needed -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock %}

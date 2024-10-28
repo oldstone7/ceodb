@@ -1,0 +1,83 @@
+{% extends 'admin_panel/base.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="py-3 py-lg-4">
+        <div class="row">
+            <div class="col-lg-6">
+                <h4 class="page-title mb-0">Product Management</h4>
+            </div>
+            <div class="col-lg-6">
+               <div class="d-none d-lg-block">
+                <ol class="breadcrumb m-0 float-end">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Products</a></li>
+                    {% if title == "Edit Product" %}
+                    <li class="breadcrumb-item active">product Edit</li>
+                    {% else %}
+                    <li class="breadcrumb-item active">product Add</li>
+                    {% endif %}
+                </ol>
+               </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    {% if title == "Edit Product" %}
+                    <h4 class="header-title">Edit product</h4>
+                    <p class="sub-header">
+                       Product details can be changed here.
+                    </p>
+                    {% else %}
+                    <h4 class="header-title">Add new product</h4>
+                    <p class="sub-header">
+                       New product can be added here.
+                    </p>
+                    {% endif %}
+                    <div class="row">
+                        <div class="col-12">
+                            {% for message in messages %}
+                                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                                    {{ message }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="col-12">
+                    <form class="form-horizontal" method="post">
+                        {% csrf_token %}
+                        <div class="mb-2 row">
+                            <label class="col-md-2 col-form-label">Category</label>
+                            <div class="col-md-10">
+                            {{ form.category }}
+                            </div>
+                        </div>
+                        <div class="mb-2 row">
+                            <label class="col-md-2 col-form-label">Products</label>
+                            <div class="col-md-10">
+                            {{ form.num_of_products }}
+                            </div>
+                        </div>
+                        <br>
+                        <div class="d-flex justify-content-between">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                            {% if product %}
+                                <a href="{% url 'product_delete' product.id %}" class="btn btn-danger">Delete</a>
+                            {% endif %}
+                            <a href="{% url 'product_list' %}" class="btn btn-secondary">Cancel</a>
+                        </div>
+                        
+                        
+                        
+                                    
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
