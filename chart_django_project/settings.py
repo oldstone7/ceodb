@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 from decouple import config
 from dotenv import load_dotenv
+from urllib.parse import urlparse
 
 load_dotenv()  # Load variables from .env file
 
@@ -87,13 +88,17 @@ CHANNEL_LAYERS = {
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': urlparse(os.environ.get('DATABASE_URL')).path[1:],  # Database name from DATABASE_URL
+        'USER': urlparse(os.environ.get('DATABASE_URL')).username,
+        'PASSWORD': urlparse(os.environ.get('DATABASE_URL')).password,
+        'HOST': urlparse(os.environ.get('DATABASE_URL')).hostname,
+        'PORT': urlparse(os.environ.get('DATABASE_URL')).port,
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
