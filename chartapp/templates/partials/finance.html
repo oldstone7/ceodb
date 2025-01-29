@@ -258,7 +258,7 @@
 <script>
 
     // Fetch data from the API
-    fetch('http://127.0.0.1:8000/api/metrics/')
+    fetch('https://ceodb-production.up.railway.app/api/metrics/')
     .then(response => response.json())
     .then(data => {
         // Assuming the response is a list of metrics
@@ -276,7 +276,7 @@
 
 
         function loadFinanceData() {
-        fetch('http://127.0.0.1:8000/api/finance/')  // API URL for finance model
+        fetch('https://ceodb-production.up.railway.app/api/finance/')  // API URL for finance model
             .then(response => response.json())  // Parse the JSON response
             .then(data => {
                 const financeTableBody = document.getElementById('finance-table-body');
@@ -306,7 +306,7 @@
     document.addEventListener('DOMContentLoaded', loadFinanceData);
 
     function loadLeadConversionChart() {
-    fetch('http://127.0.0.1:8000/api/leadconversion/')  // API URL for lead conversion model
+    fetch('https://ceodb-production.up.railway.app/api/leadconversion/')  // API URL for lead conversion model
         .then(response => response.json())  // Parse the JSON response
         .then(data => {
             const Leads = [];
@@ -429,7 +429,7 @@ document.addEventListener('DOMContentLoaded', loadLeadConversionChart);
 
     // Function to fetch finance data and create the chart
     function loadFinanceChart() {
-        fetch('http://127.0.0.1:8000/api/finance/')  // Fetch finance data from API
+        fetch('https://ceodb-production.up.railway.app/api/finance/')  // Fetch finance data from API
             .then(response => response.json())  // Parse JSON response
             .then(data => {
                 // Extract data for the chart

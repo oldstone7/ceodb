@@ -205,7 +205,7 @@
 
 <script>
 
-fetch('http://127.0.0.1:8000/api/metrics/')
+fetch('https://ceodb-production.up.railway.app/api/metrics/')
         .then(response => response.json())
         .then(data => {
             // Assuming the response is a list of metrics
@@ -222,7 +222,7 @@ fetch('http://127.0.0.1:8000/api/metrics/')
         .catch(error => console.error('Error fetching metrics data:', error));
 
 document.addEventListener('DOMContentLoaded', function () {
-    fetch('http://127.0.0.1:8000/api/supplychain/')
+    fetch('https://ceodb-production.up.railway.app/api/supplychain/')
         .then(response => response.json())
         .then(data => {
             
@@ -310,7 +310,7 @@ document.addEventListener('DOMContentLoaded', function () {
 })
 
 document.addEventListener('DOMContentLoaded', function () {
-    fetch('http://127.0.0.1:8000/api/inventory/')
+    fetch('https://ceodb-production.up.railway.app/api/inventory/')
         .then(response => response.json())
         .then(data => {
             const inventory_labels = [];
@@ -361,7 +361,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
     
 document.addEventListener('DOMContentLoaded', function () {
-fetch('http://127.0.0.1:8000/api/production/')
+fetch('https://ceodb-production.up.railway.app/api/production/')
     .then(response => response.json())
     .then(data => {
         const production_labels = [];
@@ -448,7 +448,7 @@ fetch('http://127.0.0.1:8000/api/production/')
 
 
 document.addEventListener('DOMContentLoaded', function () {
-    fetch('http://127.0.0.1:8000/api/efficiency/')
+    fetch('https://ceodb-production.up.railway.app/api/efficiency/')
         .then(response => response.json())
         .then(data => {
             const efficiency_labels = [];
