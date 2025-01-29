@@ -20,7 +20,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
-
+# Allow the Railway app domain to pass CSRF protection
+CSRF_TRUSTED_ORIGINS = [
+    'https://ceodb-production.up.railway.app',
+]
 
 # Application definition
 
