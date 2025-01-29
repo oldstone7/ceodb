@@ -139,7 +139,7 @@ def verify_otp(request):
             if otp.otp == otp_code and otp.is_valid():
                 login(request, user)
 
-                return redirect('login') 
+                return redirect('finance') 
 
             return render(request, 'partials/verify_otp.html', {'error': 'Invalid OTP'})
         except (User.DoesNotExist, OTP.DoesNotExist):
