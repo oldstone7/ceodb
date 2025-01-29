@@ -3,7 +3,6 @@ from pathlib import Path
 from decouple import config
 from dotenv import load_dotenv
 from urllib.parse import urlparse
-
 load_dotenv()  # Load variables from .env file
 
 SECRET_KEY = os.getenv('SECRET_KEY')
@@ -88,15 +87,19 @@ CHANNEL_LAYERS = {
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+DATABASE_URL = os.getenv('DATABASE_URL')
+
+# Parse the DATABASE_URL
+url = urlparse(DATABASE_URL)
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': urlparse(os.environ.get('DATABASE_URL')).path[1:],  # Database name from DATABASE_URL
-        'USER': urlparse(os.environ.get('DATABASE_URL')).username,
-        'PASSWORD': urlparse(os.environ.get('DATABASE_URL')).password,
-        'HOST': urlparse(os.environ.get('DATABASE_URL')).hostname,
-        'PORT': urlparse(os.environ.get('DATABASE_URL')).port,
+        'NAME': url.path[1:],  # Extract database name
+        'USER': url.username,  # Extract username
+        'PASSWORD': url.password,  # Extract password
+        'HOST': url.hostname,  # Extract host
+        'PORT': url.port,  # Extract port
     }
 }
 
