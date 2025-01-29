@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from . models import Product, Metrics,Finance,SalesFigure, LeadConversionRate, SupplyChain,Inventory,ProductionOutput, Efficiency, OTP
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import auth, User
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import login, logout
 from django.contrib.auth.views import LoginView
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import user_passes_test
@@ -10,10 +10,7 @@ from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from .forms import RegisterForm, LoginForm, ProductForm, UserForm, CustomUserCreationForm, CustomPasswordChangeForm, FinanceForm
 from django.contrib.auth.hashers import make_password
-from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
-from django.forms import ModelForm
-import json
 from django.core.mail import send_mail
 from django.shortcuts import render
 from statsmodels.tsa.holtwinters import ExponentialSmoothing
@@ -21,15 +18,13 @@ import numpy as np
 from rest_framework import viewsets
 from .models import OTP
 from .serializers import OTPSerializer
-# views.py
 from rest_framework.response import Response
-from rest_framework.views import APIView
 from .serializers import FinanceSerializer, MetricsSerializer, LeadConversionRateSerializer, ProductSerializer, SupplyChainSerializer, InventorySerializer, ProductionOutputSerializer, EfficiencySerializer, SalesFigureSerializer
-from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from .models import Finance, Metrics, LeadConversionRate, Product
 from rest_framework import viewsets
 from rest_framework.decorators import api_view
+
 
 class OTPViewSet(viewsets.ModelViewSet):
     queryset = OTP.objects.all()
@@ -171,63 +166,11 @@ def user_logout(request):
     return redirect("index")
 
 
-def login_invalid_redirect(request):
-    return render(request,"partials/login.html",{'login_invalid':'Username or password is incorrect'}) 
-
-@login_required(login_url="login")
-def home(request):
-
-    metric1 = Metrics.objects.get(id = 1)
-    metric2 = Metrics.objects.get(id = 2)
-    metric3 = Metrics.objects.get(id = 3)
-    metric4 = Metrics.objects.get(id = 4)
-    
-
-    fin = Finance.objects.all()
-
-    
-    
-    user = request.user
-    show_finance = False
-    show_sales = False
-    show_operations = False
-
-    if user.username == 'ceoToby':
-        show_finance = show_sales = show_operations = True
-    elif user.username.startswith('f'):
-        show_finance = True
-    elif user.username.startswith('s'):
-        show_sales = True
-    elif user.username.startswith('o'):
-        show_operations = True
-
-    context = {
-        'show_finance': show_finance,'show_sales': show_sales,'show_operations': show_operations,
-        'metric1': metric1, 'metric2': metric2, 'metric3': metric3, 'metric4': metric4
-    }
-
-    return render(request, 'partials/home.html',context)
-
-
 @login_required(login_url="login")
 def finance(request):
-    user = request.user
-    show_finance = False
-    show_sales = False
-    show_operations = False
-
-    if user.id == 3:
-        show_finance = show_sales = show_operations = True
-    elif user.username.startswith('f'):
-        show_finance = True
-    elif user.username.startswith('s'):
-        show_sales = True
-    elif user.username.startswith('o'):
-        show_operations = True
-    context = {
-        'show_finance': show_finance,'show_sales': show_sales,'show_operations': show_operations
-    }    
-    return render(request, 'partials/finance.html',context)
+    
+       
+    return render(request, 'partials/finance.html')
 
 
 
@@ -372,41 +315,7 @@ def sales(request):
 
 
 @login_required(login_url="login")
-
 def op(request):
-    metric1 = Metrics.objects.get(id=1)
-    metric2 = Metrics.objects.get(id=2)
-    metric3 = Metrics.objects.get(id=3)
-    metric4 = Metrics.objects.get(id=4)
-
-    # Supply Chain Data
-    supply_chain_data = SupplyChain.objects.all()
-    supply_chain_labels = list(supply_chain_data.values_list('supplier_name', flat=True))
-    avg_on_time_delivery_rate = [float(x) for x in supply_chain_data.values_list('on_time_delivery_rate', flat=True)]
-    avg_cost_per_unit = [float(x) for x in supply_chain_data.values_list('cost_per_unit', flat=True)]
-    avg_delivery_lead_time = [float(x) for x in supply_chain_data.values_list('delivery_lead_time', flat=True)]
-
-    # Inventory Data
-    inventory_data = Inventory.objects.all()
-    inventory_labels = list(inventory_data.values_list('item_name', flat=True))
-    total_stock = [float(x) for x in inventory_data.values_list('current_stock', flat=True)]
-    avg_reorder_level = [float(x) for x in inventory_data.values_list('reorder_level', flat=True)]
-    avg_stock_turnover_rate = [float(x) for x in inventory_data.values_list('stock_turnover_rate', flat=True)]
-
-    # Production Output Data
-    production_output_data = ProductionOutput.objects.all()
-    production_output_labels = list(production_output_data.values_list('product_name', flat=True))
-    total_units_produced = [float(x) for x in production_output_data.values_list('units_produced', flat=True)]
-    avg_production_time = [float(x) for x in production_output_data.values_list('production_time', flat=True)]
-    avg_defect_rate = [float(x) for x in production_output_data.values_list('defect_rate', flat=True)]
-
-    # Efficiency Data
-    efficiency_data = Efficiency.objects.all()
-    efficiency_labels = list(efficiency_data.values_list('department_name', flat=True))
-    avg_machine_utilization_rate = [float(x) for x in efficiency_data.values_list('machine_utilization_rate', flat=True)]
-    avg_labor_efficiency_rate = [float(x) for x in efficiency_data.values_list('labor_efficiency_rate', flat=True)]
-    total_energy_consumption = [float(x) for x in efficiency_data.values_list('energy_consumption', flat=True)]
-
 
     user = request.user
     show_finance = show_sales = show_operations = False
@@ -424,31 +333,10 @@ def op(request):
         'show_finance': show_finance,
         'show_sales': show_sales,
         'show_operations': show_operations,
-        'metric1': metric1,
-        'metric2': metric2,
-        'metric3': metric3,
-        'metric4': metric4,
-        'supply_chain_labels': json.dumps(supply_chain_labels),
-        'avg_on_time_delivery_rate': json.dumps(avg_on_time_delivery_rate),
-        'avg_cost_per_unit': json.dumps(avg_cost_per_unit),
-        'avg_delivery_lead_time': json.dumps(avg_delivery_lead_time),
-        'inventory_labels': json.dumps(inventory_labels),
-        'total_stock': json.dumps(total_stock),
-        'avg_reorder_level': json.dumps(avg_reorder_level),
-        'avg_stock_turnover_rate': json.dumps(avg_stock_turnover_rate),
-        'production_output_labels': json.dumps(production_output_labels),
-        'total_units_produced': json.dumps(total_units_produced),
-        'avg_production_time': json.dumps(avg_production_time),
-        'avg_defect_rate': json.dumps(avg_defect_rate),
-        'efficiency_labels': json.dumps(efficiency_labels),
-        'avg_machine_utilization_rate': json.dumps(avg_machine_utilization_rate),
-        'avg_labor_efficiency_rate': json.dumps(avg_labor_efficiency_rate),
-        'total_energy_consumption': json.dumps(total_energy_consumption),
+        
     }
 
     return render(request, 'partials/op.html', context)
-
-
 
 
 def index(request):
@@ -640,3 +528,5 @@ def finance_delete(request, finance_id):
         messages.success(request, 'Finance record deleted successfully.')
         return redirect('finance_list')
     return render(request, 'admin_panel/finance_confirm_delete.html', {'finance': finance})
+
+

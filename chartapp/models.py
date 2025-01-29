@@ -112,11 +112,5 @@ class SalesFigure(models.Model):
 
     def __str__(self):
         return f"{self.month} {self.year} - ${self.total_revenue}"
-
-
-
-
-
-
     
 

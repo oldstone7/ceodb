@@ -1,22 +1,25 @@
 import os
 from pathlib import Path
 from decouple import config
+from dotenv import load_dotenv
 
+load_dotenv()  # Load variables from .env file
+
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '0-9!4^&mk)@5%a(m!#*-39sb#=*nzlqius!0$+rf+2!c(aa4+x'
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -40,6 +43,7 @@ INSTALLED_APPS = [
 
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -127,9 +131,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = 'static/'
 
 
+STATIC_URL = '/static/'  # URL for accessing static files
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Ensure collectstatic puts files here
+
+# Enable Whitenoise for serving static files in production
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 import os
 
 # Base directory
@@ -147,21 +155,21 @@ LOGOUT_REDIRECT_URL = '/'  # Redirect to
 APPEND_SLASH = True
 
 
-#from datetime import timedelta
+# from datetime import timedelta
 
-#AUTO_LOGOUT = {
+# AUTO_LOGOUT = {
 #   'IDLE_TIME': 5000,
 #    'MESSAGE': 'The session has expired. Please login again to continue.',
 #    'REDIRECT_TO_LOGIN_IMMEDIATELY': True,
-#}
+# }
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_POST = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_HOST = os.getenv("EMAIL_HOST")
+EMAIL_PORT = os.getenv("EMAIL_PORT")
+EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS") == "True"
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -173,6 +181,7 @@ CHANNEL_LAYERS = {
         # }
     }
 }
+
 
 
 '''

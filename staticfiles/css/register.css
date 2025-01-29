@@ -1,0 +1,81 @@
+body {
+    background-color: #f8f9fa;
+    font-family: 'Roboto', sans-serif;
+}
+.anta-regular {
+    font-family: "Anta", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    text-align: center;
+}
+
+.heading {
+    display: flex;
+    padding: 0px 0px;
+    justify-content:center;
+    position:  relative;
+
+}
+
+.register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 130vh;
+    padding: 90px 0px;
+}
+
+.register-box {
+    width: 80%;
+    max-width: 950px;
+    padding: 10px 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    
+}
+
+.register-title {
+    text-align: center;
+    color: #007bff;
+    margin-bottom: 30px;
+    font-size: 33px;
+}
+.col {
+    padding: 0% 5%;
+    
+    
+}
+
+.form-group {
+    margin-bottom: 20px;
+    padding: 0% 5%;
+   
+}
+
+.eye-icon {
+    cursor: pointer;
+}
+
+.register-link {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.custom-checkbox .custom-control-input:checked~.custom-control-label::before {
+    background-color: black;
+    border-color: black;
+}
+
+.custom-checkbox .custom-control-input:focus~.custom-control-label::before {
+    box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(0, 0, 0, 0.25);
+}
+.form-control {
+    border-color: #555;
+}
+.error-message {
+    color: red;
+    margin-top: 8px;
+}
+

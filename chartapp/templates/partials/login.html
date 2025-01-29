@@ -293,18 +293,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'index' %}">Services</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'index' %}">Faq</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#{% url 'index' %}">Pricing</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#{% url 'index' %}">Client</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'index' %}t">Join Us</a>
-                    </li>
+                    
                 </ul>
             </div>
         </div>
@@ -354,7 +343,7 @@
                     <div class="error-message" id="passwordError"></div>
                 </div>
                 <div style="display: flex; justify-content: flex-end">
-                  <small class="font-weight-bold"> <a href="" class="text-danger ">Forgot Password?</a></small>
+                  <small class="font-weight-bold"> <a href="{% url 'password_reset' %}" class="text-danger ">Forgot Password?</a></small>
                 </div>
                 <button type="submit" class="btn btn-blue" id="login">Sign In</button>
             </form>

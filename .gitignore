@@ -17,4 +17,4 @@ db.sqlite3
 *.log
 
 #media files
-media
+media/

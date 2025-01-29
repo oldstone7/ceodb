@@ -22,25 +22,21 @@ router.register(r'salesfigure', SalesFigureViewSet)
 
 urlpatterns = [
 
-    
     path('register/', views.register, name="register"),
     path('login/', views.my_login, name="login"),
     path('verify_otp/', views.verify_otp, name='verify_otp'),
     path('logout/', views.user_logout, name="logout"),
     path('not-authorized/', not_authorized, name='not_authorized'),
-    path('home', views.home, name="home"),
     path('op', views.op, name="op"),
     path('sales', views.sales, name="sales"),
     path('finance', views.finance, name="finance"),
     path('admindash/',views.admindash,name="admindash"),
-    # Admin User URLs
     
     path('api/', include(router.urls)),
     path('api/user_info/', user_info, name='user_info'),
     path('api/sales', sales_api, name='sales_api'),
-    
-    
 
+    # Admin User URLs
     path('admindash/users/', views.admin_user_list, name='admin_user_list'),
     path('admindash/users/create', views.admin_user_create, name='admin_user_create'),
     path('admindash/users/<int:user_id>/', views.admin_user_detail, name='admin_user_detail'),
@@ -54,19 +50,17 @@ urlpatterns = [
     path('admindash/products/<int:product_id>/edit/', views.product_update, name='product_update'),
     path('admindash/products/<int:product_id>/delete/', views.product_delete, name='product_delete'),
 
-
     # Admin Finance URLs
-    #path('finance/', finance_list, name='finance_list'),
-    #path('finance/create/', finance_create, name='finance_create'),
-    #path('finance/<int:finance_id>/edit/', finance_update, name='finance_update'),
-    #path('finance/<int:finance_id>/delete/', finance_delete, name='finance_delete'),
+    path('admindash/finance/', finance_list, name='finance_list'),
+    path('admindash/finance/create/', finance_create, name='finance_create'),
+    path('admindash/finance/<int:finance_id>/edit/', finance_update, name='finance_update'),
+    path('admindash/finance/<int:finance_id>/delete/', finance_delete, name='finance_delete'),
 
-
+    # Password Reset
     path('password-reset/', auth_views.PasswordResetView.as_view(template_name='users/password_reset.html'), name='password_reset'),
     path('password-reset/done/', auth_views.PasswordResetDoneView.as_view(template_name='users/password_reset_done.html'), name='password_reset_done'),
     path('password-reset-confirm/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='users/password_reset_confirm.html'), name='password_reset_confirm'),
     path('password-reset-complete/', auth_views.PasswordResetCompleteView.as_view(template_name='users/password_reset_complete.html'), name='password_reset_complete'),
-
 
     path('', views.index, name='index'),
 

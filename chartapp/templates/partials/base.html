@@ -36,30 +36,35 @@
     </div>
     
     <ul id="sidebar-menu" class="app-menu">      
-        {% if show_finance %} 
+         
         <li id="finance-link" class="menu-item">
             <a href="{% url 'finance' %}">
                 <span class="menu-icon"><i class="mdi mdi-finance"></i></span>
                 <span class="menu-text">Finance</span>
             </a>
         </li>
-        {% endif %}
-        {% if show_sales %}
+        
         <li id="sales-link" class="menu-item">
             <a href="{% url 'sales' %}">
                 <span class="menu-icon"><i class="mdi mdi-sale-outline"></i></span>
                 <span class="menu-text">Sales</span>
             </a>
         </li>
-        {% endif %}
-        {% if show_operations %}
+        
         <li id="op-link" class="menu-item">
             <a href="{% url 'op' %}">
                 <span class="menu-icon"><i class="mdi mdi-chart-box-outline"></i></span>
                 <span class="menu-text">Operations</span>
             </a>
         </li>
-        {% endif %}
+        
+        <li class="menu-item">
+            <a href="{% url 'admindash' %}">
+                <span class="menu-icon"><i class="mdi mdi-monitor-account"></i></span>
+                <span class="menu-text">Admin</span>
+            </a>
+        </li>
+        
         <li class="menu-item">
             <a href="{% url 'user_list' %}">
                 <span class="menu-icon"><i class="mdi mdi-chat-outline"></i></span>

@@ -1,0 +1,402 @@
+/* Import Poppins font from Google Fonts */
+@import "https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap";
+
+/* General styling for body and html */
+body,
+html {
+  height: 100%;
+  margin: 0;
+  background: #ffffff;
+  font-family: "Poppins", sans-serif;
+  
+}
+
+/* Chat container styling */
+.chat {
+  margin-top: auto;
+  margin-bottom: auto;
+  color: black !important;
+}
+
+/* Card styling */
+.card {
+  height: 90% !important;
+  
+  background-color: #0C4A6E !important;
+  
+  
+}
+
+/* Ensure the chat container can still scroll and hide scrollbar */
+.msg_card_body {
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling for iOS */
+  height: 450px; /* Adjust height as needed */
+  max-height: 450px; /* Adjust based on your layout */
+  box-sizing: border-box;
+  padding: 0px 15px;
+}
+
+/* Ensure the chat container can scroll and hide scrollbar */
+
+
+/* Hide scrollbar for Chrome, Safari, and Opera */
+.msg_card_body::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge, and Firefox */
+.msg_card_body {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Additional overrides to ensure styles from style.min.css do not interfere */
+.messages-wrapper {
+  height: 100%;
+  max-height: 100%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  
+}
+
+.card-body {
+  overflow-y: auto;
+}
+
+/* Adding more specificity if needed to override style.min.css */
+div.page-content div.container-fluid div.row div.chat div.card div.msg_card_body {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  height: calc(90% - 80px);
+  max-height: calc(100vh - 200px);
+}
+
+
+
+/* Contacts body styling */
+.contacts_body {
+  padding: 0.75rem 0 !important;
+  overflow-y: auto;
+  white-space: nowrap;
+}
+
+/* Message card body styling */
+.msg_card_body {
+  overflow: scroll !important;
+  max-height: 85%;
+  padding-bottom: 20px;
+}
+
+/* Card header and footer styling */
+.card-header {
+  background-color: #3d789b !important;
+  
+  border-bottom: 0 !important;
+}
+
+.card-body {
+  flex: 1 1 auto;
+  padding: 0px 0; /* Adjust padding to ensure full visibility */
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.card-foot {
+  border-radius: 0 0 15px 15px !important;
+  border-top: 0 !important;
+  bottom: 0;
+  position: absolute;
+  width: 100%;
+  background-color: #0C4A6E;
+  padding: 0px 5px;
+
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.msg_card_body::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.msg_card_body {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+
+
+
+/* Container alignment */
+.container {
+  align-content: center;
+}
+
+/* Search input styling */
+.search {
+  border-radius: 10px 0 0 10px !important;
+  background-color: rgba(0, 0, 0, 0.3) !important;
+  border: 0 !important;
+  color: white !important;
+}
+
+.search:focus {
+  box-shadow: none !important;
+  outline: 0px !important;
+}
+
+/* Type message input styling */
+.type_msg {
+  background-color: rgba(0, 0, 0, 0.3) !important;
+  border: 0 !important;
+  color: white !important;
+  height: 60px !important;
+  overflow-y: auto;
+}
+
+.type_msg:focus {
+  box-shadow: none !important;
+  outline: 0px !important;
+}
+
+/* Button styling */
+.attach_btn,
+.send_btn,
+.search_btn {
+  background-color: rgba(0, 0, 0, 0.3) !important;
+  border: 0 !important;
+  color: white !important;
+  cursor: pointer;
+}
+
+.attach_btn {
+  border-radius: 15px 0 0 15px !important;
+}
+
+.send_btn {
+  border-radius: 0 15px 15px 0 !important;
+}
+
+.search_btn {
+  border-radius: 0 15px 15px 0 !important;
+}
+
+/* Contacts list styling */
+.contacts {
+  list-style: none;
+  padding: 0;
+  
+}
+
+.contacts li {
+  width: 100% !important;
+  padding: 5px 10px;
+  margin-bottom: 15px !important;
+}
+
+.active {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* User image styling */
+.user_img,
+.user_img_msg {
+  border: 1.5px solid #f5f6fa;
+}
+
+.user_img {
+  height: 45px;
+  width: 45px;
+}
+
+.user_img_msg {
+  height: 40px;
+  width: 40px;
+}
+
+/* Image container styling */
+.img_cont,
+.img_cont_msg {
+  position: relative;
+}
+
+.img_cont {
+  height: 50px;
+  width: 50px;
+}
+
+.img_cont_msg {
+  height: 40px;
+  width: 40px;
+}
+
+
+/* Online and offline icon styling */
+.online_icon {
+  position: absolute;
+  height: 15px;
+  width: 15px;
+  background-color: #4cd137;
+  border-radius: 50%;
+  bottom: 0.1em;
+  right: 0.2em;
+  border: 1.5px solid white;
+}
+
+.offline {
+  background-color: #c23616 !important;
+}
+
+/* User info styling */
+.user_info {
+  margin: auto 0;
+  margin-left: 15px;
+}
+
+.user_info span {
+  font-size: 20px;
+  color: white;
+}
+
+.user_info p {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Video camera styling */
+.video_cam {
+  margin-left: 50px;
+  margin-top: 5px;
+}
+
+.video_cam span {
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  margin-right: 20px;
+}
+
+/* Message container styling */
+.msg_cotainer,
+.msg_cotainer_send {
+  margin: auto 10px;
+  border-radius: 25px;
+  padding: 10px;
+  position: relative;
+  min-width: 70px;
+  text-align: center;
+}
+
+.msg_cotainer {
+  background-color: #82ccdd;
+}
+
+.msg_cotainer_send {
+  background-color: #78e08f;
+}
+
+/* Message time styling */
+.msg_time,
+.msg_time_send {
+  position: absolute;
+  bottom: -15px;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.msg_time {
+  left: 0;
+}
+
+.msg_time_send {
+  right: 0;
+}
+
+/* Message head styling */
+.msg_head {
+  position: relative;
+}
+
+/* Action menu button and menu styling */
+#action_menu_btn {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  color: white;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.action_menu {
+  z-index: 1;
+  position: absolute;
+  padding: 15px 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border-radius: 15px;
+  top: 30px;
+  right: 15px;
+  display: none;
+}
+
+.action_menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.action_menu ul li {
+  width: 100%;
+  padding: 10px 15px;
+  margin-bottom: 5px;
+}
+
+.action_menu ul li i {
+  padding-right: 10px;
+}
+
+.action_menu ul li:hover {
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive styling for small screens */
+@media (max-width: 576px) {
+  .contacts_card {
+    margin-bottom: 15px !important;
+  }
+}
+
+/* Message alignment styling */
+.received {
+  justify-content: flex-start;
+}
+
+.replied {
+  justify-content: flex-end;
+}
+
+/* Visibility classes */
+.is_active {
+  display: block !important;
+}
+
+.hide {
+  display: none;
+}
+
+/* Hide scrollbar styling */
+.msg_card_body::-webkit-scrollbar {
+  display: none;
+}
+
+.msg_card_body {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Wrapper for messages */
+.messages-wrapper {
+  height: 100%;
+}
