@@ -266,11 +266,17 @@
 
         // Loop through each metric and populate the corresponding DOM elements
         metrics.forEach((metric, index) => {
-            // Assuming you have HTML elements with ids like metric1-heading, metric2-heading, etc.
-            document.getElementById(`metric${index + 1}-heading`).textContent = metric.heading;
-            document.getElementById(`metric${index + 1}-data`).textContent = `$${metric.data}`;
-            document.getElementById(`metric${index + 1}-percentage`).textContent = `${metric.percentage}%`;
-        });
+        // Assuming you have HTML elements with ids like metric1-heading, metric2-heading, etc.
+        document.getElementById(`metric${index + 1}-heading`).textContent = metric.heading;
+        // Check if the metric is 'Revenue' or 'Expenses' and add the $ symbol accordingly
+        const formattedData = (metric.heading === "Revenue" || metric.heading === "Expenses") 
+            ? `$${metric.data}` 
+            : metric.data;
+
+        document.getElementById(`metric${index + 1}-data`).textContent = formattedData;
+        document.getElementById(`metric${index + 1}-percentage`).textContent = `${metric.percentage}%`;
+    });
+
     })
     .catch(error => console.error('Error fetching metrics data:', error));
 
