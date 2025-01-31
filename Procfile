@@ -1,0 +1,1 @@
+web: gunicorn chart_django_project.wsgi --workers 3 --log-file -
